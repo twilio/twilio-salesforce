@@ -1,4 +1,4 @@
-public virtual class TwilioCall {
+public virtual class TwilioCall extends TwilioResource {
 
 	public String sid { get; set; }
     public String parent_call_sid { get; set;}
@@ -25,6 +25,7 @@ public virtual class TwilioCall {
     public List<twilioCallResourceUri> subresource_uris { get; set; }
     
     public TwilioCall() {
+    	super();
         this.subresource_uris = new List<twilioCallResourceUri>();
         // defaults? 
     }

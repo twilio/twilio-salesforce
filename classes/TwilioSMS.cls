@@ -14,6 +14,5 @@ public class TwilioSMS {
     public String uri { get; set; }
         
     public TwilioSMS() {
-
     }
 }

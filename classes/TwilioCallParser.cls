@@ -45,14 +45,16 @@ public class TwilioCallParser extends TwilioCall {
             this.twilioCall.subresource_uris.add(u);
         }
     }
-    public TwilioCallParser(RestClient client, String callSid) {
-    	RestResponse response = client.request('/Accounts/' + client.username + '/Calls/' + callSid + '.json', 'GET', null);
+    public TwilioCallParser(RestClient client, String requestAccountSid, String callSid) {
+    	setRequestAccountSid(requestAccountSid);
+    	RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/Calls/' + callSid + '.json', 'GET', null);
         if(response != null)
             parse(response.responseBody);
     }
     
-    public TwilioCallParser(RestClient client, Map<string,string> params){
-    	RestResponse response = client.request('/Accounts/' + client.username + '/Calls.json', 'POST', params);
+    public TwilioCallParser(RestClient client, String requestAccountSid, Map<string,string> params){
+    	setRequestAccountSid(requestAccountSid);
+    	RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/Calls.json', 'POST', params);
     	if(response != null)
             parse(response.responseBody);
     }

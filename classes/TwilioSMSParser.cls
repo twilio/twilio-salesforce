@@ -5,7 +5,7 @@
 @ date        : 29 Aug, 2011
 @ description : Parser for Calls Twilio API
 */
-public class TwilioSMSParser {
+public class TwilioSMSParser extends TwilioResource {
     
     public TwilioSMS TwilioSMS { get; set; }
     public TwilioSMSParser(){
@@ -30,14 +30,16 @@ public class TwilioSMSParser {
         this.TwilioSMS.price = json.getValue('price').valueToString();
         this.TwilioSMS.api_version = json.getValue('api_version').valueToString();
     }
-    public TwilioSMSParser(RestClient client, String smsMsgId) {
-    	RestResponse response = client.request('/Accounts/' + client.username + '/SMS/Messages/' + smsMsgId +'.json', 'GET', null); 
+    public TwilioSMSParser(RestClient client, String requestAccountSid, String smsMsgId) {
+    	setRequestAccountSid(requestAccountSid);
+    	RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/SMS/Messages/' + smsMsgId +'.json', 'GET', null); 
         if(response != null)
             parse(response.responseBody);
     }
     
-    public TwilioSMSParser(RestClient client, Map<string,string> params){
-    	 RestResponse response = client.request('/Accounts/' + client.username + '/SMS/Messages.json', 'POST', params);
+    public TwilioSMSParser(RestClient client, String requestAccountSid, Map<string,string> params){
+    	 setRequestAccountSid(requestAccountSid);
+    	RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/SMS/Messages.json', 'POST', params);
     	 if(response != null)
             parse(response.responseBody);
     }
