@@ -24,8 +24,8 @@ public class RestClient {
 	public static String DEFAULT_ENDPOINT = 'https://api.twilio.com/2010-04-01';
 	
 	public String endpoint { get; set; }
-	public String username { get; set; }
-	public String password { get; set; }
+	private String username { get; set; }
+	private String password { get; set; }
 	public TwilioAccount account { get; set; }
 	
 	

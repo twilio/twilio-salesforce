@@ -1,4 +1,4 @@
-public class TwilioAvailablePhoneNumber {
+public class TwilioAvailablePhoneNumber extends TwilioResource {
 
 	public String friendly_name { get; set; }
     public String phone_number { get; set; }
@@ -10,18 +10,22 @@ public class TwilioAvailablePhoneNumber {
     public String lata { get; set; }
     public String rate_center { get; set; }
        
-    public TwilioAvailablePhoneNumber() {
+    public TwilioAvailablePhoneNumber(RestClient client) {
+    	super(client);
             // do nothing yet
     }
     
     public List<TwilioAvailablePhoneNumber> availablePhoneNumbers { get; set; }
     
-    public TwilioAvailablePhoneNumber(RestClient client, Boolean toolFree, String isoCountryCode, Map<String,String> params){
+    public TwilioAvailablePhoneNumber(RestClient client, String requestAccountSid, Boolean toolFree, String isoCountryCode, Map<String,String> params){
+    	super(client);
+    	setRequestAccountSid(requestAccountSid);
+    	
     	String category = 'Local';
         if (toolFree == true) {
             category = 'TollFree';
         }
-        RestResponse response = client.request('/Accounts/' + client.username + '/AvailablePhoneNumbers/' + isoCountryCode + '/' + category + '.json', 'GET', params);
+        RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/AvailablePhoneNumbers/' + isoCountryCode + '/' + category + '.json', 'GET', params);
 
         if(response != null){
             JSONObject json = new JSONObject(response.responseBody);
@@ -29,7 +33,7 @@ public class TwilioAvailablePhoneNumber {
             this.availablePhoneNumbers = new List<TwilioAvailablePhoneNumber>();
             
             for (JSONObject.value v : phoneNumbers) {
-                TwilioAvailablePhoneNumber n = new TwilioAvailablePhoneNumber();
+                TwilioAvailablePhoneNumber n = new TwilioAvailablePhoneNumber(client);
                 n.friendly_name = v.obj.getValue('friendly_name').valueToString();
                 n.phone_number = v.obj.getValue('phone_number').valueToString();
                 n.latitude = v.obj.getValue('latitude').valueToString();

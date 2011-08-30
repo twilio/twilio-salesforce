@@ -1,9 +1,10 @@
-public class TwilioApplicationParser {
+public class TwilioApplicationParser extends TwilioResource {
 	
 	public List<TwilioApplication> applications { get; set; }
 	
-	public TwilioApplicationParser(RestClient client) {
-    	RestResponse response = client.request('/Accounts/' + client.username + '/Applications.json', 'GET', null);
+	public TwilioApplicationParser(RestClient client, String requestAccountSid) {
+    	setRequestAccountSid(requestAccountSid);
+    	RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/Applications.json', 'GET', null);
 		if (response != null) {
 			JSONObject json = new JSONObject(response.responseBody);
 			list<JSONObject.value> applicationList = json.getValue('applications').values;

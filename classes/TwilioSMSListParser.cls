@@ -1,12 +1,13 @@
-public class TwilioSMSListParser {
+public class TwilioSMSListParser extends TwilioResource {
   
   private TwilioSMS TwilioSMS { get; set; }
   private integer CalloutCounter = 1;
   public List<TwilioSMS> listAllSMS {get;set;}
   public TwilioSMSListParser(){
   }
-  public TwilioSMSListParser(RestClient client, Map<string,string> params) {
-    RestResponse response = client.request('/Accounts/' + client.username + '/SMS/Messages.json', 'GET', null);
+  public TwilioSMSListParser(RestClient client, String requestAccountSid, Map<string,string> params) {
+    setRequestAccountSid(requestAccountSid);
+    	RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/SMS/Messages.json', 'GET', null);
     if(response != null)
         parse(response.responseBody, client, params);    
   }
