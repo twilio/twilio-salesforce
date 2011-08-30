@@ -13,6 +13,11 @@ public class TwilioService {
         account = new TwilioAccount(client);
     }
   
+  	public TwilioService(String username, String password) {
+ 		this.username = username;
+ 		this.password = password;
+ 	}
+  
   
     public String getUserName(){
     	return username;
