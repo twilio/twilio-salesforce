@@ -46,8 +46,8 @@ public class TwilioAccountList {
   }
   
   private void parseAccount(String accRecordJson){
-    this.twilioAccount = new TwilioAccount();
-    this.twilioAccount.sid = getValue(accRecordJson,'"sid":');
+    this.twilioAccount = new TwilioAccount(client);
+    this.twilioAccount.setSid( getValue(accRecordJson,'"sid":') );
     this.twilioAccount.friendly_name = getValue(accRecordJson,'"friendly_name":');
     this.twilioAccount.status = getValue(accRecordJson,'"status":');
     this.twilioAccount.date_created = getValue(accRecordJson,'"date_created":');
@@ -55,8 +55,6 @@ public class TwilioAccountList {
     this.twilioAccount.auth_token = getValue(accRecordJson,'"auth_token":');
     this.twilioAccount.accountType = getValue(accRecordJson,'"type":');
     this.twilioAccount.uri = getValue(accRecordJson,'"uri":');
-	this.twilioAccount.client = client;
-	this.twilioAccount.UpdateClientUsernamePassword();
 
     for (string key : SubresourceKeys) {
       TwilioAccount.TwilioAccountResourceUri u = new TwilioAccount.TwilioAccountResourceUri(key, getValue(accRecordJson, '"' + key + '":'));

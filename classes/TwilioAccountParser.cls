@@ -5,7 +5,7 @@ public class TwilioAccountParser extends TwilioAccount {
     public void parse(String responseBody){
         JSONObject json = new JSONObject(responseBody);
       
-        this.twilioAccount.sid = json.getValue('sid').valueToString();
+        this.twilioAccount.setSid( json.getValue('sid').valueToString() );
         this.twilioAccount.friendly_name = json.getValue('friendly_name').valueToString();
         this.twilioAccount.status = json.getValue('status').valueToString();
         this.twilioAccount.date_created = json.getValue('date_created').valueToString();

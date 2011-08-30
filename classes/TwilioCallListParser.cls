@@ -5,8 +5,9 @@ public class TwilioCallListParser extends TwilioCall {
   public List<twilioCall> listAllCalls {get;set;}
   public TwilioCallListParser(){
   }
-  public TwilioCallListParser(RestClient client, Map<string,string> params) {
-    RestResponse response = client.request('/Accounts/' + client.username + '/Calls.json', 'GET', null);
+  public TwilioCallListParser(RestClient client, String requestAccountSid, Map<string,string> params) {
+    setRequestAccountSid(requestAccountSid);
+    RestResponse response = client.request('/Accounts/' + getRequestAccountSid() + '/Calls.json', 'GET', null);
     if(response != null)
         parse(response.responseBody, client, params);    
   }
