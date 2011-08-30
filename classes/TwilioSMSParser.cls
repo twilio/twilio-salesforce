@@ -10,8 +10,10 @@ public class TwilioSMSParser {
     public TwilioSMS TwilioSMS { get; set; }
     public TwilioSMSParser(){
     }
-    public void parse(String responseBody){
+    public void parse(String responseBody){    	
         JSONObject json = new JSONObject(responseBody);
+        
+        system.debug('DEBUG response: '+ responseBody);
         
         this.TwilioSMS = new TwilioSMS();
         this.TwilioSMS.sid = json.getValue('sid').valueToString();
@@ -28,28 +30,16 @@ public class TwilioSMSParser {
         this.TwilioSMS.price = json.getValue('price').valueToString();
         this.TwilioSMS.api_version = json.getValue('api_version').valueToString();
     }
-    public TwilioSMSParser(RestResponse response) {
+    public TwilioSMSParser(RestClient client, String smsMsgId) {
+    	RestResponse response = client.request('/Accounts/' + client.username + '/SMS/Messages/' + smsMsgId +'.json', 'GET', null); 
         if(response != null)
             parse(response.responseBody);
     }
     
-    public class TwilioSMS {
-        public String sid { get; set; }
-        public String date_sent { get; set;}
-        public String account_sid { get; set;}
-        public String to { get; set;}
-        public String body { get; set;}
-        public String frm { get; set;}
-        public String direction { get; set;}
-        public String status { get; set;}
-        public String price { get; set;}
-        public String api_version { get; set;}
-        public String date_created { get; set; }
-        public String date_updated { get; set; }
-        public String uri { get; set; }
-        
-        public TwilioSMS() {
-
-        }
+    public TwilioSMSParser(RestClient client, Map<string,string> params){
+    	 RestResponse response = client.request('/Accounts/' + client.username + '/SMS/Messages.json', 'POST', params);
+    	 if(response != null)
+            parse(response.responseBody);
     }
+ 
 }

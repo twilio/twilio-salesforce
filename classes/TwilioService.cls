@@ -1,117 +1,83 @@
 public class TwilioService {
     private String endpoint = 'https://api.twilio.com/2010-04-01';
     
-    
-    private String username = '';
-    private String password = '';
-    
+    private String username = 'Account SID here';
+    private String password = 'AuthToken here'; 
+  
     public String responseString { get; set; }
     public RestClient client;
+    public TwilioAccount account;
     
     public TwilioService() {
-        client = new RestClient(username, password, endpoint); // using defaults
+        client = new RestClient(username, password); // using defaults
+        account = new TwilioAccount(client);
     }
+  
+  
     public String getUserName(){
     	return username;
     }
-    public TwilioAccountParser MainAccount() {
-        RestResponse response = client.request('/Accounts/' + username + '.json', 'GET', null);
-        TwilioAccountParser accountParser = new TwilioAccountParser(response);
-        
-        return accountParser;
+    
+    public TwilioAccount ThisAccount() {
+    	TwilioAccount ta = new TwilioAccount(client);
+    	return ta.ThisAccount();
     }
     
-    public TwilioAvailablePhoneNumberParser AvailablePhoneNumbers(Boolean toolFree, String isoCountryCode, Map<String, String>params) {
-        String category = 'Local';
-        if (toolFree == true) {
-            category = 'TollFree';
-        }
-        RestResponse response = client.request('/Accounts/' + username + '/AvailablePhoneNumbers/' + isoCountryCode + '/' + category + '.json', 'GET', params);
-        TwilioAvailablePhoneNumberParser phoneNumberParser = new TwilioAvailablePhoneNumberParser(response);
-        
-        return phoneNumberParser;
+    public List<TwilioAccount> AccountList(Map<string,string> params){
+    	List<TwilioAccount> acctList = account.AccountList(params);
+ 
+    	return acctList;
     }
     
-     public TwilioAccountListParser AccountList(Map<string,string> params) {
-
-        RestResponse response = client.request('/Accounts/' + '.json', 'GET', params);
-        TwilioAccountListParser accountParser = new TwilioAccountListParser(response, client, params);
-        
-        return accountParser;
-     }
-     
-     public TwilioAccountListParser AccountList() {
-
-        RestResponse response = client.request('/Accounts/' + '.json', 'GET', null);
-        TwilioAccountListParser accountParser = new TwilioAccountListParser(response, client, null);
-        
-        return accountParser;
-     }
-    
-    public TwilioOutgoingCallerIdParser OutgoingCallerIds() {
-    	RestResponse response = client.request('/Accounts/' + username + '/OutgoingCallerIds.json', 'GET', null);
-    	TwilioOutgoingCallerIdParser outgoingCallerIdParser = new TwilioOutgoingCallerIdParser(response);
+    public List<TwilioAvailablePhoneNumber> AvailablePhoneNums(Boolean toolFree, String isoCountryCode, Map<String, String> params) {
     	
-    	return outgoingCallerIdParser;
+    	return account.AvailablePhoneNumbers(toolFree, isoCountryCode, params);
+    	
     }
     
-    public TwilioApplicationParser Applications() {
-    	RestResponse response = client.request('/Accounts/' + username + '/Applications.json', 'GET', null);
-    	TwilioApplicationParser applicationParser = new TwilioApplicationParser(response);
-    	return applicationParser;
+    public List<TwilioCall> AllCalls(Map<string,string> params){
+    	
+    	return account.Calls(params);
+    	
     }
-     
-    public TwilioCallParser Calls(String callSid) {
-    	RestResponse response = client.request('/Accounts/' + username + '/Calls/' + callSid + '.json', 'GET', null);
-    	TwilioCallParser callParser = new TwilioCallParser(response);
-    	return callParser;
+    
+    public TwilioCall Call(String sid){
+    	TwilioCall call = account.Call(sid);
+    	system.debug('INFO: call = '+ call.caller_name);
+    	return call;
+    }
+    
+    public List<TwilioSMS> AllSms(Map<string,string> params){
+    	return account.SmsMessages(params);
+    }
+    
+    public TwilioSMS Sms(String sid) {
+    	TwilioSMS sms = account.Sms(sid);
+    	system.debug('INFO: sms = '+ sms.to);
+    	return sms;
+    }
+    
+   public List<TwilioApplication> Applications() {
+    	return account.Applications();
+   }
+    
+  
+    
+    public TwilioSMSParser SendSMS(String frm, String to, String body, Map<string,string> params) {
+    	return account.SendSMS(frm, to, body, params);
+    }
+    
+    public TwilioCallParser MakeCall(String frm, String to, Map<string,string> params){
+    	return account.MakeCall(frm, to, params);
+    }
+    
+    public List<TwilioOutgoingCallerId> OutgoingCallerIds() {
+    	return account.OutgoingCallerIds();
     }
     
     public TwilioCallListParser Calls() {
-    	RestResponse response = client.request('/Accounts/' + username + '/Calls.json', 'GET', null);
-    	TwilioCallListParser callListParser = new TwilioCallListParser(response, client, username, null);
+    	TwilioCallListParser callListParser = new TwilioCallListParser(client, null);
     	return callListParser;
     }
-    
-    public TwilioCallParser MakeCall(String frm, String to) {
-    	return MakeCall(frm, to, null);
-    }
-    
-    public TwilioCallParser MakeCall(String frm, String to, Map<string,string> params) {
-    	if(params == null)
-    		params = new Map<string, string>();
-    	params.put('To', to);
-    	params.put('From', frm);
-    	RestResponse response = client.request('/Accounts/' + username + '/Calls.json', 'POST', params);
-    	TwilioCallParser callParser = new TwilioCallParser(response);
-    	return callParser;
-    }
-    
-    public TwilioSMSListParser GetSMSList() {
-    	RestResponse response = client.request('/Accounts/' + username + '/SMS/Messages.json', 'GET', null);
-    	TwilioSMSListParser smsListParser = new TwilioSMSListParser(response, client, username, null);
-    	return smsListParser;
-    }
-    
-    public TwilioSMSParser GetSMS(String smsMsgId) {
-    	RestResponse response = client.request('/Accounts/' + username + '/SMS/Messages/' + smsMsgId +'.json', 'GET', null);
-    	TwilioSMSParser smsParser = new TwilioSMSParser(response);
-    	return smsParser;
-    }
-    
-    public TwilioSMSParser SendSMS(String frm, String to, String body, Map<string,string> params) {
-    	if(params == null)
-    		params = new Map<string, string>();
-    	params.put('To', to);
-    	params.put('From', frm);
-    	RestResponse response = client.request('/Accounts/' + username + '/SMS/Messages.json', 'POST', params);
-    	TwilioSMSParser smsParser = new TwilioSMSParser(response);
-    	return smsParser;
-    }
-    
-    public TwilioCallParser ModifyCall(String callSid, Map<string,string> params) {
-    	RestResponse response = client.request('/Accounts/' + username + '/Calls/' + callSid + '.json', 'POST', params);
-    	TwilioCallParser callParser = new TwilioCallParser(response);
-    	return callParser;
-    }
+
 }

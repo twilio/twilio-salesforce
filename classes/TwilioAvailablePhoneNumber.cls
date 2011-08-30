@@ -1,8 +1,28 @@
-public class TwilioAvailablePhoneNumberParser {
+public class TwilioAvailablePhoneNumber {
+
+	public String friendly_name { get; set; }
+    public String phone_number { get; set; }
+    public String latitude { get; set; }
+    public String longitude { get; set; }
+    public String region { get; set; }
+    public String postal_code { get; set; }
+    public String iso_country { get; set; }
+    public String lata { get; set; }
+    public String rate_center { get; set; }
+       
+    public TwilioAvailablePhoneNumber() {
+            // do nothing yet
+    }
     
     public List<TwilioAvailablePhoneNumber> availablePhoneNumbers { get; set; }
     
-    public TwilioAvailablePhoneNumberParser(RestResponse response) {
+    public TwilioAvailablePhoneNumber(RestClient client, Boolean toolFree, String isoCountryCode, Map<String,String> params){
+    	String category = 'Local';
+        if (toolFree == true) {
+            category = 'TollFree';
+        }
+        RestResponse response = client.request('/Accounts/' + client.username + '/AvailablePhoneNumbers/' + isoCountryCode + '/' + category + '.json', 'GET', params);
+
         if(response != null){
             JSONObject json = new JSONObject(response.responseBody);
             list<JSONObject.value> phoneNumbers = json.getValue('available_phone_numbers').values;
@@ -25,19 +45,7 @@ public class TwilioAvailablePhoneNumberParser {
         }
     }
     
-    public class TwilioAvailablePhoneNumber {
-        public String friendly_name { get; set; }
-        public String phone_number { get; set; }
-        public String latitude { get; set; }
-        public String longitude { get; set; }
-        public String region { get; set; }
-        public String postal_code { get; set; }
-        public String iso_country { get; set; }
-        public String lata { get; set; }
-        public String rate_center { get; set; }
-        
-        public TwilioAvailablePhoneNumber() {
-            // do nothing yet
-        }
-    }
+   
+
+    
 }

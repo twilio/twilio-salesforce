@@ -1,21 +1,19 @@
-/**
-@ name        : TwilioAccountListParser
-@ author      : Aslam Bari (http://www.aslambari.com/contactme.html)
-@ email		  : aslam.bari@gmail.com
-@ date        : 24 Aug, 2011
-@ description : Parser for Account List Resource Twilio API
-*/
-public class TwilioAccountListParser {
-  
+public class TwilioAccountList {
   private TwilioAccount twilioAccount { get; set; }
   private integer CalloutCounter = 1;
   public List<TwilioAccount> listAllAccounts {get;set;}
-  public TwilioAccountListParser(){
+  public RestClient client { get; set; }
+  
+  public TwilioAccountList(){
   }
-  public TwilioAccountListParser(RestResponse response, RestClient client, Map<string,string> params) {
+  
+  public TwilioAccountList(RestClient client, Map<string,string> params) {
+  	this.client = client;
+  	RestResponse response = client.request('/Accounts/' + '.json', 'GET', params);
     if(response != null)
         parse(response.responseBody, client, params);    
   }
+  
   public void parse(String response, RestClient client, Map<string,string> params){
     listAllAccounts = new List<TwilioAccount>();
 
@@ -46,6 +44,7 @@ public class TwilioAccountListParser {
             break;
     }
   }
+  
   private void parseAccount(String accRecordJson){
     this.twilioAccount = new TwilioAccount();
     this.twilioAccount.sid = getValue(accRecordJson,'"sid":');
@@ -56,9 +55,11 @@ public class TwilioAccountListParser {
     this.twilioAccount.auth_token = getValue(accRecordJson,'"auth_token":');
     this.twilioAccount.accountType = getValue(accRecordJson,'"type":');
     this.twilioAccount.uri = getValue(accRecordJson,'"uri":');
+	this.twilioAccount.client = client;
+	this.twilioAccount.UpdateClientUsernamePassword();
 
     for (string key : SubresourceKeys) {
-      TwilioAccountResourceUri u = new TwilioAccountResourceUri(key, getValue(accRecordJson, '"' + key + '":'));
+      TwilioAccount.TwilioAccountResourceUri u = new TwilioAccount.TwilioAccountResourceUri(key, getValue(accRecordJson, '"' + key + '":'));
       this.twilioAccount.subresource_uris.add(u);
     }
     
@@ -90,33 +91,6 @@ public class TwilioAccountListParser {
         return accRecordJson.substring(startIdx + fieldName.length(),endIdx);
     }
     return '';
-  }
-  
-  public class TwilioAccount {
-    public String sid { get; set; }
-    public String friendly_name { get; set;}
-    public String status { get; set; }
-    public String date_created { get; set; }
-    public String date_updated { get; set; }
-    public String auth_token { get; set; }
-    public String accountType { get; set; } //type
-    public String uri { get; set; }
-    public List<TwilioAccountResourceUri> subresource_uris { get; set; }
-    
-    public TwilioAccount() {
-      this.subresource_uris = new List<TwilioAccountResourceUri>();
-      // defaults? 
-    }
-  }
-  
-  public class TwilioAccountResourceUri {
-    public String resource { get; set; }
-    public String uri { get; set; }
-    
-    public TwilioAccountResourceUri(String resource, String uri) {
-      this.resource = resource;
-      this.uri = uri;
-    }
   }
   
   private Set<string> SubresourceKeys = new Set<string>{

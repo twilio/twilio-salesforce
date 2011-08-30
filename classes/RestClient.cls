@@ -21,9 +21,13 @@ THE SOFTWARE.
 */
 
 public class RestClient {
-	private String endpoint { get; set; }
-	private String username { get; set; }
-	private String password { get; set; }
+	public static String DEFAULT_ENDPOINT = 'https://api.twilio.com/2010-04-01';
+	
+	public String endpoint { get; set; }
+	public String username { get; set; }
+	public String password { get; set; }
+	public TwilioAccount account { get; set; }
+	
 	
 	public RestClient() {
 		// This would require that all defaults have already been set above.	
@@ -32,6 +36,7 @@ public class RestClient {
 	public RestClient(String username, String password) {
 		this.username = username;
 		this.password = password;	
+		this.endpoint = DEFAULT_ENDPOINT;
 	}
 	
 	public RestClient(String username, String password, String endpoint) {
@@ -70,6 +75,9 @@ public class RestClient {
 			
 			if (method.toUpperCase().equals('GET')) {
 				request.setMethod('GET');
+			}else if(method.toUpperCase().equals('POST')) {
+				request.setMethod('POST');
+				request.setBody(encoded);
 			}
 			
 			Http http = new Http();
