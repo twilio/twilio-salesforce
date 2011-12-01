@@ -16,6 +16,7 @@ public class TwilioService {
     public TwilioService(String accountSid, String authKey) {
         client = new RestClient(accountSid, authKey);
         account = new TwilioAccount(client);
+		account.setRequestAccountSid(accountSid);
     }
   
   
