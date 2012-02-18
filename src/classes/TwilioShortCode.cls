@@ -44,7 +44,7 @@ global class TwilioShortCode extends TwilioResource.InstanceResource {
 	 */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/SMS/Shortcodes/'
+				+ this.getRequestAccountSid() + '/SMS/ShortCodes/'
 				+ this.getSid() + '.json';
 	}
 
@@ -106,15 +106,6 @@ global class TwilioShortCode extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Gets the sms applicaiton sid.
-	 *
-	 * @return the sms applicaiton sid
-	 */
-	public String getSmsApplicaitonSid() {
-		return this.getProperty('sms_application_sid');
-	}
-
-	/**
 	 * Gets the api version.
 	 *
 	 * @return the api version
@@ -158,5 +149,14 @@ global class TwilioShortCode extends TwilioResource.InstanceResource {
 	 */
 	public String getSmsFallbackMethod() {
 		return this.getProperty('sms_fallback_method');
+	}
+	
+	/**
+	 * Gets the Twilio URI for this resource.
+	 *
+	 * @return the resource URI
+	 */
+	public String getUri() {
+		return this.getProperty('uri');
 	}
 }

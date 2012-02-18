@@ -34,7 +34,7 @@ global class TwilioAuthorizedConnectAppList extends TwilioResource.ListResource
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
+	 * see TwilioResource#getResourceLocation()
 	 */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
@@ -44,29 +44,21 @@ global class TwilioAuthorizedConnectAppList extends TwilioResource.ListResource
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient
-	 * , java.util.Map)
+	 * see TwilioResource.ListResource#makeNew(TwilioRestClient, Map)
 	 */
 	public override Object makeNew(TwilioRestClient client,
 			Map<String, Object> params) {
 		return new TwilioAuthorizedConnectApp(client, params);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.twilio.sdk.resource.ListResource#getListKey()
+	/**
+	 * see TwilioResource.ListResource#getListKey()
 	 */
 	public override String getListKey() {
 		return 'authorized_connect_apps';
 	}
 	
-	public TwilioAuthorizedConnectApp createAuthorizedConnectApp(Map<String, String> params) {
-		return (TwilioAuthorizedConnectApp)this.create(params);
-	}
-	
-	/* returns the current response results page */
+	/** returns the current response results page */
 	public List<TwilioAuthorizedConnectApp> getPageData() {
 		List<TwilioAuthorizedConnectApp> returnList = new List<TwilioAuthorizedConnectApp>();
 		
@@ -78,7 +70,7 @@ global class TwilioAuthorizedConnectAppList extends TwilioResource.ListResource
 		return returnList;
 	}
 	
-	/* returns an iterator spanning all data pages */
+	/** returns an iterator spanning all data pages */
 	global Iterator<TwilioAuthorizedConnectApp> iterator() {
 		return new TwilioIterator.AuthorizedConnectAppIterator(this);
 	}

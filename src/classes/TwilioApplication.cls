@@ -223,4 +223,13 @@ global class TwilioApplication extends TwilioResource.InstanceResource {
 	public String getSmsStatusCallback() {
 		return this.getProperty('sms_status_callback');
 	}
+	
+	/**
+	 * Gets the Twilio URI for this resource.
+	 *
+	 * @return the resource URI
+	 */
+	public String getUri() {
+		return this.getProperty('uri');
+	}
 }

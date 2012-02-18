@@ -97,10 +97,8 @@ public class TwilioRestClient {
 	 *            the auth token
 	 */
 	private void validateAuthToken(String authToken) {
-		if (authToken == null || authToken.length() != 32) {
-			throw new TwilioRestException('AuthToken \'' + authToken
-					+ '\' is not valid.');
-		}
+		if (authToken == null || authToken.length() != 32)
+			throw new TwilioRestException('AuthToken \'' + authToken + '\' is not valid.');
 	}
 
 	// Check for a valid 34 character account sid starting with 'AC'
@@ -111,13 +109,8 @@ public class TwilioRestClient {
 	 *            the account sid
 	 */
 	private void validateAccountSid(String accountSid) {
-		if (accountSid == null || !accountSid.startsWith('AC')
-				|| accountSid.length() != 34) {
-			throw new TwilioRestException(
-					'AccountSid \''
-							+ accountSid
-							+ '\' is not valid.  It should be the 34 character unique identifier starting with \'AC\'');
-		}
+		if (accountSid == null || !accountSid.startsWith('AC') || accountSid.length() != 34)
+			throw new TwilioRestException('AccountSid \'' + accountSid + '\' is not valid.  It should be the 34 character unique identifier starting with \'AC\'');
 	}
 
 	
@@ -184,7 +177,7 @@ public class TwilioRestClient {
 		String entity = buildEntityBody(params);
 
 		HttpRequest req = new HttpRequest();
-		req.setEndpoint(uri.toExternalForm());//.toString());
+		req.setEndpoint(uri.toExternalForm());
 		req.setMethod('POST');
 		req.setBody(entity);
 
@@ -206,7 +199,7 @@ public class TwilioRestClient {
 		String entity = buildEntityBody(params);
 
 		HttpRequest req = new HttpRequest();
-		req.setEndpoint(uri.toString());
+		req.setEndpoint(uri.toExternalForm());
 		req.setMethod('PUT');
 		req.setBody(entity);
 
@@ -227,7 +220,7 @@ public class TwilioRestClient {
 		URL uri = buildUri(path);
 
 		HttpRequest req = new HttpRequest();
-		req.setEndpoint(uri.toString());
+		req.setEndpoint(uri.toExternalForm());
 		req.setMethod('DELETE');
 		return req;
 	}

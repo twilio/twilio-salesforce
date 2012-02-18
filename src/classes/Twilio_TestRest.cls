@@ -1,6 +1,9 @@
 @isTest
 private class Twilio_TestRest {
 
+	final static String accountSid = 'AC03c2fcd60e144e7cbeed179fcbf812a3';
+	final static String authToken = '12345678901234567890123456789012';
+	
     static testMethod void testTwilioRestResponse() {
         String url = 'http://api.twilio.com';
         String queryString = 'a=1&b=2';
@@ -70,17 +73,63 @@ private class Twilio_TestRest {
     	client.setNumRetries(3);
     	System.assertEquals(3, client.getNumRetries());
     	
-    	// TODO assert PUT
+    	Exception e = null;
     	try {
 	    	client.safeRequest('https://api.twilio.com', 'PUT', new Map<String,String>{'key'=>'val'});
     	} catch (TwilioRestException tre) {
-    		
+    		e = tre;
     	}
-    	// TODO assert DELETE
+    	System.assert(e instanceof TwilioRestException);
+    	
+    	e = null;
     	try {
     		client.safeRequest('https://api.twilio.com', 'DELETE', null);
     	} catch (TwilioRestException tre) {
-    		
+    		e = tre;
     	}
+    	System.assert(e instanceof TwilioRestException);    	
+    	
+    	client = new TwilioRestClient(accountSid,authToken,'https://anotherendpoint.twilio.com');
+    	System.assertEquals('https://anotherendpoint.twilio.com', client.getEndpoint());
+    	
+    	e = null;
+    	try {
+    		client = new TwilioRestClient(null,authToken);
+    	} catch (TwilioRestException tre) {
+    		e = tre;
+    	}
+    	System.assert(e instanceof TwilioRestException);
+    	
+    	e = null;
+    	try {
+    		client = new TwilioRestClient('badSid',authToken);
+    	} catch (TwilioRestException tre) {
+    		e = tre;
+    	}
+    	System.assert(e instanceof TwilioRestException);
+    	
+    	e = null;
+    	try {
+    		client = new TwilioRestClient('ACbadSid',authToken);
+    	} catch (TwilioRestException tre) {
+    		e = tre;
+    	}
+    	System.assert(e instanceof TwilioRestException);
+    	
+    	e = null;
+    	try {
+    		client = new TwilioRestClient(accountSid,null);
+    	} catch (TwilioRestException tre) {
+    		e = tre;
+    	}
+    	System.assert(e instanceof TwilioRestException);
+    	
+    	e = null;
+    	try {
+    		client = new TwilioRestClient(accountSid,'badToken');
+    	} catch (TwilioRestException tre) {
+    		e = tre;
+    	}
+    	System.assert(e instanceof TwilioRestException);  	
     }
 }

@@ -154,14 +154,13 @@ global class TwilioConnectApp extends TwilioResource.InstanceResource {
 		return this.getProperty('deauthorize_callback_method');
 	}
 	
+	/**
+	 * Gets the permissions required.
+	 * 
+	 * @return the permissions
+	 */
 	public List<String> getPermissions() {
-		List<string> s=new list<String>();
-		Object obj = this.getObject('permissions');
-		for(object o :(List<object>)obj)
-		{
-			s.add(String.valueof(o));
-		}
-		return s;
+		return this.getStringList('permissions');
 	}
 	
 }

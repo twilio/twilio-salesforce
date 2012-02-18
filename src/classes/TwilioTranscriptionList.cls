@@ -49,10 +49,6 @@ global class TwilioTranscriptionList extends TwilioResource.ListResource
 		return 'transcriptions';
 	}
 	
-	public TwilioTranscription createCall(Map<String, String> params) {
-		return (TwilioTranscription)this.create(params);
-	}
-	
 	/* returns the current response results page */
 	public List<TwilioTranscription> getPageData() {
 		List<TwilioTranscription> returnList = new List<TwilioTranscription>();

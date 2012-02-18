@@ -10,22 +10,15 @@ global class TwilioIterator {
 		
 		private TwilioResource.ListResource twlist;
 
-		public ObjectIteratorSupport(TwilioResource.ListResource twlist) {
+		protected ObjectIteratorSupport(TwilioResource.ListResource twlist) {
 			this.itr = twlist.getObjectPageData().iterator();
 			this.twlist = twlist;
 		}
-
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#hasNext()
-		 */
 
 		global boolean hasNext() {
 			return itr.hasNext() || twlist.hasNextPage();
 		}
 
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#next()
-		 */
 		protected Object getNext() {
 			// If we still have results on this page
 			if (itr.hasNext()) {
@@ -37,13 +30,6 @@ global class TwilioIterator {
 			
 			itr = twlist.getObjectPageData().iterator();
 			return itr.next();
-		}
-
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#remove()
-		 */
-		public void remove() {
-			throw new TwilioUnsupportedOperationException();
 		}
 	}
 	

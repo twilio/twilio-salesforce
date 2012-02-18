@@ -3,7 +3,7 @@ private class Twilio_TestApplication {
 
     final static String authToken = '12345678901234567890123456789012';
 		
-	static testmethod void testTwilioAplications() {
+	static testmethod void testTwilioAplications_get() {
 		String accountJsonResponseBody ='{"applications":[{"sid":"AP023e78c7f13a4fe683ef2e5ddc510399","date_created":'
 		+'"Wed, 01 Feb 2012 10:49:17 +0000","date_updated":"Wed, 01 Feb 2012 10:49:17 +0000","account_sid":"AC03c2fcd60e144e7cbeed179fcbf812a3",'
 		+'"friendly_name":"Testapp1","api_version":"2010-04-01","voice_url":null,"voice_method":"POST","voice_fallback_url":null,'
@@ -43,6 +43,8 @@ private class Twilio_TestApplication {
 		System.assertEquals('AC03c2fcd60e144e7cbeed179fcbf812a3',twappslist[0].getAccountSid());
 		System.assertEquals('2010-04-01',twappslist[0].getApiVersion());
 		System.assertEquals(null,twappslist[0].getVoiceUrl());
+		System.assertEquals(null,twappslist[0].getStatus());
+		System.assertEquals(null,twappslist[0].getStatusCallback());
 		System.assertEquals('POST',twappslist[0].getVoiceMethod());
 		System.assertEquals(null,twappslist[0].getVoiceFallbackUrl());
 		System.assertEquals('POST',twappslist[0].getVoiceFallbackMethod());
@@ -81,7 +83,7 @@ private class Twilio_TestApplication {
 		System.assertEquals(false, it.hasNext());
 	}
 	
-	static testmethod void testTwilioAplicationparams() {
+	static testmethod void testTwilioAplications_filter() {
 		String accountJsonResponseBody ='{"applications":[{"sid":"AP023e78c7f13a4fe683ef2e5ddc510399",'
 		+'"date_created":"Wed, 01 Feb 2012 10:49:17 +0000","date_updated":"Wed, 01 Feb 2012 10:49:17 +0000",'
 		+'"account_sid":"AC03c2fcd60e144e7cbeee413fcbf812a3","friendly_name":"Testapp1","api_version":"2010-04-01",'
@@ -131,7 +133,47 @@ private class Twilio_TestApplication {
 		System.assertEquals('POST',twappslist[0].getSmsFallbackMethod());
 		System.assertEquals(null,twappslist[0].getSmsStatusCallback());
 	}
-	static testmethod void testcreateTwilioAplication() {
+	
+	static testmethod void testTwilioAplication_get() {
+		String accountJsonResponseBody ='{"sid":"AP023e78c7f13a4fe683ef2e5ddc510399","date_created":"Wed, 01 Feb 2012 10:49:17 +0000",'
+		+'"date_updated":"Wed, 01 Feb 2012 10:49:17 +0000","account_sid":"AC03c2fcd60e144e7cbeee413fcbf812a3","friendly_name":"Testapp1",'
+		+'"api_version":"2010-04-01","voice_url":null,"voice_method":"POST","voice_fallback_url":null,"voice_fallback_method":"POST",'
+		+'"status_callback":null,"status_callback_method":"POST","voice_caller_id_lookup":false,"sms_url":null,"sms_method":"POST","sms_fallback_url":null,'
+		+'"sms_fallback_method":"POST","sms_status_callback":null,"uri":"/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Applications/AP023e78c7f13a4fe683ef2e5ddc510399.json"}';
+	
+        // register a mock Response with the Twilio_TestHTTPMock singleton service
+		// for the HTTP GET method and at the Twilio Account instance URI.
+		Twilio_TestHTTPMock.getInstance().putResponse(
+			'GET',
+			'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Applications/AP023e78c7f13a4fe683ef2e5ddc510399.json',
+			new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
+			);
+			
+			
+		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3','9339f87c4573196830a8f497bceb8fa9');		
+		TwilioApplication twaps = api.getClient().getAccount().getApplication('AP023e78c7f13a4fe683ef2e5ddc510399');
+		
+		System.assertEquals('AP023e78c7f13a4fe683ef2e5ddc510399', twaps.getSid());
+		System.assertEquals('Testapp1',twaps.getFriendlyName());
+		System.assertEquals(Datetime.newInstanceGmt(2012,2,1,10,49,17),twaps.getDateCreated());
+		System.assertEquals(Datetime.newInstanceGmt(2012,2,1,10,49,17),twaps.getDateUpdated());
+		System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3',twaps.getAccountSid());
+		System.assertEquals('2010-04-01',twaps.getApiVersion());
+		System.assertEquals(null,twaps.getVoiceUrl());
+		System.assertEquals('POST',twaps.getVoiceMethod());
+		System.assertEquals(null,twaps.getVoiceFallbackUrl());
+		System.assertEquals('POST',twaps.getVoiceFallbackMethod());
+		System.assertEquals('POST',twaps.getStatusCallbackMethod());
+		System.assertEquals('false',twaps.getVoiceCallerIdLookup());
+		System.assertEquals(null,twaps.getSmsUrl());
+		System.assertEquals(null,twaps.getSmsMethod());
+		System.assertEquals(null,twaps.getSmsFallbackUrl());
+		System.assertEquals('POST',twaps.getSmsFallbackMethod());
+		System.assertEquals(null,twaps.getSmsStatusCallback());
+		System.assertEquals('/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Applications/AP023e78c7f13a4fe683ef2e5ddc510399.json',twaps.getUri());
+	}
+	
+	static testmethod void testTwilioAplication_create() {
 		String accountJsonResponseBody ='{"sid":"AP023e78c7f13a4fe683ef2e5ddc510399","date_created":"Wed, 01 Feb 2012 10:49:17 +0000",'
 		+'"date_updated":"Wed, 01 Feb 2012 10:49:17 +0000","account_sid":"AC03c2fcd60e144e7cbeee413fcbf812a3","friendly_name":"Testapp1",'
 		+'"api_version":"2010-04-01","voice_url":null,"voice_method":"POST","voice_fallback_url":null,"voice_fallback_method":"POST",'
@@ -170,6 +212,10 @@ private class Twilio_TestApplication {
 		System.assertEquals(null,twaps.getSmsFallbackUrl());
 		System.assertEquals('POST',twaps.getSmsFallbackMethod());
 		System.assertEquals(null,twaps.getSmsStatusCallback());
+		
+		
+		TwilioApplication twaps1=new TwilioApplication(api.getclient());
+		TwilioApplicationlist lsttwaps1=new TwilioApplicationlist(api.getclient()); 
 	}
 	
 }

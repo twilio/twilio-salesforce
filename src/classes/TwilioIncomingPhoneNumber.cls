@@ -121,20 +121,20 @@ global class TwilioIncomingPhoneNumber extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Gets the voice applicaiton sid.
+	 * Gets the voice application sid.
 	 * 
-	 * @return the voice applicaiton sid
+	 * @return the voice application sid
 	 */
-	public String getVoiceApplicaitonSid() {
+	public String getVoiceApplicationSid() {
 		return this.getProperty('voice_application_sid');
 	}
 
 	/**
-	 * Gets the sms applicaiton sid.
+	 * Gets the sms application sid.
 	 * 
-	 * @return the sms applicaiton sid
+	 * @return the sms application sid
 	 */
-	public String getSmsApplicaitonSid() {
+	public String getSmsApplicationSid() {
 		return this.getProperty('sms_application_sid');
 	}
 
@@ -253,5 +253,14 @@ global class TwilioIncomingPhoneNumber extends TwilioResource.InstanceResource {
 	 */
 	public String getSmsStatusCallback() {
 		return this.getProperty('sms_status_callback');
+	}
+	
+	/**
+	 * Gets the sms status callback.
+	 * 
+	 * @return the sms status callback
+	 */
+	public map<string,object> getcapabilities() {
+		return (Map<String,Object>)this.getObject('capabilities');
 	}
 }

@@ -34,6 +34,7 @@
         <members>TwilioRestClient</members>
         <members>TwilioRestException</members>
         <members>TwilioRestResponse</members>
+        <members>TwilioSandbox</members>
         <members>TwilioShortCode</members>
         <members>TwilioShortCodeList</members>
         <members>TwilioSms</members>
@@ -43,18 +44,18 @@
         <members>TwilioTwiML</members>
         <members>Twilio_TestAccounts</members>
         <members>Twilio_TestApplication</members>
-        <members>Twilio_TestAuthorizedConnectApp</members>
-        <members>Twilio_TestAvailablePhoneNumbers</members>
         <members>Twilio_TestCalls</members>
+        <members>Twilio_TestCapability</members>
         <members>Twilio_TestConference</members>
-        <members>Twilio_TestConnectApp</members>
+        <members>Twilio_TestConnectApps</members>
         <members>Twilio_TestHTTPMock</members>
-        <members>Twilio_TestOutgoingCallerId</members>
-        <members>Twilio_TestParticipant</members>
+        <members>Twilio_TestNotification</members>
+        <members>Twilio_TestPhoneNumbers</members>
+        <members>Twilio_TestRecording</members>
         <members>Twilio_TestRest</members>
+        <members>Twilio_TestSandbox</members>
+        <members>Twilio_TestSms</members>
         <members>Twilio_TestTwiML</members>
-        <members>Twilio_Testincomingphonenums</members>
-        <members>twilio_testparticipants</members>
         <name>ApexClass</name>
     </types>
     <types>

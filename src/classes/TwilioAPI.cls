@@ -3,9 +3,8 @@ global class TwilioAPI {
 	private static final String defaultAccountSid = 'AC03c2fcd60e144e7cbeed179fcbf812a3';
     private static final String defaultAuthToken = '9339f87c4573196830a8f497bceb8fa9'; 
   
-  
-    private TwilioRestClient client;
-    
+	private TwilioRestClient client;
+
     public TwilioAPI() {
     	this(defaultAccountSid, defaultAuthToken);
     }

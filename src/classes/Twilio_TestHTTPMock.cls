@@ -27,14 +27,14 @@ public class Twilio_TestHTTPMock {
 	
 	/** Mock HTTP.send(HTTPRequest) function, returns a preregistered Response or a 404 */
 	public Response send(HTTPRequest req) {
-		System.debug('Request.Method: '+req.getMethod());
-		System.debug('Request.Endpoint: '+req.getEndpoint());
+		System.debug('Twilio_TestHTTPMock::send() Request.Method: '+req.getMethod());
+		System.debug('Twilio_TestHTTPMock::send() Request.Endpoint: '+req.getEndpoint());
 
 		Response res = getResponse(req.getMethod(), req.getEndpoint());
 		if (res==null) {
 			res = response404;		
 		}
-		System.debug('Response.Body: '+res.getBody());
+		System.debug('Twilio_TestHTTPMock::send() Response.Body: '+res.getBody());
 
 		return res;
 	}
@@ -45,6 +45,14 @@ public class Twilio_TestHTTPMock {
 		Map<String,Response> resourceMap = this.methodMap.get(method.toUpperCase());		
 		if (resourceMap!=null) {
 			res = resourceMap.get(uri.toUpperCase());
+			
+			if (res!=null) {
+				System.debug('Twilio_TestHTTPMock::getResponse() Found Resource for '+method+' '+uri+' = '+res);
+			} else {
+				System.debug('Twilio_TestHTTPMock::getResponse() Did not find Resource for '+method+' '+uri);
+			}
+		} else {
+			System.debug('Twilio_TestHTTPMock::getResponse() Did not find Resource Map for '+method);
 		}
 		return res;
 	}
@@ -52,12 +60,16 @@ public class Twilio_TestHTTPMock {
 	/** Registers a response to be returned for a particular HTTP method and URI */
 	public void putResponse(String method, String uri, Response res) {
 		String methodKey = method.toUpperCase();
+		String uriKey = uri.toUpperCase();
+		
 		Map<String,Response> resourceMap = this.methodMap.get(methodKey);
 		if (resourceMap==null) {
 			resourceMap = new Map<String,Response>();
 			this.methodMap.put(methodKey, resourceMap);
 		}
-		resourceMap.put(uri.toUpperCase(),res);		
+		resourceMap.put(uriKey,res);
+		System.debug('Twilio_TestHTTPMock::putResponse() Added resource '+methodKey+' '+uriKey);
+		
 	}
 	
 	/** Response class - mock equivalent to HTTPResponse */

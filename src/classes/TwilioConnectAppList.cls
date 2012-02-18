@@ -62,10 +62,6 @@ global class TwilioConnectAppList extends TwilioResource.ListResource
 		return 'connect_apps';
 	}
 	
-	public TwilioConnectApp createConnectApp(Map<String, String> params) {
-		return (TwilioConnectApp)this.create(params);
-	}
-	
 	/* returns the current response results page */
 	public List<TwilioConnectApp> getPageData() {
 		List<TwilioConnectApp> returnList = new List<TwilioConnectApp>();

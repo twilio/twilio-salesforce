@@ -1,5 +1,6 @@
 /*
- * The Account class, representing a Twilio customer account. For more information see http://www.twilio.com/docs/api/rest/account
+ * The Account class, representing a Twilio customer account.
+ * For more information see http://www.twilio.com/docs/api/rest/account
  */
 global class TwilioAccount extends TwilioResource.InstanceResource {
 
@@ -22,7 +23,6 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	/* Constructor, using predefined set of property values */
 	public TwilioAccount(TwilioRestClient client, Map<String, Object> properties) {
 		super(client, properties);
-
 		Object ac = properties.get(ACCOUNT_SID_PROPERTY);
 		if (ac != null && ac instanceof String) {
 			String accountSid = (String) ac;
@@ -40,79 +40,83 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 
 	/* Sid field accessor */
 	public void setSid(String accountSid) {
-		
 		this.setRequestAccountSid(accountSid);
 		this.setProperty(ACCOUNT_SID_PROPERTY, accountSid);
 		
 	}
 	
-	/* ConnectAppSid field accessor */
+	/** Returns the sid for the ConnectApp using this Account */
 	public String getConnectAppSid() {
 		return this.getProperty(CONNECT_APP_SID_PROPERTY);
 	}
 	
-	/* OwnerAccountSid field accessor */
+	/** Returns the AccountSid of the primary account */
 	public String getOwnerAccountSid() {
 		return this.getProperty(OWNER_ACCOUNT_SID_PROPERTY);
 	}
 
-	/* AuthToken field accessor */
+	/** Returns the API auth token (secret) for this account */
 	public String getAuthToken() {
 		return this.getProperty(AUTH_TOKEN_PROPERTY);
 	}
 
-	/* AuthToken field accessor */
+	/** Sets the API auth token (secret) for this account */
 	public void setAuthToken(String authToken) {
 		this.setProperty(AUTH_TOKEN_PROPERTY, authToken);
 	}
 
-	/* FriendlyName field accessor */
+	/** Returns the human-readable label for this account */
 	public String getFriendlyName() {
 		return this.getProperty(FRIENDLY_NAME_PROPERTY);
 	}
 
-	/* Status field accessor */
+	/** Returns the status value for this account */
 	public String getStatus() {
 		return this.getProperty(STATUS_PROPERTY);
 	}
 
-	/* DateCreated field accessor */
+	/** Returns the date and time this account was created */
 	public Datetime getDateCreated() {
 		return this.getPropertyDatetime(DATE_CREATED_PROPERTY);
 	}
 
-	/* DateUpdated field accessor */
+	/** Returns the date and time this account was last updated */
 	public Datetime getDateUpdated() {
 		return this.getPropertyDatetime(DATE_UPDATED_PROPERTY);
 	}
 	 
-	/* Type field accessor */
+	/** Returns the account type */
 	public String getType() {
 		return this.getProperty(TYPE_PROPERTY);
 	}
 	
-	/* SubresourceUris field accessor */
+	/** Return the Twilio URI for this resource. */
+	public String getUri() {
+		return this.getProperty('uri');
+	}
+	
+	/** Returns the URIs for resources under this account */
 	public Map<String,Object> getSubresourceUris() {
 		return (Map<String,Object>)this.getObject('subresource_uris');
 	}
 
-	/* Constructs a Twilio API resource URI for this Account. Overrides method from TwilioResource. */
+	/** Constructs a Twilio API resource URI for this Account. Overrides method from TwilioResource. */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
 				+ this.getRequestAccountSid() + '.json';
 	}
 
 
-	/**** Subresource methods ****/
+	/* SUBRESOURCE METHODS */
 
-	/* Gets the calls list resource without any filters.
+	/* Returns the calls list resource without any filters.
 	 * See http://www.twilio.com/docs/api/rest/call
 	 */
 	public TwilioCallList getCalls() {
 		return this.getCalls(new Map<String, String>());
 	}
 
-	/* Gets the calls list resource with the given filters.
+	/* Returns the calls list resource with the given filters.
 	 * See http://www.twilio.com/docs/api/rest/call
 	 */
 	public TwilioCallList getCalls(Map<String, String> filters) {
@@ -122,11 +126,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 		return calls;
 	}
 	
-	/**
-	 * Get a given call instance by sid
-	 * @param sid The 34 character sid starting with CA
-	 * @return
-	 */
+	/** Returns a given call instance by sid */
 	public TwilioCall getCall(String sid) {
 		TwilioCall call = new TwilioCall(this.getClient(), sid);
 		call.setRequestAccountSid(this.getRequestAccountSid());
@@ -135,24 +135,16 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 
 
 	/**
-	 * Gets the sms message list.
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>}
-	 * 
-	 * @return the sms messages
+	 * Returns the sms message list.
+	 * See http://www.twilio.com/docs/api/rest/sms
 	 */
 	public TwilioSmsList getSmsMessages() {
 		return this.getSmsMessages(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the sms messages list with the given filters
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/sms">http://www.twilio.com/docs/api/rest/sms</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the sms messages
+	 * Returns the SMS messages list, applying the supplied filters.
+	 * See http://www.twilio.com/docs/api/rest/sms
 	 */
 	public TwilioSmsList getSmsMessages(Map<String, String> filters) {
 		TwilioSmsList sms = new TwilioSmsList(this.getClient(), filters);
@@ -161,11 +153,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 		return sms;
 	}
 	
-	/**
-	 * Get a given sms instance by sid
-	 * @param sid The 34 character sid starting with SM
-	 * @return
-	 */
+	/** Returns a given SMS message by sid */
 	public TwilioSms getSms(String sid) {
 		TwilioSms sms = new TwilioSms(this.getClient(), sid);
 		sms.setRequestAccountSid(this.getRequestAccountSid());
@@ -173,23 +161,16 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Gets the application list
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>}
-	 * @return the applications
+	 * Returns the list of Applications in this account.
+	 * See http://www.twilio.com/docs/api/rest/applications
 	 */
 	public TwilioApplicationList getApplications() {
 		return this.getApplications(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the application list with the given filters
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/applications">http://www.twilio.com/docs/api/rest/applications</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the applications
+	 * Returns a list of Applications in this account, applying the supplied filters.
+	 * See http://www.twilio.com/docs/api/rest/applications
 	 */
 	public TwilioApplicationList getApplications(Map<String, String> filters) {
 		TwilioApplicationList twlist = new TwilioApplicationList(this.getClient(), filters);
@@ -198,9 +179,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Get a given application instance by sid
-	 * @param sid The 34 character sid starting with AP
-	 * @return
+	 * Returns a given Application instance by sid.
 	 */
 	public TwilioApplication getApplication(String sid) {
 		TwilioApplication app = new TwilioApplication(this.getClient(), sid);
@@ -209,24 +188,17 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Gets the available phone numbers. Defaults to US/Local
-	 * 
-	 * See: http://www.twilio.com/docs/api/rest/available-phone-numbers
-	 * @return the available phone numbers
+	 * Returns the available phone numbers. Defaults to US/Local.
+	 * See http://www.twilio.com/docs/api/rest/available-phone-numbers
 	 */
 	public TwilioAvailablePhoneNumberList getAvailablePhoneNumbers() {
 		return this.getAvailablePhoneNumbers(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the available phone numbers. With the given search filters. Defaults
-	 * to US/Local numbers
-	 * 
-	 * See: http://www.twilio.com/docs/api/rest/available-phone-numbers
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the available phone numbers
+	 * Returns the available phone numbers. With the given search filters. Defaults
+	 * to US/Local numbers.
+	 * See http://www.twilio.com/docs/api/rest/available-phone-numbers
 	 */
 	public TwilioAvailablePhoneNumberList getAvailablePhoneNumbers(Map<String, String> filters) {
 		TwilioAvailablePhoneNumberList twlist = new TwilioAvailablePhoneNumberList(
@@ -236,9 +208,8 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Gets the available phone numbers with the given iso country and type
-	 * 
-	 * See: http://www.twilio.com/docs/api/rest/available-phone-numbers
+	 * Returns the available phone numbers with the given iso country and type.
+	 * See http://www.twilio.com/docs/api/rest/available-phone-numbers
 	 * 
 	 * @param filters
 	 *            the filters
@@ -261,24 +232,16 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Gets the conference list
-	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>}
-	 * 
-	 * @return the conferences
+	 * Returns the conference list.
+	 * See http://www.twilio.com/docs/api/rest/conference
 	 */
 	public TwilioConferenceList getConferences() {
 		return this.getConferences(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the conferences list with the given filters
-	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/conference">http://www.twilio.com/docs/api/rest/conference</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the conferences
+	 * Returns the conferences list with the given filters.
+	 * See http://www.twilio.com/docs/api/rest/conference
 	 */
 	public TwilioConferenceList getConferences(Map<String, String> filters) {
 		TwilioConferenceList twlist = new TwilioConferenceList(this.getClient(), filters);
@@ -287,9 +250,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Get a given conference instance by sid
-	 * @param sid The 34 character sid starting with CF
-	 * @return
+	 * Returns a given conference instance by sid.
 	 */
 	public TwilioConference getConference(String sid) {
 		TwilioConference conf = new TwilioConference(this.getClient(), sid);
@@ -298,24 +259,16 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Gets the incoming phone numbers list
-	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>}
-	 * 
-	 * @return the incoming phone numbers
+	 * Returns the incoming phone numbers list.
+	 * See http://www.twilio.com/docs/api/rest/incoming-phone-numbers
 	 */
 	public TwilioIncomingPhoneNumberList getIncomingPhoneNumbers() {
 		return this.getIncomingPhoneNumbers(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the incoming phone numbers list with the given filters
-	 * 
-	 * See: {@see <a href="http://www.twilio.com/docs/api/rest/incoming-phone-nubmers">http://www.twilio.com/docs/api/rest/incoming-phone-numbers</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the incoming phone numbers
+	 * Returns the incoming phone numbers list with the given filters.
+	 * See http://www.twilio.com/docs/api/rest/incoming-phone-numbers
 	 */
 	public TwilioIncomingPhoneNumberList getIncomingPhoneNumbers(
 			Map<String, String> filters) {
@@ -326,9 +279,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Get a given incoming phone number instance by sid
-	 * @param sid The 34 character sid starting with PN
-	 * @return
+	 * Returns a given incoming phone number instance by sid.
 	 */
 	public TwilioIncomingPhoneNumber getIncomingPhoneNumber(String sid) {
 		TwilioIncomingPhoneNumber pn = new TwilioIncomingPhoneNumber(this.getClient(), sid);
@@ -337,20 +288,14 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Gets the shortcode list.
-	 * 
-	 * @return the short code list
+	 * Returns the Short Code list.
 	 */
 	public TwilioShortCodeList getShortCodes() {
 		return this.getShortCodes(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the short code list with filters
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the short code list
+	 * Returns the Short Code list with filters.
 	 */
 	public TwilioShortCodeList getShortCodes(Map<String, String> filters) {
 		TwilioShortCodeList twlist = new TwilioShortCodeList(this.getClient(), filters);
@@ -359,9 +304,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Get a given short code instance by sid
-	 * @param sid The 34 character sid starting with SC
-	 * @return
+	 * Returns a given Short Code instance by sid.
 	 */
 	public TwilioShortCode getShortCode(String sid) {
 		TwilioShortCode sc = new TwilioShortCode(this.getClient(), sid);
@@ -370,7 +313,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Gets the notifications.
+	 * Returns the notifications.
 	 * 
 	 * @return the notifications
 	 */
@@ -379,11 +322,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Gets the notifications.
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the notifications
+	 * Returns the notifications.
 	 */
 	public TwilioNotificationList getNotifications(Map<String, String> filters) {
 		TwilioNotificationList twlist = new TwilioNotificationList(this.getClient(), filters);
@@ -392,9 +331,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Get a given notification instance by sid
-	 * @param sid The 34 character sid starting with NO
-	 * @return
+	 * Returns a given notification instance by sid
 	 */
 	public TwilioNotification getNotification(String sid) {
 		TwilioNotification n = new TwilioNotification(this.getClient(), sid);
@@ -403,24 +340,16 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Gets the outgoing caller ids.
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>}
-	 * 
-	 * @return the outgoing caller ids
+	 * Returns the outgoing caller ids.
+	 * See http://www.twilio.com/docs/api/rest/outgoing-caller-ids
 	 */
 	public TwilioOutgoingCallerIdList getOutgoingCallerIds() {
 		return this.getOutgoingCallerIds(null);
 	}
 
 	/**
-	 * Gets the outgoing caller ids.
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/outoing-caller-ids">http://www.twilio.com/docs/api/rest/outgoing-caller-ids</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the outgoing caller ids
+	 * Returns the outgoing caller ids.
+	 * See http://www.twilio.com/docs/api/rest/outgoing-caller-ids
 	 */
 	public TwilioOutgoingCallerIdList getOutgoingCallerIds(Map<String, String> filters) {
 		TwilioOutgoingCallerIdList twlist;
@@ -434,9 +363,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Get a given outgoing caller id instance by sid
-	 * @param sid The 34 character sid starting with PN
-	 * @return
+	 * Returns a given outgoing caller id instance by sid.
 	 */
 	public TwilioOutgoingCallerId getOutgoingCallerId(String sid) {
 		TwilioOutgoingCallerId cid = new TwilioOutgoingCallerId(this.getClient(), sid);
@@ -446,24 +373,16 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	
 	
 	/**
-	 * Gets the recordings list
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>}
-	 * 
-	 * @return the recordings
+	 * Returns the recordings list.
+	 * See http://www.twilio.com/docs/api/rest/recording
 	 */
 	public TwilioRecordingList getRecordings() {
 		return this.getRecordings(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the recordings list 
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/recording">http://www.twilio.com/docs/api/rest/recording</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the recordings
+	 * Returns the recordings list.
+	 * See http://www.twilio.com/docs/api/rest/recording
 	 */
 	public TwilioRecordingList getRecordings(Map<String, String> filters) {
 		TwilioRecordingList twlist = new TwilioRecordingList(this.getClient(), filters);
@@ -472,9 +391,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 
 	/**
-	 * Get a given recording instance by sid
-	 * @param sid The 34 character sid starting with RE
-	 * @return
+	 * Returns a given recording instance by sid.
 	 */
 	public TwilioRecording getRecording(String sid) {
 		TwilioRecording r = new TwilioRecording(this.getClient(), sid);
@@ -483,24 +400,16 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Gets the transcriptions list
-	 * 
-	 * {@see <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>}
-	 * 
-	 * @return the transcriptions
+	 * Returns the transcriptions list.
+	 * See http://www.twilio.com/docs/api/rest/transcription
 	 */
 	public TwilioTranscriptionList getTranscriptions() {
 		return this.getTranscriptions(new Map<String, String>());
 	}
 
 	/**
-	 * Gets the transcriptions list with the given filters
-	 * 
-	 *  {@see <a href="http://www.twilio.com/docs/api/rest/transcription">http://www.twilio.com/docs/api/rest/transcription</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the transcriptions
+	 * Returns the transcriptions list with the given filters.
+	 * See http://www.twilio.com/docs/api/rest/transcription
 	 */
 	public TwilioTranscriptionList getTranscriptions(Map<String, String> filters) {
 		TwilioTranscriptionList twlist = new TwilioTranscriptionList(this.getClient(),
@@ -510,9 +419,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Get a given transcription instance by sid
-	 * @param sid The 34 character sid starting with TR
-	 * @return
+	 * Returns a given transcription instance by sid
 	 */
 	public TwilioTranscription getTranscription(String sid) {
 		TwilioTranscription tr = new TwilioTranscription(this.getClient(), sid);
@@ -522,13 +429,8 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	
 
 	/**
-	 * Gets the connect app list with the given filters
-	 * 
-	 *  {@see <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the connect app list
+	 * Returns the connect app list with the given filters.
+	 * See http://www.twilio.com/docs/api/rest/connect-apps
 	 */
 	public TwilioConnectAppList getConnectApps(Map<String, String> filters) {
 		TwilioConnectAppList twlist = new TwilioConnectAppList(this.getClient(),
@@ -538,9 +440,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Get a given connect app instance by sid
-	 * @param sid The 34 character sid starting with CN
-	 * @return the connect app
+	 * Returns a given connect app instance by sid
 	 */
 	public TwilioConnectApp getConnectApp(String sid) {
 		TwilioConnectApp cn = new TwilioConnectApp(this.getClient(), sid);
@@ -549,13 +449,8 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Gets the connect app list with the given filters
-	 * 
-	 *  {@see <a href="http://www.twilio.com/docs/api/rest/connect-apps">http://www.twilio.com/docs/api/rest/connect-apps</a>}
-	 * 
-	 * @param filters
-	 *            the filters
-	 * @return the connect app list
+	 * Returns the connect app list with the given filters.
+	 * See http://www.twilio.com/docs/api/rest/connect-apps
 	 */
 	public TwilioAuthorizedConnectAppList getAuthorizedConnectApps(Map<String, String> filters) {
 		TwilioAuthorizedConnectAppList twlist = new TwilioAuthorizedConnectAppList(this.getClient(),
@@ -565,13 +460,20 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Get a given connect app instance by sid
-	 * @param sid The 34 character sid starting with CN
-	 * @return the connect app
+	 * Returns a given connect app instance by sid.
 	 */
 	public TwilioAuthorizedConnectApp getAuthorizedConnectApp(String sid) {
 		TwilioAuthorizedConnectApp cn = new TwilioAuthorizedConnectApp(this.getClient(), sid);
 		cn.setRequestAccountSid(this.getRequestAccountSid());
 		return cn;
+	}
+	
+	/**
+	 * Returns the developer sandbox.
+	 */
+	public TwilioSandbox getSandbox() {
+		TwilioSandbox sb = new TwilioSandbox(this.getClient());
+		sb.setRequestAccountSid(this.getRequestAccountSid());
+		return sb;
 	}
 }

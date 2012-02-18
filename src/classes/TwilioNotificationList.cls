@@ -6,6 +6,8 @@
 global class TwilioNotificationList extends TwilioResource.ListResource
 	implements Iterable<TwilioNotification> {
 
+	private String parentCallSid;
+
 	/**
 	 * Instantiates a new notification list.
 	 *
@@ -24,13 +26,26 @@ global class TwilioNotificationList extends TwilioResource.ListResource
 	public TwilioNotificationList(TwilioRestClient client, Map<String, String> filters) {
 		super(client, filters);
 	}
+	
+	/**
+	 * Instantiates a new notification list under a Call resource.
+	 *
+	 * @param client the client
+	 * @param filters the filters
+	 */
+	public TwilioNotificationList(TwilioRestClient client, String parentCallSid) {
+		super(client);
+		this.parentCallSid = parentCallSid;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Notifications.json';
+				+ this.getRequestAccountSid()
+				+ (this.parentCallSid!=null ? ('/Calls/'+this.parentCallSid) : '')
+				+ '/Notifications.json';
 	}
 
 	/* (non-Javadoc)
@@ -46,10 +61,6 @@ global class TwilioNotificationList extends TwilioResource.ListResource
 	 */
 	public override String getListKey() {
 		return 'notifications';
-	}
-	
-	public TwilioNotification createNotification(Map<String, String> params) {
-		return (TwilioNotification)this.create(params);
 	}
 	
 	/* returns the current response results page */

@@ -63,10 +63,6 @@ global class TwilioParticipantList extends TwilioResource.ListResource
 		return 'participants';
 	}
 	
-	public TwilioParticipant createParticipant(Map<String, String> params) {
-		return (TwilioParticipant)this.create(params);
-	}
-	
 	public List<TwilioParticipant> getPageData() {
 		List<TwilioParticipant> returnList = new List<TwilioParticipant>();
 		

@@ -111,4 +111,17 @@ global class TwilioOutgoingCallerId extends TwilioResource.InstanceResource {
 	public String getValidationCode() {
 		return this.getProperty('validation_code');
 	}
+	
+		/**
+	 * Delete.
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean deleteOutgoingCallerid() {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), 'DELETE', null);
+
+		return !response.isError();
+	}
 }

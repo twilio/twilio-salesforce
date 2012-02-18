@@ -145,13 +145,12 @@ global class TwilioAuthorizedConnectApp extends TwilioResource.InstanceResource 
 		return this.getProperty('connect_app_homepage_url');
 	}
 
+	/**
+	 * Gets the permissions granted.
+	 * 
+	 * @return the permissions
+	 */
 	public List<String> getPermissions() {
-		List<string> s=new List<string>();
-		Object obj = this.getObject('permissions');
-		for(Object o:(List<object>) obj)
-		{
-			s.add(string.valueof(o));
-		} 
-		return s;//(List<String>) obj;
+		return this.getStringList('permissions');
 	}
 }

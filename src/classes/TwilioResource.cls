@@ -105,9 +105,6 @@ public abstract class TwilioResource
 	 */
 	public abstract class InstanceResource extends TwilioResource {
 		
-		/** The Constant URI_PROPERTY. */
-		private final String URI_PROPERTY = 'uri';
-		
 		/** The properties. */
 		private Map<String, Object> properties;
 	
@@ -162,7 +159,7 @@ public abstract class TwilioResource
 					+ ' is an object.  Use getObject() instead.');
 		}
 		
-		public Decimal getPropertyDecimal(String name) {
+		protected Decimal getPropertyDecimal(String name) {
 			String prop = getProperty(name);
 			if (prop==null) {
 				return null;
@@ -170,7 +167,7 @@ public abstract class TwilioResource
 			return Decimal.valueOf(prop);
 		}
 		
-		public Integer getPropertyInteger(String name) {
+		protected Integer getPropertyInteger(String name) {
 			String prop = getProperty(name);
 			if (prop==null) {
 				return null;
@@ -178,7 +175,7 @@ public abstract class TwilioResource
 			return Integer.valueOf(prop);
 		}
 		
-		public Datetime getPropertyDatetime(String name) {
+		protected Datetime getPropertyDatetime(String name) {
 			return TwilioParser.parseDatetime(getProperty(name));
 		}
 	
@@ -192,6 +189,14 @@ public abstract class TwilioResource
 			return prop;
 		}
 		
+		protected List<String> getStringList(String name) {
+			List<String> s = new List<String>();
+			for(Object o : (List<Object>)this.getObject(name)) {
+				s.add(string.valueof(o));
+			} 
+			return s;
+		}
+		
 		/**
 		 * Sets the property.
 		 *
@@ -202,9 +207,9 @@ public abstract class TwilioResource
 			properties.put(name, value);
 		}
 		
-		public String uri {
+		protected String uri {
 			get {
-				return this.getProperty(URI_PROPERTY);
+				return this.getProperty('uri');
 			}
 		}
 		

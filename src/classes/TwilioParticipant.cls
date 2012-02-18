@@ -43,8 +43,7 @@ global class TwilioParticipant extends TwilioResource.InstanceResource {
 		super(client, properties);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
+	/* see TwilioResource#getResourceLocation()
 	 */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
@@ -56,9 +55,6 @@ global class TwilioParticipant extends TwilioResource.InstanceResource {
 	/*
 	 * Property getters
 	 */
-	// public String getSid() {
-	// return this.getProperty(SID_PROPERTY);
-	// }
 
 	/**
 	 * Gets the conference sid.
@@ -95,6 +91,15 @@ global class TwilioParticipant extends TwilioResource.InstanceResource {
 	 */
 	public String getAccountSid() {
 		return this.getProperty('account_sid');
+	}
+	
+	/**
+	 * Gets the Twilio URI for this resource.
+	 *
+	 * @return the resource URI
+	 */
+	public String getUri() {
+		return this.getProperty('uri');
 	}
 	
 	/**
@@ -166,8 +171,6 @@ global class TwilioParticipant extends TwilioResource.InstanceResource {
 		p.setRequestAccountSid(this.getRequestAccountSid());
 		return p;
 	}
-	
-	
 
 	/**
 	 * Kick.

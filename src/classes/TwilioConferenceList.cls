@@ -48,10 +48,6 @@ global class TwilioConferenceList extends TwilioResource.ListResource
 		return 'conferences';
 	}
 	
-	public TwilioConference createConference(Map<String, String> params) {
-		return (TwilioConference)this.create(params);
-	}
-	
 	public List<TwilioConference> getPageData() {
 		List<TwilioConference> returnList = new List<TwilioConference>();
 		

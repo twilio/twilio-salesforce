@@ -144,8 +144,8 @@ global class TwilioNotification extends TwilioResource.InstanceResource {
 	 *
 	 * @return the message date
 	 */
-	public String getMessageDate() {
-		return this.getProperty('message_date');
+	public DateTime getMessageDate() {
+		return this.getPropertyDatetime('message_date');
 	}
 	
 	/**
@@ -155,6 +155,15 @@ global class TwilioNotification extends TwilioResource.InstanceResource {
 	 */
 	public String getRequestUrl() {
 		return this.getProperty('request_url');
+	}
+	
+	/**
+	 * Gets the request method.
+	 *
+	 * @return the request method
+	 */
+	public String getRequestMethod() {
+		return this.getProperty('request_method');
 	}
 	
 	/**
@@ -182,6 +191,15 @@ global class TwilioNotification extends TwilioResource.InstanceResource {
 	 */
 	public String getResponseBody() {
 		return this.getProperty('response_body');
+	}
+	
+	/**
+	 * Gets the Twilio URI for this resource.
+	 *
+	 * @return the resource URI
+	 */
+	public String getUri() {
+		return this.getProperty('uri');
 	}
 	
 	/**

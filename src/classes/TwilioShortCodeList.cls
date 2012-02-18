@@ -31,7 +31,7 @@ global class TwilioShortCodeList extends TwilioResource.ListResource
 	 */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Shortcodes.json';
+				+ this.getRequestAccountSid() + '/ShortCodes.json';
 	}
 
 	/* (non-Javadoc)
@@ -47,10 +47,6 @@ global class TwilioShortCodeList extends TwilioResource.ListResource
 	 */
 	public override String getListKey() {
 		return 'short_codes';
-	}
-	
-	public TwilioShortCode createShortCode(Map<String, String> params) {
-		return (TwilioShortCode)this.create(params);
 	}
 	
 	/* returns the current response results page */

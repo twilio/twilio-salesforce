@@ -105,6 +105,15 @@ global class TwilioConference extends TwilioResource.InstanceResource {
 	}
 	
 	/**
+	 * Gets the Twilio URI for this resource.
+	 *
+	 * @return the resource URI
+	 */
+	public String getUri() {
+		return this.getProperty('uri');
+	}
+	
+	/**
 	 * Get the participant list
 	 * 
 	 * @return
