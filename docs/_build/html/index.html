@@ -25,6 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="twilio-salesforce 1.0 documentation" href="#" />
+    <link rel="next" title="Working with TwiML" href="usage/twiml.html" />
    
   
   <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
@@ -37,6 +38,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usage/twiml.html" title="Working with TwiML"
+             accesskey="N">next</a> |</li>
         <li><a href="#">twilio-salesforce 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -58,31 +65,25 @@
 <div class="section" id="installation">
 <span id="id1"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>We&#8217;ve made it easy to get started. Just grab the code from GitHub and deploy it to your Salesforce org with the included Ant script.</p>
-<ol class="arabic">
-<li><p class="first">Checkout or download the <a class="reference external" href="https://github.com/twilio/twilio-salesforce">twilio-salesforce</a> library from GitHub.</p>
-<blockquote>
-<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone git@github.com:twilio/twilio-salesforce.git
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Install the <a class="reference external" href="http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm">Force.com Migration Tool</a> plugin for Ant, if you don&#8217;t already have it.</p>
-</li>
-<li><p class="first">Edit <tt class="file docutils literal"><span class="pre">install/build.properties</span></tt> to insert your Salesforce username and password.</p>
-</li>
-<li><p class="first">Open a terminal window to the <tt class="file docutils literal"><span class="pre">install</span></tt> folder, then deploy using Ant:</p>
-<blockquote>
-<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ant deployTwilio
-</pre></div>
-</div>
-</div></blockquote>
-</li>
+<ol class="arabic simple">
+<li>Checkout or download the <a class="reference external" href="https://github.com/twilio/twilio-salesforce">twilio-salesforce</a> library from GitHub.</li>
 </ol>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone git@github.com:twilio/twilio-salesforce.git
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>Install the <a class="reference external" href="http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm">Force.com Migration Tool</a> plugin for Ant, if you don&#8217;t already have it.</li>
+<li>Edit <tt class="file docutils literal"><span class="pre">install/build.properties</span></tt> to insert your Salesforce username and password.</li>
+<li>Open a terminal window to the <tt class="file docutils literal"><span class="pre">install</span></tt> folder, then deploy using Ant:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ant deployTwilio
+</pre></div>
+</div>
 <p>Now all the library code is in your org and you&#8217;re ready to start coding!</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="xref doc docutils literal"><span class="pre">/getting-started</span></tt> will get you up and running in a few quick minutes. This guide assumes you understand the core concepts of Twilio. If you&#8217;ve never used Twilio before, don&#8217;t fret! Just read <a class="reference external" href="http://www.twilio.com/api/">about how Twilio works</a> and then jump in.</p>
+<p>The <a class="reference internal" href="quickstart.html"><em>Quickstart</em></a> will get you up and running in a few quick minutes. This guide assumes you understand the core concepts of Twilio. If you&#8217;ve never used Twilio before, don&#8217;t fret! Just read about <a class="reference external" href="http://www.twilio.com/api/">how Twilio works</a> and then jump in.</p>
 </div>
 <div class="section" id="user-guide">
 <span id="id2"></span><h2>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h2>
@@ -99,12 +100,13 @@
 <h3>TwiML<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Generates Twilio Markup Language (TwiML) instructions for controlling and manipulating live phone calls and responding to text messages.</p>
 <div class="toctree-wrapper compound">
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/twiml.html">Working with TwiML</a></li>
 </ul>
 </div>
 </div>
-<div class="section" id="utilities">
-<h3>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="client">
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
 <p>Small functions useful for validating requests are coming from Twilio</p>
 <div class="toctree-wrapper compound">
 <ul class="simple">
@@ -112,18 +114,15 @@
 </div>
 </div>
 </div>
-<div class="section" id="api-reference">
-<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
-<p>A complete guide to all public APIs found in <cite>twilio-salesforce</cite>. Auto-generated, so only use when you really need to dive deep into the library.</p>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
-</div>
-</div>
 <div class="section" id="frequently-asked-questions">
 <h2>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#importerror-messages">ImportError messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#formatting-phone-numbers">Formatting phone numbers</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -156,12 +155,9 @@
 <li><a class="reference internal" href="#id4">TwiML</a><ul>
 </ul>
 </li>
-<li><a class="reference internal" href="#utilities">Utilities</a><ul>
+<li><a class="reference internal" href="#client">Client</a><ul>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#api-reference">API Reference</a><ul>
 </ul>
 </li>
 <li><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a><ul>
@@ -174,6 +170,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="usage/twiml.html" title="next chapter">Working with TwiML</a></li>
   </ul></li>
 </ul>
   <h3>This Page</h3>
