@@ -77,9 +77,8 @@ To control phone calls, your application needs to output [TwiML](http://www.twil
     r.append(p);
     System.debug(r.toXML());
 
-…produces this TwiML:
 
-    ```xml
-    <Response><Play loop="5">https://api.twilio.com/cowbell.mp3</Play><Response>
-    ```
+```xml
+<Response><Play loop="5">https://api.twilio.com/cowbell.mp3</Play><Response>
+```
 
