@@ -2,14 +2,17 @@
 Accessing REST Resources
 =========================
 
+The Twilio REST API allows you to query information about your account, phone numbers, calls, text messages, and recordings. You can also do some fancy things like initiate outbound calls and send text messages. For more information, see the `Twilio REST Web Service Interface <http://www.twilio.com/docs/api/rest>`_ documentation.
+
 To access Twilio REST resources, you'll first need to instantiate a :class:`TwilioRestClient`.
+
 
 Authentication
 ==============
 
 :class:`TwilioRestClient` needs your Twilio credentials to access the Twilio API. While these can be passed in directly to the constructor, we suggest storing your credentials inside the `TwilioConfig` custom setting. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 
-The :class:`TwilioAPI` helper class looks up your Twilio AccountSid and AuthToken from your current organization, in the *TwilioConfig* custom setting.  You can configure *TwilioConfig* by going to **Setup | Develop | Custom Settings**, and your AccountSid and AuthToken can be found on the `Twilio account dashboard <https://www.twilio.com/user/account>`_
+The :class:`TwilioAPI` helper class looks up your Twilio AccountSid and AuthToken from your current organization, in the *TwilioConfig* custom setting.  You can configure *TwilioConfig* by going to **Setup | Develop | Custom Settings**, and your AccountSid and AuthToken can be found on the `Twilio account dashboard <https://www.twilio.com/user/account>`_.
 
 Once you've set up *TwilioConfig*, you can easily get a :class:`TwilioRestClient` from :class:`TwilioAPI`.
 
