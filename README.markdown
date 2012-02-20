@@ -71,12 +71,13 @@ Generate TwiML
 
 To control phone calls, your application needs to output [TwiML](http://www.twilio.com/docs/api/twiml/). Use `TwilioTwiML.Response` to easily create such responses.
 
-    TwilioTwiML.Response r = new TwilioTwiML.Response();
-    TwilioTwiML.Play p = new TwilioTwimL.Play('https://api.twilio.com/cowbell.mp3');
-    p.setLoop(5);
-    r.append(p);
-    System.debug(r.toXML());
-
+```java
+TwilioTwiML.Response r = new TwilioTwiML.Response();
+TwilioTwiML.Play p = new TwilioTwimL.Play('https://api.twilio.com/cowbell.mp3');
+p.setLoop(5);
+r.append(p);
+System.debug(r.toXML());
+```
 
 ```xml
 <Response><Play loop="5">https://api.twilio.com/cowbell.mp3</Play><Response>
