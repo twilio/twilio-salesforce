@@ -79,6 +79,7 @@ To control phone calls, your application needs to output [TwiML](http://www.twil
 
 …produces this TwiML:
 
+    ```xml
     <Response><Play loop="5">https://api.twilio.com/cowbell.mp3</Play><Response>
-
+    ```
 
