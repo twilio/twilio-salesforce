@@ -15,7 +15,7 @@ Generating TwiML in Apex
 
 TwiML creation begins with the :class:`TwilioTwiML.Response` class. Each successive TwiML command is created by adding additional verb classes such as :class:`Say` or :class:`Play` to the response using :meth:`append`. When your instruction set is complete, call :meth:`Response.toXML` to produce a TwiML document.
 
-.. code-block:: none
+.. code-block:: javascript
 
     TwilioTwiML.Response r = new TwilioTwiML.Response();
     r.append(new TwilioTwiML.Say('Hello'));
@@ -30,7 +30,7 @@ TwiML creation begins with the :class:`TwilioTwiML.Response` class. Each success
 
 Sometimes you'll want to set properties beyond what's covered in the constructor (outlined in the :doc:`complete reference </api/twiml>`).  In these cases, assign the verb class to its own variable and set its properties before appending it to the response.
 
-.. code-block:: none
+.. code-block:: javascript
    
     TwilioTwiML.Response r = new TwilioTwiML.Response();
     TwilioTwiML.Play p = new TwilioTwimL.Play('https://api.twilio.com/cowbell.mp3');
@@ -46,7 +46,7 @@ Sometimes you'll want to set properties beyond what's covered in the constructor
 
 You can provide multiple actions in sequence simply by appending more verbs to the response. Some verbs can be nested inside other verbs, like :class:`Say` inside of :class:`Gather`.
 
-.. code-block:: none
+.. code-block:: javascript
 
     TwilioTwiML.Response r = new TwilioTwiML.Response();
     r.append(new TwilioTwiML.Say('Hello'));
@@ -67,16 +67,13 @@ You can provide multiple actions in sequence simply by appending more verbs to t
 Serving TwiML Requests from a Force.com Site
 ============================================
 
+#. Log into `Salesforce <https://login.salesforce.com>`_. Go to **Setup | App Setup | Develop | Sites** and create a new site. Set the home page to TwilioSamplePage and add TwilioTestUser to the list of Site Visualforce Pages. Ensure you activate the site.
 
+#. Log into your `Twilio account <https://www.twilio.com/user/account>`_. Go to **Apps** and click **Create TwiML App**.  Set the **Voice Request URL** to your site's secure URL -- for example, https://twiliotest-developer-edition.na14.force.com/
 
-#. Go to **Setup | App Setup | Develop | Sites** and create a new site. Set the home page to TwilioSamplePage and add TwilioTestUser to the list of Site Visualforce Pages. Ensure you activate the site.
+#. TODO: Copy your Twilio API credentials
 
-#. Log into your `Twilio account <https://www.twilio.com/user/account>`_, go to **Apps** and click *Create TwiML App*.  Under *Voice*, set *Request URL* to your site's secure URL
-   - for example, https://twiliotest-developer-edition.na14.force.com/
-
-#. In your DE environment, select the 'Facebook Toolkit 3' app from the application menu at top right, then click the 'Facebook Apps' tab. Create a new Facebook app, copying 'App ID' and 'App Secret' from your new app's settings in Facebook. Set 'Extended Permissions' to a comma-separated list of permissions to allow the sample app to access more data; for example, you might use read_stream, publish_stream to allow the app to read and write posts on the user's feed. See the Facebook Graph API documentation for a full discussion of permissions.
-
-#. Go to your site URL (e.g. https://twiliotest-developer-edition.na14.force.com/) and you should be prompted to log in to your new app. Do so and you should see a sample page showing your Facebook user name, profile picture, feed, 'Like' button etc. There are buttons to dynamically retrieve your user profile and friends list.
+#. TODO: Test your app
 
 #. Now you have the sample page working, you have a starting point for a TwiML app running on Force.com. Examine TwilioSamplePage and TwilioSampleController to see how the sample app is put together.
 

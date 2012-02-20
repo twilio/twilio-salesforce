@@ -7,7 +7,9 @@ Getting started with the Twilio API couldn't be easier. Create a Twilio REST cli
 Make a Call
 ===========
 
-.. code-block:: none
+This sample calls the `to` phone number and plays music.  The `from` number must be a `verified number <https://www.twilio.com/user/account/phone-numbers/verified>`_ on your Twilio account.
+
+.. code-block:: javascript
 
     // To find these visit https://www.twilio.com/user/account
     String account = 'ACXXXXXXXXXXXXXXXXX';
@@ -21,12 +23,13 @@ Make a Call
             'url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
         };
     TwilioCall call = client.getAccount().getCalls().createCall(params);
-    System.debug(call.getSid());
 
 Send an SMS
 ===========
 
-.. code-block:: none
+This sample texts *Hello there!* to the `to` phone number.  The `from` number must be a `verified number <https://www.twilio.com/user/account/phone-numbers/verified>`_ on your Twilio account.
+
+.. code-block:: javascript
 
     String account = 'ACXXXXXXXXXXXXXXXXX';
     String token = 'YYYYYYYYYYYYYYYYYY';
@@ -42,12 +45,12 @@ Send an SMS
 Generate TwiML
 ==============
 
-To control phone calls, your application needs to output `TwiML <http://www.twilio.com/docs/api/twiml/>`_. Use :class:`TwilioTwiML.Response` to easily create such responses.
+To control phone calls, your application needs to output `TwiML <http://www.twilio.com/docs/api/twiml/>`_. Use :class:`TwilioTwiML.Response` to easily create a TwiML document.
 
-.. code-block:: none
+.. code-block:: javascript
 
     TwilioTwiML.Response r = new TwilioTwiML.Response();
-    TwilioTwiML.Play p = new TwilioTwimL.Play('https://api.twilio.com/cowbell.mp3');
+    TwilioTwiML.Play p = new TwilioTwiML.Play('https://api.twilio.com/cowbell.mp3');
     p.setLoop(5);
     r.append(p);
     System.debug(r.toXML());
@@ -58,8 +61,7 @@ To control phone calls, your application needs to output `TwiML <http://www.twil
 
 
 
-
-Dig Deeper
+Next Steps
 ==========
 
 The full power of the Twilio API is at your fingertips. The :ref:`user-guide` explains all the awesome features available to use.

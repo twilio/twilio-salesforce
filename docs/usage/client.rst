@@ -9,19 +9,19 @@ Twilio Client extends the power of Twilio beyond the traditional telephone netwo
 
 
 The twilio.js Library
----------------------
+=====================
 
 Take your existing Twilio applications and bring them to the browser using the `twilio.js Library <http://www.twilio.com/docs/client/twilio-js>`_.
 
 
 Twilio Client Mobile SDKs
--------------------------
+=========================
 
 Add voice to your mobile applications with the `Twilio Client Mobile SDKs for Android and iOS <http://www.twilio.com/api/client/sdk>`_.
 
 
 Token Generation
-----------------
+================
 
 You setup your device and establish a connection to Twilio. Audio from your device's microphone is sent to Twilio, and Twilio plays audio through your device's speakers, like on a normal phone call. But with Twilio Client, your device need not be a phone.
 

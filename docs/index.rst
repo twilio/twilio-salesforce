@@ -58,8 +58,16 @@ Query the Twilio REST API to create phone calls, send SMS messages and so much m
 .. toctree::
     :maxdepth: 1
 
-..
-    usage/basics usage/phone-calls usage/phone-numbers usage/messages usage/accounts usage/conferences usage/applications usage/notifications usage/recordings usage/transcriptions
+    usage/basics
+    usage/phone-calls
+    usage/phone-numbers
+    usage/messages
+    usage/accounts
+    usage/conferences
+    usage/applications
+    usage/notifications
+    usage/recordings
+    usage/transcriptions
 
 TwiML
 -----
@@ -82,24 +90,6 @@ Small functions useful for validating requests are coming from Twilio
 ..
     usage/client
 
-..
-   API Reference
-   =============
-
-   A complete guide to all public APIs found in `twilio-salesforce`. Auto-generated, so only use when you really need to dive deep into the library.
-
-   .. toctree::
-       :maxdepth: 2
-
-      api
-
-Frequently Asked Questions
-==========================
-
-.. toctree::
-    :maxdepth: 2
-
-    faq
 
 Support and Development
 =======================
