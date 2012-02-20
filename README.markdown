@@ -38,33 +38,37 @@ Getting started with the Twilio API couldn't be easier. Create a Twilio REST cli
 Make a Call
 -----------
 
-    // Find your Twilio API credentials at https://www.twilio.com/user/account
-    String account = 'ACXXXXXXXXXXXXXXXXX';
-    String token = 'YYYYYYYYYYYYYYYYYY';
-    
-    TwilioRestClient client = new TwilioRestClient(account, token);
-    
-    Map<String,String> params = new Map<String,String> {
-            'to'   => '9991231234',
-            'from' => '9991231234',
-            'url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
-        };
-    TwilioCall call = client.getAccount().getCalls().createCall(params);
-    System.debug(call.getSid());
+```javascript
+// Find your Twilio API credentials at https://www.twilio.com/user/account
+String account = 'ACXXXXXXXXXXXXXXXXX';
+String token = 'YYYYYYYYYYYYYYYYYY';
+
+TwilioRestClient client = new TwilioRestClient(account, token);
+
+Map<String,String> params = new Map<String,String> {
+        'to'   => '9991231234',
+        'from' => '9991231234',
+        'url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
+    };
+TwilioCall call = client.getAccount().getCalls().createCall(params);
+System.debug(call.getSid());
+```
 
 Send an SMS
 -----------
 
-    String account = 'ACXXXXXXXXXXXXXXXXX';
-    String token = 'YYYYYYYYYYYYYYYYYY';
-    TwilioRestClient client = new TwilioRestClient(account, token);
+```javascript
+String account = 'ACXXXXXXXXXXXXXXXXX';
+String token = 'YYYYYYYYYYYYYYYYYY';
+TwilioRestClient client = new TwilioRestClient(account, token);
 
-    Map<String,String> params = new Map<String,String> {
-            'to'   => '+12316851234',
-            'from' => '+15555555555',
-            'body' => 'Hello there!'
-        };
-    TwilioSMS sms = client.getAccount().getSMSMessages().createSMS(params);
+Map<String,String> params = new Map<String,String> {
+        'to'   => '+12316851234',
+        'from' => '+15555555555',
+        'body' => 'Hello there!'
+    };
+TwilioSMS sms = client.getAccount().getSMSMessages().createSMS(params);
+```
 
 Generate TwiML
 --------------
