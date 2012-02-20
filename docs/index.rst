@@ -20,9 +20,9 @@ We've made it easy to get started. Just grab the code from GitHub and deploy it 
 
 #. Checkout or download the `twilio-salesforce <https://github.com/twilio/twilio-salesforce>`_ library from GitHub.
 
-.. code-block:: bash
+   .. code-block:: bash
 
-		$ git clone git@github.com:twilio/twilio-salesforce.git
+     $ git clone git@github.com:twilio/twilio-salesforce.git
 
 #. Install the `Force.com Migration Tool <http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm>`_ plugin for Ant, if you don't already have it.
 
@@ -30,9 +30,9 @@ We've made it easy to get started. Just grab the code from GitHub and deploy it 
 
 #. Open a terminal window to the :file:`install` folder, then deploy using Ant:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-		$ ant deployTwilio
+     $ ant deployTwilio
 
 Now all the library code is in your org and you're ready to start coding!
 

@@ -8,9 +8,12 @@ TwiML controls live phone calls and respond to text messages in real time throug
 
 When an SMS or incoming call is received, Twilio asks your web application for instructions by making an HTTP request. Your application decides how the call should proceed by returning a Twilio Markup XML (TwiML) document telling Twilio to say text to the caller, send an SMS message, play audio files, get input from the keypad, record audio, connect the call to another phone and more.
 
-Using the Twilio Helper Library for Salesforce, you can create TwiML documents in Apex using the classes defined in :class:`TwilioTwiML`.
+You can create TwiML documents in Apex using the verb classes defined inside the :class:`TwilioTwiML` class.
 
-TwiML creation begins with the :class:`TwilioTwiML.Response` verb. Each successive verb is created by adding additional verbs such as :class:`Say` or :class:`Play` to the response using :meth:`append`. To finish, call the :meth:`toXML` method on :class:`Response`, which returns raw TwiML.
+Generating TwiML in Apex
+========================
+
+TwiML creation begins with the :class:`TwilioTwiML.Response` class. Each successive TwiML command is created by adding additional verb classes such as :class:`Say` or :class:`Play` to the response using :meth:`append`. When your instruction set is complete, call :meth:`Response.toXML` to produce a TwiML document.
 
 .. code-block:: none
 
@@ -20,10 +23,12 @@ TwiML creation begins with the :class:`TwilioTwiML.Response` verb. Each successi
 
 .. code-block:: xml
 
-   <Response><Say>Hello</Say><Response>
+   <Response>
+     <Say>Hello</Say>
+   <Response>
 
 
-When you need to set attributes on the verbs (outlined in the :doc:`complete reference </api/twiml>`), instantiate the verb class and set its properties before appending it to the response.
+Sometimes you'll want to set properties beyond what's covered in the constructor (outlined in the :doc:`complete reference </api/twiml>`).  In these cases, assign the verb class to its own variable and set its properties before appending it to the response.
 
 .. code-block:: none
    
@@ -35,7 +40,9 @@ When you need to set attributes on the verbs (outlined in the :doc:`complete ref
 
 .. code-block:: xml
 
-    <Response><Play loop="3">https://api.twilio.com/cowbell.mp3</Play><Response>
+    <Response>
+      <Play loop="3">https://api.twilio.com/cowbell.mp3</Play>
+    <Response>
 
 You can provide multiple actions in sequence simply by appending more verbs to the response. Some verbs can be nested inside other verbs, like :class:`Say` inside of :class:`Gather`.
 
@@ -49,8 +56,6 @@ You can provide multiple actions in sequence simply by appending more verbs to t
     r.append(g);    
     System.debug(r.toXML());
 
-which returns the following (excluding linebreaks)
-
 .. code-block:: xml
 
     <Response>
@@ -58,7 +63,27 @@ which returns the following (excluding linebreaks)
       <Gather finishOnKey="4"><Say>World</Say></Gather>
     </Response>
 
+
+Serving TwiML Requests from a Force.com Site
+============================================
+
+
+
+#. Go to **Setup | App Setup | Develop | Sites** and create a new site. Set the home page to TwilioSamplePage and add TwilioTestUser to the list of Site Visualforce Pages. Ensure you activate the site.
+
+#. Log into your `Twilio account <https://www.twilio.com/user/account>`_, go to **Apps** and click *Create TwiML App*.  Under *Voice*, set *Request URL* to your site's secure URL
+   - for example, https://twiliotest-developer-edition.na14.force.com/
+
+#. In your DE environment, select the 'Facebook Toolkit 3' app from the application menu at top right, then click the 'Facebook Apps' tab. Create a new Facebook app, copying 'App ID' and 'App Secret' from your new app's settings in Facebook. Set 'Extended Permissions' to a comma-separated list of permissions to allow the sample app to access more data; for example, you might use read_stream, publish_stream to allow the app to read and write posts on the user's feed. See the Facebook Graph API documentation for a full discussion of permissions.
+
+#. Go to your site URL (e.g. https://twiliotest-developer-edition.na14.force.com/) and you should be prompted to log in to your new app. Do so and you should see a sample page showing your Facebook user name, profile picture, feed, 'Like' button etc. There are buttons to dynamically retrieve your user profile and friends list.
+
+#. Now you have the sample page working, you have a starting point for a TwiML app running on Force.com. Examine TwilioSamplePage and TwilioSampleController to see how the sample app is put together.
+
+
 More Information
-----------------
+================
 
 The complete list of TwiML verbs and attributes is available in the library's :doc:`TwiML reference </api/twiml>` and in the `Twilio docs <http://www.twilio.com/docs/api/twiml>`_.
+
+

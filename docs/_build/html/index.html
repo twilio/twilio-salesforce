@@ -39,9 +39,6 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="usage/twiml.html" title="Working with TwiML"
              accesskey="N">next</a> |</li>
         <li><a href="#">twilio-salesforce 1.0 documentation</a> &raquo;</li> 
@@ -65,20 +62,22 @@
 <div class="section" id="installation">
 <span id="id1"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>We&#8217;ve made it easy to get started. Just grab the code from GitHub and deploy it to your Salesforce org with the included Ant script.</p>
-<ol class="arabic simple">
-<li>Checkout or download the <a class="reference external" href="https://github.com/twilio/twilio-salesforce">twilio-salesforce</a> library from GitHub.</li>
-</ol>
+<ol class="arabic">
+<li><p class="first">Checkout or download the <a class="reference external" href="https://github.com/twilio/twilio-salesforce">twilio-salesforce</a> library from GitHub.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone git@github.com:twilio/twilio-salesforce.git
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li>Install the <a class="reference external" href="http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm">Force.com Migration Tool</a> plugin for Ant, if you don&#8217;t already have it.</li>
-<li>Edit <tt class="file docutils literal"><span class="pre">install/build.properties</span></tt> to insert your Salesforce username and password.</li>
-<li>Open a terminal window to the <tt class="file docutils literal"><span class="pre">install</span></tt> folder, then deploy using Ant:</li>
-</ol>
+</li>
+<li><p class="first">Install the <a class="reference external" href="http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm">Force.com Migration Tool</a> plugin for Ant, if you don&#8217;t already have it.</p>
+</li>
+<li><p class="first">Edit <tt class="file docutils literal"><span class="pre">install/build.properties</span></tt> to insert your Salesforce username and password.</p>
+</li>
+<li><p class="first">Open a terminal window to the <tt class="file docutils literal"><span class="pre">install</span></tt> folder, then deploy using Ant:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ant deployTwilio
 </pre></div>
 </div>
+</li>
+</ol>
 <p>Now all the library code is in your org and you&#8217;re ready to start coding!</p>
 </div>
 <div class="section" id="getting-started">
