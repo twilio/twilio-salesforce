@@ -16,7 +16,9 @@ We've made it easy to get started. Just grab the code from GitHub and deploy it 
 
 1. Checkout or download the [twilio-salesforce](https://github.com/twilio/twilio-salesforce) library from GitHub.
 
-        $ git clone git@github.com:twilio/twilio-salesforce.git
+    ```bash
+    $ git clone git@github.com:twilio/twilio-salesforce.git
+    ```
 
 1. Install the [Force.com Migration Tool](http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm) plugin for Ant, if you don't already have it.
 
@@ -24,7 +26,9 @@ We've made it easy to get started. Just grab the code from GitHub and deploy it 
 
 1. Open a terminal window to the `install` folder, then deploy using Ant:
 
-        $ ant deployTwilio
+    ```bash
+    $ ant deployTwilio
+    ```
 
 Now all the library code is in your org and you're ready to start coding!
 
@@ -37,6 +41,7 @@ Getting started with the Twilio API couldn't be easier. Create a Twilio REST cli
 
 Make a Call
 -----------
+This sample calls the `to` phone number and plays music.  The `from` number must be a [verified number](https://www.twilio.com/user/account/phone-numbers/verified) on your Twilio account.
 
 ```javascript
 // Find your Twilio API credentials at https://www.twilio.com/user/account
@@ -51,11 +56,11 @@ Map<String,String> params = new Map<String,String> {
         'url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
     };
 TwilioCall call = client.getAccount().getCalls().createCall(params);
-System.debug(call.getSid());
 ```
 
 Send an SMS
 -----------
+This sample texts *Hello there!* to the `to` phone number.  The `from` number must be a [verified number](https://www.twilio.com/user/account/phone-numbers/verified) on your Twilio account.
 
 ```javascript
 String account = 'ACXXXXXXXXXXXXXXXXX';
@@ -73,9 +78,9 @@ TwilioSMS sms = client.getAccount().getSMSMessages().createSMS(params);
 Generate TwiML
 --------------
 
-To control phone calls, your application needs to output [TwiML](http://www.twilio.com/docs/api/twiml/). Use `TwilioTwiML.Response` to easily create such responses.
+To control phone calls, your application needs to output [TwiML](http://www.twilio.com/docs/api/twiml/). Use `TwilioTwiML.Response` to easily create a TwiML document.
 
-```java
+```javascript
 TwilioTwiML.Response r = new TwilioTwiML.Response();
 TwilioTwiML.Play p = new TwilioTwimL.Play('https://api.twilio.com/cowbell.mp3');
 p.setLoop(5);
@@ -87,3 +92,9 @@ System.debug(r.toXML());
 <Response><Play loop="5">https://api.twilio.com/cowbell.mp3</Play><Response>
 ```
 
+
+
+Next Steps
+==========
+
+The full power of the Twilio API is at your fingertips. Visit the [full documentation](http://readthedocs.org/docs/twilio-salesforce) for advanced topics.
