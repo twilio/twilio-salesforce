@@ -311,6 +311,17 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 		conf.setRequestAccountSid(this.getRequestAccountSid());
 		return conf;
 	}
+	
+	/**
+	 * Get the participant list
+	 * 
+	 * @return
+	 */
+	public TwilioParticipantList getParticipants(String conferenceSid) {
+		TwilioParticipantList twlist = new TwilioParticipantList(this.getClient(), conferenceSid);
+		twlist.setRequestAccountSid(this.getRequestAccountSid());
+		return twlist;
+	}
 
 	/**
 	 * Returns the incoming phone numbers list.
