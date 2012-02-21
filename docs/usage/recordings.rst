@@ -17,7 +17,7 @@ The following code will print out the :attr:`duration` for each :class:`TwilioRe
     String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
-    for (TwilioRecording rec : client.getRecordings().getPageData()) {
+    for (TwilioRecording rec : client.getAccount().getRecordings().getPageData()) {
     	System.debug(rec.getDuration());
     }
 
@@ -34,7 +34,7 @@ The following will only show recordings made on January 1, 2012.
     Map<String,String> filters = new Map<String,String> {
     		'DateCreated' => TwilioParser.formatFilterDatetime(2012,1,1)
     	};
-    for (TwilioRecording rec : client.getRecordings(filters).getPageData()) {
+    for (TwilioRecording rec : client.getAccount().getRecordings(filters).getPageData()) {
     	System.debug(rec.getDuration());
     }
 
@@ -49,7 +49,7 @@ The :class:`TwilioRecordingList` resource allows you to delete unnecessary recor
     String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
-    client.getRecordings().deleteResource("RC123");
+    client.getAccount().getRecordings().deleteResource("RC123");
 
 Audio Formats
 -----------------

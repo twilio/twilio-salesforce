@@ -17,7 +17,7 @@ The following code will print out the :attr:`FriendlyName` for each :class:`Twil
     String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
-    for (TwilioApplication app : client.getApplications().getPageData()) {
+    for (TwilioApplication app : client.getAccount().getApplications().getPageData()) {
     	System.debug(app.getFriendlyName());
     }
 
@@ -36,7 +36,7 @@ You can filter applications by Friendly Name
     Map<String,String> filters = new Map<String,String> {
     		'FriendlyName' => 'FOO'
     	};
-    TwilioApplicationList apps = client.getApplications(filters);
+    TwilioApplicationList apps = client.getAccount().getApplications(filters);
     
     for (TwilioApplication app : apps.getPageData()) {
     	System.debug(app.getSid());
@@ -56,7 +56,7 @@ When creating an application, no fields are required. We create an application w
     Map<String,String> properties = new Map<String,String> {
     		'FriendlyName' => 'My New App'
     	};
-    TwilioApplication app = client.getApplications().create(properties);
+    TwilioApplication app = client.getAccount().getApplications().create(properties);
 
 
 Updating an Application
@@ -69,7 +69,7 @@ Updating an Application
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
     String app_sid = 'AP123';
-    TwilioApplication app = client.getApplication(app_sid);
+    TwilioApplication app = client.getAccount().getApplication(app_sid);
     Map<String,String> properties = new Map<String,String> {
     		'VoiceUrl' =>
     		'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
@@ -90,7 +90,7 @@ You can delete an application from the list resource or the instance resource:
     
     String app_sid = 'AP123';
     // delete from the list resource
-    client.getApplications().deleteApplication(app_sid);
+    client.getAccount().getApplications().deleteApplication(app_sid);
     // or do the same thing from the instance resource
-    client.getApplication(app_sid).deleteApplication();
+    client.getAccount().getApplication(app_sid).deleteApplication();
     

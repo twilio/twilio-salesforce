@@ -39,7 +39,7 @@ Retrieving Sent Messages
     String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
-    for (TwilioSms message : client.getSmsMessages().getPageData()) {
+    for (TwilioSms message : client.getAccount().getSmsMessages().getPageData()) {
     	System.debug(message.getBody());
     }
     
@@ -59,7 +59,7 @@ The list resource supports filtering on :attr:`To`, :attr:`From`, and :attr:`Dat
     		'To' => '+5466758723',
     		'DateSent' => TwilioParser.formatFilterDatetime(2012,1,1)
     	};
-    for (TwilioSms message : client.getSmsMessages(filters).getPageData()) {
+    for (TwilioSms message : client.getAccount().getSmsMessages(filters).getPageData()) {
     	System.debug(message.getBody());
     }
 
