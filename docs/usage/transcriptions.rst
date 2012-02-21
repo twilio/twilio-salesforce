@@ -1,5 +1,3 @@
-.. module:: twilio.rest.resources
-
 ================
 Transcriptions
 ================
@@ -19,6 +17,6 @@ The following code will print out recording length for each :class:`TwilioTransc
     String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
-    for (TwilioTranscription t : client.getTransactions().getPageData()) {
+    for (TwilioTranscription t : client.getAccount().getTransactions().getPageData()) {
     	System.debug(t.getDuration());
     }

@@ -1,5 +1,3 @@
-.. module:: twilio.rest.resources
-
 ================
 Recordings
 ================
