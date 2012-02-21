@@ -24,7 +24,7 @@ can be successfully started, you'll need a url which outputs valid `TwiML
 			'url' => 'http://foo.com/call.xml'
 		};
     
-    TwilioCall call = client.calls.create(params);
+    TwilioCall call = client.getAccount().getCalls().create(params);
     System.debug(call.getDuration());
     System.debug(call.getSid());
 
