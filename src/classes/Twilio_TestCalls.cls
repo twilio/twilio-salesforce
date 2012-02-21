@@ -24,8 +24,8 @@ class Twilio_TestCalls {
 			);
 			
 		// Get an API client and request the Twilio Call
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
-        TwilioCall call = api.getClient().getAccount().getCall('CA5ea9c5d78e1f35fc01c204682d056e22');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
+        TwilioCall call = client.getAccount().getCall('CA5ea9c5d78e1f35fc01c204682d056e22');
         
         // assert correct behavior
         System.assertEquals('completed',call.getStatus());
@@ -50,9 +50,6 @@ class Twilio_TestCalls {
         System.assertEquals('/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Calls/CA5ea9c5d78e1f35fc01c204682d056e22/Recordings.json', call.getRecordings().getResourceLocation());
         System.assertEquals('/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Calls/CA5ea9c5d78e1f35fc01c204682d056e22/Notifications.json', call.getSubresourceUris().get('notifications'));
         System.assertEquals('/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Calls/CA5ea9c5d78e1f35fc01c204682d056e22/Notifications.json', call.getNotifications().getResourceLocation());
-        
-        TwilioCallList clist=new TwilioCallList(api.getClient());
-        TwilioCall clist1=new TwilioCall(api.getClient());
     }
     
     static testmethod void testTwilioCall_post() {
@@ -101,9 +98,9 @@ class Twilio_TestCalls {
 			};
 			
 		// Get an API client and request the Twilio Call
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
-        api.getClient().getAccount().getCall('CA5ea9c5d78e1f35fc01c204682d056e22').updateResource(params);
-        TwilioCall call = api.getClient().getAccount().getCall('CA5ea9c5d78e1f35fc01c204682d056e22');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
+        client.getAccount().getCall('CA5ea9c5d78e1f35fc01c204682d056e22').updateResource(params);
+        TwilioCall call = client.getAccount().getCall('CA5ea9c5d78e1f35fc01c204682d056e22');
         
         // assert correct behavior
         System.assertEquals('completed',call.getStatus());
@@ -160,8 +157,8 @@ class Twilio_TestCalls {
 			'https://api.twilio.com/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/Calls/CAe1644a7eed5088b159577c5802d8be38.json',
 			new Twilio_TestHTTPMock.Response(json,201)
 			);
-		TwilioAPI api = new TwilioAPI('AC5ef872f6da5a21de157d80997a64bd33',authToken);		
-		Twiliocall call = api.getClient().getAccount().getCall('CAe1644a7eed5088b159577c5802d8be38').redirect('http://www.myapp.com/myhandler.php','POST');
+		TwilioRestClient client = new TwilioRestClient('AC5ef872f6da5a21de157d80997a64bd33',authToken);		
+		Twiliocall call = client.getAccount().getCall('CAe1644a7eed5088b159577c5802d8be38').redirect('http://www.myapp.com/myhandler.php','POST');
 		
 		System.assertEquals('in-progress',call.getStatus());
         System.assertEquals('CAe1644a7eed5088b159577c5802d8be38',call.getSid());
@@ -205,8 +202,8 @@ class Twilio_TestCalls {
 			new Twilio_TestHTTPMock.Response(json,201)
 			);
 
-		TwilioAPI api = new TwilioAPI('AC5ef872f6da5a21de157d80997a64bd33',authToken);		
-		Twiliocall call = api.getClient().getAccount().getCall('CAe1644a7eed5088b159577c5802d8be38').hangup();
+		TwilioRestClient client = new TwilioRestClient('AC5ef872f6da5a21de157d80997a64bd33',authToken);		
+		Twiliocall call = client.getAccount().getCall('CAe1644a7eed5088b159577c5802d8be38').hangup();
 		
 		System.assertEquals('completed',call.getStatus());
         System.assertEquals('CAe1644a7eed5088b159577c5802d8be38',call.getSid());
@@ -249,8 +246,8 @@ class Twilio_TestCalls {
 			new Twilio_TestHTTPMock.Response(json,201)
 			);
 
-		TwilioAPI api = new TwilioAPI('AC5ef872f6da5a21de157d80997a64bd33',authToken);		
-		Twiliocall call = api.getClient().getAccount().getCall('CAe1644a7eed5088b159577c5802d8be38').cancel();
+		TwilioRestClient client = new TwilioRestClient('AC5ef872f6da5a21de157d80997a64bd33',authToken);		
+		Twiliocall call = client.getAccount().getCall('CAe1644a7eed5088b159577c5802d8be38').cancel();
 		
 		System.assertEquals('completed',call.getStatus());
         System.assertEquals('CAe1644a7eed5088b159577c5802d8be38',call.getSid());
@@ -280,8 +277,8 @@ class Twilio_TestCalls {
 			);
         
         // Get an API client and request the Twilio Call List
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
-        TwilioCallList twcalls = api.getClient().getAccount().getCalls();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
+        TwilioCallList twcalls = client.getAccount().getCalls();
         List<TwilioCall> calls = twcalls.getPageData();
         
         // assert correct behavior
@@ -331,8 +328,8 @@ class Twilio_TestCalls {
 		params.put('To', '+919902400323');
 		params.put('Url', 'http://shsimha-developer-edition.ap1.force.com/clicktocall?called=+918722266660');
 		
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);		
-		Twiliocall call = api.getClient().getAccount().getCalls().createCall(params);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);		
+		Twiliocall call = client.getAccount().getCalls().create(params);
 		
 		System.assertEquals('queued',call.getStatus());
         System.assertEquals('CA1768192f80674687ac779c0abe5dd5db',call.getSid());
@@ -517,8 +514,8 @@ class Twilio_TestCalls {
 			);
         
         // Get an API client and request the Twilio Call List
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
-        TwilioCallList twcalls = api.getClient().getAccount().getCalls();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
+        TwilioCallList twcalls = client.getAccount().getCalls();
         
         TwilioCall call;
         Iterator<TwilioCall> callIt = twcalls.iterator();
@@ -564,8 +561,8 @@ class Twilio_TestCalls {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		Twiliotranscription twtransc = api.getClient().getAccount().getTranscription('TR8c61027b709ffb038236612dc5af8723');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		Twiliotranscription twtransc = client.getAccount().getTranscription('TR8c61027b709ffb038236612dc5af8723');
 		
         System.assertEquals('TR8c61027b709ffb038236612dc5af8723', twtransc.getSid());
         System.assertEquals('REca11f06dc31b5515a2dfb1f5134361f2', twtransc.getRecordingSid());
@@ -579,8 +576,8 @@ class Twilio_TestCalls {
 		System.assertEquals('-0.05000',twtransc.getprice());
 		System.assertEquals('Tommy? Tommy is that you? I told you never to call me again.',twtransc.getTranscriptionText());
 		
-		Twiliotranscription twtransc1 = new Twiliotranscription(api.getclient());
-		Twiliotranscriptionlist twtransclist= new Twiliotranscriptionlist(api.getclient());
+		Twiliotranscription twtransc1 = new Twiliotranscription(client);
+		Twiliotranscriptionlist twtransclist= new Twiliotranscriptionlist(client);
 	}
     
     static testmethod void testTwilioTranscriptionList_get_filter() { 
@@ -611,8 +608,8 @@ class Twilio_TestCalls {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwiliotranscriptionList twtrans = api.getClient().getAccount().gettranscriptions();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwiliotranscriptionList twtrans = client.getAccount().gettranscriptions();
 		System.assertNotEquals(null, twtrans);
 		
 		List<Twiliotranscription> twtranslist = twtrans.getPageData();
@@ -641,7 +638,7 @@ class Twilio_TestCalls {
 		// Get an API client and request the Twilio Account
 		map<String,string> params=new map<string,string>();
 		params.put('sid','TR8c61027b709ffb038236612dc5af8723');
-		twtrans = api.getClient().getAccount().gettranscriptions(params);
+		twtrans = client.getAccount().gettranscriptions(params);
 		System.assertNotEquals(null, twtrans);
 		
 		Iterator<Twiliotranscription> it = twtrans.iterator();

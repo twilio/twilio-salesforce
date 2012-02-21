@@ -49,8 +49,8 @@ global class TwilioSmsList extends TwilioResource.ListResource implements Iterab
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.factory.SmsFactory#create(java.util.Map)
 	 */
-	public TwilioSms createSms(Map<String, String> params) {
-		return (TwilioSms)this.create(params);
+	public TwilioSms create(Map<String, String> params) {
+		return (TwilioSms)this.createInstance(params);
 	}
 	
 	public List<TwilioSms> getPageData() {

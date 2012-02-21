@@ -42,8 +42,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
-		TwilioAvailablePhoneNumberList twnumbers = api.getClient().getAccount().getAvailablePhoneNumbers();
+		TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
+		TwilioAvailablePhoneNumberList twnumbers = client.getAccount().getAvailablePhoneNumbers();
 		
 		// assert correct values in the fields
 		System.assertNotEquals(null, twnumbers);
@@ -124,8 +124,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		
 			// Get an API client and request the Twilio Account
-			TwilioAPI api = new TwilioAPI('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
-			TwilioAvailablePhoneNumberList twnumbers = api.getClient().getAccount().getAvailablePhoneNumbers(new map<string,string>(), 'US','TollFree');
+			TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
+			TwilioAvailablePhoneNumberList twnumbers = client.getAccount().getAvailablePhoneNumbers(new map<string,string>(), 'US','TollFree');
 			
 			// assert correct values in the fields
 			System.assertNotEquals(null, twnumbers);
@@ -195,8 +195,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		
 			// Get an API client and request the Twilio Account
-			TwilioAPI api = new TwilioAPI('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
-			TwilioAvailablePhoneNumberList twnumbers = api.getClient().getAccount().getAvailablePhoneNumbers(new map<string,string>(), 'UK','TollFree');
+			TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
+			TwilioAvailablePhoneNumberList twnumbers = client.getAccount().getAvailablePhoneNumbers(new map<string,string>(), 'UK','TollFree');
 			
 			// assert correct values in the fields
 			System.assertNotEquals(null, twnumbers);
@@ -241,8 +241,8 @@ private class Twilio_TestPhoneNumbers {
 			params.put('AreaCode','510');
 
 			// Get an API client and request the Twilio Account
-			TwilioAPI api = new TwilioAPI('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
-			TwilioAvailablePhoneNumberList twnumbers = api.getClient().getAccount().getAvailablePhoneNumbers(params, 'US','Local');
+			TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
+			TwilioAvailablePhoneNumberList twnumbers = client.getAccount().getAvailablePhoneNumbers(params, 'US','Local');
 			
 			// assert correct values in the fields
 			System.assertNotEquals(null, twnumbers);
@@ -273,9 +273,9 @@ private class Twilio_TestPhoneNumbers {
 		System.assertEquals('94617', phnumber1.getPostalCode());
 		System.assertEquals('US', phnumber1.getIsoCountry());
 		
-		TwilioAvailablePhoneNumberList twnumbers1 =new TwilioAvailablePhoneNumberList(api.getClient());
-		TwilioAvailablePhoneNumberList twnumbers2 =new TwilioAvailablePhoneNumberList(api.getClient(),'US','Local');
-		TwilioAvailablePhoneNumber avtwnumbers1 =new TwilioAvailablePhoneNumber(api.getClient());
+		TwilioAvailablePhoneNumberList twnumbers1 =new TwilioAvailablePhoneNumberList(client);
+		TwilioAvailablePhoneNumberList twnumbers2 =new TwilioAvailablePhoneNumberList(client,'US','Local');
+		TwilioAvailablePhoneNumber avtwnumbers1 =new TwilioAvailablePhoneNumber(client);
     }
     
     static testmethod void testTwilioIncomingPhoneNumbersList_get()
@@ -300,8 +300,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		 
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioIncomingPhoneNumberList twinnums=api.getClient().getAccount().getIncomingPhoneNumbers();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioIncomingPhoneNumberList twinnums=client.getAccount().getIncomingPhoneNumbers();
 		
 		System.assertNotEquals(null, twinnums);
 		
@@ -368,9 +368,9 @@ private class Twilio_TestPhoneNumbers {
 				
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
 		
-		TwilioIncomingPhoneNumber twinnums= api.getClient().getAccount().getIncomingPhoneNumbers().createIncomingPhoneNumber(p);
+		TwilioIncomingPhoneNumber twinnums= client.getAccount().getIncomingPhoneNumbers().create(p);
 		
 		System.assertEquals('PN2a0747eba6abf96b7e3c3ff0b4530f6e', twinnums.getSid());
 		System.assertEquals(Datetime.newInstanceGmt(2010,08,16,23,31,47),twinnums.getDateCreated());
@@ -410,9 +410,9 @@ private class Twilio_TestPhoneNumbers {
 		);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
 		
-		TwilioIncomingPhoneNumber twinnums=api.getClient().getAccount().getIncomingPhoneNumber('PN3f94c94562ac88dccf16f8859a1a8b25');
+		TwilioIncomingPhoneNumber twinnums=client.getAccount().getIncomingPhoneNumber('PN3f94c94562ac88dccf16f8859a1a8b25');
 		
 		System.assertEquals('PN3f94c94562ac88dccf16f8859a1a8b25', twinnums.getSid());
 		System.assertEquals('My Company Line',twinnums.getFriendlyName());
@@ -448,12 +448,12 @@ private class Twilio_TestPhoneNumbers {
 		);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
 		
-		boolean isdel=api.getClient().getAccount().getIncomingPhoneNumber('PN3f94c94562ac88dccf16f8859a1a8b25').deleteIncomingPhoneNumber();
+		boolean isdel=client.getAccount().getIncomingPhoneNumber('PN3f94c94562ac88dccf16f8859a1a8b25').deleteIncomingPhoneNumber();
 		system.assert(true,isdel); 
-		TwilioIncomingPhoneNumber twip=new TwilioIncomingPhoneNumber(api.getclient());
-		TwilioIncomingPhoneNumberlist twipl=new TwilioIncomingPhoneNumberList(api.getclient());
+		TwilioIncomingPhoneNumber twip=new TwilioIncomingPhoneNumber(client);
+		TwilioIncomingPhoneNumberlist twipl=new TwilioIncomingPhoneNumberList(client);
 	}
 	
 	static testmethod void testOutgoingCallerIDList_get()
@@ -475,8 +475,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioOutgoingCallerIdList twoutcallid=api.getClient().getAccount().getOutgoingCallerIds();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioOutgoingCallerIdList twoutcallid=client.getAccount().getOutgoingCallerIds();
 		System.assertNotEquals(null, twoutcallid);
 		
 		List<TwilioOutgoingCallerId> twocallidList = twoutcallid.getPageData();
@@ -498,7 +498,7 @@ private class Twilio_TestPhoneNumbers {
 		
 		map<string,string> params=new map<String,string>();
 		params.put('PhoneNumber','+919902400323');
-		twoutcallid=api.getClient().getAccount().getOutgoingCallerIds(params);		
+		twoutcallid=client.getAccount().getOutgoingCallerIds(params);		
 		Iterator<TwilioOutgoingCallerId> it = twoutcallid.iterator();
         System.assertEquals(true, it.hasNext());	
 		TwilioOutgoingCallerId twocallid=it.next();
@@ -532,8 +532,8 @@ private class Twilio_TestPhoneNumbers {
 				
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioCallerIdValidation twoutcallid = api.getClient().getAccount().getOutgoingCallerIds().createOutgoingCallerId(p);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioCallerIdValidation twoutcallid = client.getAccount().getOutgoingCallerIds().create(p);
 		
 		System.assertEquals('harsha',twoutcallid.getFriendlyName());
 		System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3',twoutcallid.getAccountSid());
@@ -557,8 +557,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioOutgoingCallerId twoutcallid=api.getClient().getAccount().getOutgoingCallerId('PN17c8630939e44e7e92a45c51bcdb7122');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioOutgoingCallerId twoutcallid=client.getAccount().getOutgoingCallerId('PN17c8630939e44e7e92a45c51bcdb7122');
 		
 		System.assertEquals('PN17c8630939e44e7e92a45c51bcdb7122', twoutcallid.getSid());
 		System.assertEquals(Datetime.newInstanceGmt(2011,12,29,12,22,55),twoutcallid.getDateCreated());
@@ -567,7 +567,7 @@ private class Twilio_TestPhoneNumbers {
 		System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3',twoutcallid.getAccountSid());
 		System.assertEquals('+919902400323',twoutcallid.getPhoneNumber());
 		
-		TwilioOutgoingCallerId  tci=new TwilioOutgoingCallerId(api.getclient()); 
+		TwilioOutgoingCallerId  tci=new TwilioOutgoingCallerId(client); 
 	}
 	
 	static testmethod void testOutgoingCallerID_delete()
@@ -583,8 +583,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		boolean isdel=api.getClient().getAccount().getOutgoingCallerId('PN17c8630939e44e7e92a45c51bcdb7122').deleteOutgoingCallerid();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		boolean isdel=client.getAccount().getOutgoingCallerId('PN17c8630939e44e7e92a45c51bcdb7122').deleteOutgoingCallerid();
 		
 		system.assertEquals(true,isdel); 
 	}

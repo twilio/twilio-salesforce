@@ -35,8 +35,8 @@ private class Twilio_TestConnectApps {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioConnectAppList conectapplist = api.getClient().getAccount().getConnectApps(new Map<String, String>()) ;
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioConnectAppList conectapplist = client.getAccount().getConnectApps(new Map<String, String>()) ;
 		System.assertNotEquals(null, conectapplist);
 		
 		List<TwilioConnectApp> connectApp= conectapplist.getPageData();
@@ -77,8 +77,8 @@ private class Twilio_TestConnectApps {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC5ef872f6da5a21de157d80997a64bd33', authToken);
-		TwilioConnectApp connectapp = api.getClient().getAccount().getConnectApp('CN47260e643654388faabe8aaa18ea6756') ;
+		TwilioRestClient client = new TwilioRestClient('AC5ef872f6da5a21de157d80997a64bd33', authToken);
+		TwilioConnectApp connectapp = client.getAccount().getConnectApp('CN47260e643654388faabe8aaa18ea6756') ;
 		
 		System.assertEquals('CN47260e643654388faabe8aaa18ea6756', connectapp.getSid());
 		System.assertEquals('My Connect App',connectapp.getFriendlyName());
@@ -127,8 +127,8 @@ private class Twilio_TestConnectApps {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioAuthorizedConnectAppList authconectapplist= api.getClient().getAccount().getAuthorizedConnectApps(new map<string,string>());
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioAuthorizedConnectAppList authconectapplist= client.getAccount().getAuthorizedConnectApps(new map<string,string>());
 		System.assertNotEquals(null, authconectapplist);
 		
 		List<TwilioAuthorizedConnectApp> authconectapp= authconectapplist.getPageData();
@@ -169,8 +169,8 @@ private class Twilio_TestConnectApps {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioAuthorizedConnectApp authconectapp= api.getClient().getAccount().getAuthorizedConnectApp('CNb989fdd207b04d16aee578018ef5fd93');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioAuthorizedConnectApp authconectapp = client.getAccount().getAuthorizedConnectApp('CNb989fdd207b04d16aee578018ef5fd93');
 		
 		System.assertEquals('CNb989fdd207b04d16aee578018ef5fd93', authconectapp.getSid());
 		System.assertEquals('Jenny Tracker',authconectapp.getFriendlyName());
@@ -181,9 +181,6 @@ private class Twilio_TestConnectApps {
 		System.assertEquals('Tommy PI',authconectapp.getCompanyName());
 		System.assertEquals('http://www.tommypi.com',authconectapp.getHomepageUrl());		
 		System.assertEquals(new list<string>{'get-all','post-all'},authconectapp.getPermissions());
-		
-		TwilioAuthorizedConnectAppList tcapl= new TwilioAuthorizedConnectAppList(api.getclient());
-		TwilioAuthorizedConnectApp tcap= new TwilioAuthorizedConnectApp(api.getclient());
 	}
 
 }

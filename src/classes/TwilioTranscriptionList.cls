@@ -6,6 +6,8 @@
 global class TwilioTranscriptionList extends TwilioResource.ListResource
 	implements Iterable<TwilioTranscription> {
 
+	private String parentCallSid;
+
 	/**
 	 * Instantiates a new transcription list.
 	 *
@@ -25,13 +27,26 @@ global class TwilioTranscriptionList extends TwilioResource.ListResource
 			Map<String, String> filters) {
 		super(client, filters);
 	}
+	
+	/**
+	 * Instantiates a new recording list under a Call resource.
+	 *
+	 * @param client the client
+	 * @param filters the filters
+	 */
+	public TwilioTranscriptionList(TwilioRestClient client, String parentCallSid) {
+		super(client);
+		this.parentCallSid = parentCallSid;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
 	 */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Transcriptions.json';
+				+ this.getRequestAccountSid()
+				+ (this.parentCallSid!=null ? ('/Recordings/'+this.parentCallSid) : '')
+				+ '/Transcriptions.json';
 	}
 
 	/* (non-Javadoc)

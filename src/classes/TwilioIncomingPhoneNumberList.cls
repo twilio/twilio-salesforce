@@ -49,8 +49,8 @@ global class TwilioIncomingPhoneNumberList extends TwilioResource.ListResource
 		return 'incoming_phone_numbers';
 	}
 	
-	public TwilioIncomingPhoneNumber createIncomingPhoneNumber(Map<String, String> params) {
-		return (TwilioIncomingPhoneNumber)this.create(params);
+	public TwilioIncomingPhoneNumber create(Map<String, String> params) {
+		return (TwilioIncomingPhoneNumber)this.createInstance(params);
 	}
 	
 	public List<TwilioIncomingPhoneNumber> getPageData() {

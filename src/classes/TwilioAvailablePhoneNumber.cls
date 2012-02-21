@@ -14,8 +14,6 @@ global class TwilioAvailablePhoneNumber extends TwilioResource.InstanceResource 
 		super(client);
 	}
 
-
-
 	/**
 	 * Instantiates a new available phone number.
 	 *
@@ -114,4 +112,23 @@ global class TwilioAvailablePhoneNumber extends TwilioResource.InstanceResource 
 	public String getIsoCountry() {
 		return this.getProperty('iso_country');
 	}
+	
+	/* Convenience Methods */
+	
+	private boolean purchased = false;
+	
+	public TwilioIncomingPhoneNumber purchase() {
+		if (this.purchased) {
+			throw new AlreadyPurchasedException('You have already purchased this number: '+getPhoneNumber());
+		}
+		Map<String,String> props = new Map<String,String>();
+		props.put('PhoneNumber', getPhoneNumber());
+		
+		TwilioAccount requestAccount = getClient().getAccount(getRequestAccountSid());
+		TwilioIncomingPhoneNumber incoming = requestAccount.getIncomingPhoneNumbers().create(props);
+		this.purchased = true;
+		return incoming;
+	}
+	
+	private class AlreadyPurchasedException extends Exception {}
 }

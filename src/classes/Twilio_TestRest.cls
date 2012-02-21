@@ -68,7 +68,7 @@ private class Twilio_TestRest {
     }
     
     static testmethod void testTwilioRestClient() {
-    	TwilioRestClient client = (new TwilioAPI()).getClient();
+    	TwilioRestClient client = new TwilioRestClient(accountSid, authToken);
     	
     	client.setNumRetries(3);
     	System.assertEquals(3, client.getNumRetries());

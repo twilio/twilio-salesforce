@@ -79,4 +79,16 @@ global class TwilioRecordingList extends TwilioResource.ListResource
 	global Iterator<TwilioRecording> iterator() {
 		return new TwilioIterator.RecordingIterator(this);
 	}
+	
+	/**
+	 * Delete.
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean deleteResource(String sid) {
+		TwilioAccount requestAccount = getClient().getAccount(getRequestAccountSid());
+		TwilioRecording rec = requestAccount.getRecording(sid);
+		return rec.deleteResource();
+	}
 }

@@ -144,6 +144,14 @@ public class TwilioParser {
     	return dt;
     }
     
+    public static String formatDatetime(Datetime dt) {
+    	return dt.format('yyyy-dd-MM');
+    }
+    
+    public static String formatFilterDatetime(Integer year, Integer month, Integer dayOfMonth) {
+    	return year+'-'+month+'-'+dayOfMonth;
+    }
+    
     private class TwilioParseException extends Exception {}
 	
 	@isTest

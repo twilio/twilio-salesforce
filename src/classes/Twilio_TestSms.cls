@@ -34,8 +34,8 @@ final static String authToken = '12345678901234567890123456789012';
 		map<string,string> params=new map<string,string>();
 		params.put('to','+14159978453');
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		Twiliosmslist tsmslist = api.getClient().getAccount().getSmsMessages();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		Twiliosmslist tsmslist = client.getAccount().getSmsMessages();
 		List<Twiliosms> tsms=tsmslist.getpagedata();
 		system.assertEquals(1,tsms.size());
 		
@@ -59,7 +59,7 @@ final static String authToken = '12345678901234567890123456789012';
 			new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
 			);
 		
-		tsmslist = api.getClient().getAccount().getSmsMessages(params);
+		tsmslist = client.getAccount().getSmsMessages(params);
 		
 		Iterator<Twiliosms> it = tsmslist.iterator();
         System.assertEquals(true, it.hasNext());
@@ -105,12 +105,12 @@ final static String authToken = '12345678901234567890123456789012';
 		
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
 		Map<String,String>  params=new Map<String,String>();
 		params.put('From','+919902400323' );
 		params.put('To', '+919902400323');
 		params.put('Body', 'Test sending sms from twilio');
-		Twiliosms sms= api.getClient().getAccount().getSMSMessages().createSMS(params);
+		Twiliosms sms= client.getAccount().getSMSMessages().create(params);
 		
 		System.assertEquals('SM800f449d0399ed014aae2bcc0cc2f2ec', sms.getsid());
 		System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3', sms.getaccountsid());
@@ -150,8 +150,8 @@ final static String authToken = '12345678901234567890123456789012';
 		
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
-		Twiliosms sms= api.getClient().getAccount().getsms('SM800f449d0399ed014aae2bcc0cc2f2ec');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
+		Twiliosms sms= client.getAccount().getsms('SM800f449d0399ed014aae2bcc0cc2f2ec');
 		
 		System.assertEquals('SM800f449d0399ed014aae2bcc0cc2f2ec', sms.getsid());
 		System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3', sms.getaccountsid());
@@ -195,8 +195,8 @@ final static String authToken = '12345678901234567890123456789012';
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioShortCodeList tshcdes = api.getClient().getAccount().getShortCodes();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioShortCodeList tshcdes = client.getAccount().getShortCodes();
 		System.assertNotEquals(null, tshcdes);
 		
 		List<TwilioShortCode> tshcdelst = tshcdes.getPageData();
@@ -224,7 +224,7 @@ final static String authToken = '12345678901234567890123456789012';
 		
 		Map<String,String> params=new Map<String,String>();
 		params.put('ShortCode','898'); 
-		TwilioShortCodeList tshcdes1 = api.getClient().getAccount().getShortCodes(params);
+		TwilioShortCodeList tshcdes1 = client.getAccount().getShortCodes(params);
 		System.assertNotEquals(null, tshcdes1);
 		
 		Iterator<TwilioShortCode> it = tshcdes1.iterator();
@@ -245,8 +245,8 @@ final static String authToken = '12345678901234567890123456789012';
 		
 		System.assertEquals(false, it.hasNext());
 		
-		TwilioShortCodeList tshcdeslst1 = new TwilioShortCodeList(api.getclient());
-		TwilioShortCode tshcde1 = new TwilioShortCode(api.getclient());
+		TwilioShortCodeList tshcdeslst1 = new TwilioShortCodeList(client);
+		TwilioShortCode tshcde1 = new TwilioShortCode(client);
 		
 	}
 	static testmethod void testTwilioShortCode_get() {
@@ -269,8 +269,8 @@ final static String authToken = '12345678901234567890123456789012';
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioShortCode tshcde = api.getClient().getAccount().getShortCode('SC6b20cb705c1e8f00210049b20b70fce2');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioShortCode tshcde = client.getAccount().getShortCode('SC6b20cb705c1e8f00210049b20b70fce2');
 		
 		System.assertEquals('SC6b20cb705c1e8f00210049b20b70fce2', tshcde.getsid());
 		System.assertEquals('ACdc5f1e6f7a0441659833ca940b72503d', tshcde.getaccountsid());
@@ -319,15 +319,15 @@ final static String authToken = '12345678901234567890123456789012';
 		Map<String,String> params=new Map<String,String>();
 		params.put('FriendlyName','testshrtcode');
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
 		system.debug('------------------------------------------');
-		TwilioShortCode tshcde = api.getClient().getAccount().getShortCode('SC6b20cb705c1e8f00210049b20b70fce2');
+		TwilioShortCode tshcde = client.getAccount().getShortCode('SC6b20cb705c1e8f00210049b20b70fce2');
 		Map<String,String> updateParams = new Map<String,String> {
 				'friendly_name' => 'testshrtcode'
 			};
 		tshcde.updateResource(updateParams);
 		
-		tshcde = api.getClient().getAccount().getShortCode('SC6b20cb705c1e8f00210049b20b70fce2');
+		tshcde = client.getAccount().getShortCode('SC6b20cb705c1e8f00210049b20b70fce2');
 		
 		System.assertEquals('SC6b20cb705c1e8f00210049b20b70fce2', tshcde.getSid());
 		System.assertEquals('testshrtcode',tshcde.getFriendlyName());

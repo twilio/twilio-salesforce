@@ -122,6 +122,20 @@ global class TwilioRecording extends TwilioResource.InstanceResource {
 	public String getApiVersion() {
 		return this.getProperty('api_version');
 	}
+	
+	public String getWavUri() {
+		return getResourceLocation('.wav');
+	}
+	
+	public String getMp3Uri() {
+		return getResourceLocation('.mp3');
+	}
+	
+	public TwilioTranscriptionList getTranscriptions() {
+		TwilioTranscriptionList twlist = new TwilioTranscriptionList(this.getClient(), this.getSid());
+		twlist.setRequestAccountSid(this.getRequestAccountSid());
+		return twlist;
+	}
 
 	/**
 	 * Delete.
@@ -129,7 +143,7 @@ global class TwilioRecording extends TwilioResource.InstanceResource {
 	 * @return true, if successful
 	 * @throws TwilioRestException the twilio rest exception
 	 */
-	public boolean deleteRecording() {
+	public boolean deleteResource() {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'DELETE', null);
 

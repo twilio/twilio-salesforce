@@ -42,8 +42,8 @@ global class TwilioCallList extends TwilioResource.ListResource
 		return 'calls';
 	}
 	
-	public TwilioCall createCall(Map<String, String> params) {
-		return (TwilioCall)this.create(params);
+	public TwilioCall create(Map<String,String> params) {
+		return (TwilioCall)this.createInstance(params);
 	}
 	
 	/* returns the current response results page */

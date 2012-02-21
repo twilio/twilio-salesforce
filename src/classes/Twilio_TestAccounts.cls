@@ -36,8 +36,8 @@ class Twilio_TestAccounts {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
-		TwilioAccount twaccount = api.getClient().getAccount();
+		TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
+		TwilioAccount twaccount = client.getAccount();
 		
 		// assert correct values in the fields
 		System.assertNotEquals(null, twaccount);
@@ -119,8 +119,8 @@ class Twilio_TestAccounts {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('ACba8bc05eacf94afdae398e642c9cc32d',authToken);
-        TwilioAccountList twaccounts = api.getClient().getAccounts();
+		TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d',authToken);
+        TwilioAccountList twaccounts = client.getAccounts();
         List<TwilioAccount> accounts = twaccounts.getPageData();
         
         // assert correct values in the fields
@@ -145,8 +145,6 @@ class Twilio_TestAccounts {
 		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d',connectAcc.getOwnerAccountSid());
 		
 		System.assertEquals(false, it.hasnext());
-		
-		TwilioAccountList atwaccounts = new TwilioAccountList(api.getClient());
 	}
 	
 	static testmethod void testTwilioAccountList_createsubaccount() {
@@ -183,12 +181,12 @@ class Twilio_TestAccounts {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('ACba8bc05eacf94afdae398e642c9cc32d',authToken);
-        map<String,string> params=new map<String,string>();
+		TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d',authToken);
+        Map<String,string> params = new Map<String,String>();
 		params.put('sid','AC03c2fcd60e144e7cbeed179fcbf812a3');
 		params.put('friendly_name','harsha.simha@mansasys.com');
 
-        TwilioAccount twaccount = api.getClient().getAccounts().createAccount(params);
+        TwilioAccount twaccount = client.getAccounts().create(params);
 
 		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', twaccount.getSid());
 		System.assertEquals('AC03c2fcd60e144e7cbeed179fcbf812a3', twaccount.getowneraccountSid());

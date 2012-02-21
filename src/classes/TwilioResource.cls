@@ -412,12 +412,11 @@ public abstract class TwilioResource
 		}
 		
 		/* implements method from TwilioResource.ListResource */
-		public Object create(Map<String, String> params) {
+		public Object createInstance(Map<String, String> params) {
 			TwilioRestResponse response = this.getClient().safeRequest(
 					this.getResourceLocation(), 'POST', params);
 			return makeNew(this.getClient(), response.toMap());
 		}
-		
 		
 		
 		/**

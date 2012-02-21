@@ -232,4 +232,17 @@ global class TwilioApplication extends TwilioResource.InstanceResource {
 	public String getUri() {
 		return this.getProperty('uri');
 	}
+	
+	/**
+	 * Delete.
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean deleteResource() {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), 'DELETE', null);
+
+		return !response.isError();
+	}
 }

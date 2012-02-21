@@ -161,6 +161,60 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
+	 * Suspend a subaccount.
+	 *
+	 * @return the account
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public TwilioAccount suspend() {
+		Map<String, String> vars = new Map<String, String>
+				{ 'Status'=> 'suspended' };
+
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), 'POST', vars);
+
+		TwilioAccount a = new TwilioAccount(this.getClient(), response.toMap());
+		a.setRequestAccountSid(this.getRequestAccountSid());
+		return a;
+	}
+	
+	/**
+	 * Activate a suspended subaccount.
+	 *
+	 * @return the account
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public TwilioAccount activate() {
+		Map<String, String> vars = new Map<String, String>
+				{ 'Status'=> 'active' };
+
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), 'POST', vars);
+
+		TwilioAccount a = new TwilioAccount(this.getClient(), response.toMap());
+		a.setRequestAccountSid(this.getRequestAccountSid());
+		return a;
+	}
+	
+	/**
+	 * Close a subaccount. WARNING: This cannot be undone.
+	 *
+	 * @return the account
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public TwilioAccount close() {
+		Map<String, String> vars = new Map<String, String>
+				{ 'Status'=> 'closed' };
+
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), 'POST', vars);
+
+		TwilioAccount a = new TwilioAccount(this.getClient(), response.toMap());
+		a.setRequestAccountSid(this.getRequestAccountSid());
+		return a;
+	}
+	
+	/**
 	 * Returns the list of Applications in this account.
 	 * See http://www.twilio.com/docs/api/rest/applications
 	 */

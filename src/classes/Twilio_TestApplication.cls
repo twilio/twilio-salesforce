@@ -29,8 +29,8 @@ private class Twilio_TestApplication {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioApplicationList twapps = api.getClient().getAccount().getApplications();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioApplicationList twapps = client.getAccount().getApplications();
 		System.assertNotEquals(null, twapps);
 		
 		List<TwilioApplication> twappslist = twapps.getPageData();
@@ -106,8 +106,8 @@ private class Twilio_TestApplication {
 		params.put('FriendlyName','Testapp1');
 		params.put('VoiceMethod','POST');
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioApplicationList twapps = api.getClient().getAccount().getApplications(params);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioApplicationList twapps = client.getAccount().getApplications(params);
 		System.assertNotEquals(null, twapps);
 		
 		System.assertNotEquals(null, twapps);
@@ -150,8 +150,8 @@ private class Twilio_TestApplication {
 			);
 			
 			
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3','9339f87c4573196830a8f497bceb8fa9');		
-		TwilioApplication twaps = api.getClient().getAccount().getApplication('AP023e78c7f13a4fe683ef2e5ddc510399');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3','9339f87c4573196830a8f497bceb8fa9');		
+		TwilioApplication twaps = client.getAccount().getApplication('AP023e78c7f13a4fe683ef2e5ddc510399');
 		
 		System.assertEquals('AP023e78c7f13a4fe683ef2e5ddc510399', twaps.getSid());
 		System.assertEquals('Testapp1',twaps.getFriendlyName());
@@ -189,11 +189,11 @@ private class Twilio_TestApplication {
 			);
 			
 			
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3','9339f87c4573196830a8f497bceb8fa9');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3','9339f87c4573196830a8f497bceb8fa9');
 		map<string,string> params=new map<string,string>();
 		params.put('FriendlyName','Testapp1');
 		params.put('VoiceMethod','POST');
-		TwilioApplication twaps = api.getClient().getAccount().getApplications().createApplication(params);
+		TwilioApplication twaps = client.getAccount().getApplications().create(params);
 		
 		System.assertEquals('AP023e78c7f13a4fe683ef2e5ddc510399', twaps.getSid());
 		System.assertEquals('Testapp1',twaps.getFriendlyName());
@@ -211,11 +211,7 @@ private class Twilio_TestApplication {
 		System.assertEquals(null,twaps.getSmsMethod());
 		System.assertEquals(null,twaps.getSmsFallbackUrl());
 		System.assertEquals('POST',twaps.getSmsFallbackMethod());
-		System.assertEquals(null,twaps.getSmsStatusCallback());
-		
-		
-		TwilioApplication twaps1=new TwilioApplication(api.getclient());
-		TwilioApplicationlist lsttwaps1=new TwilioApplicationlist(api.getclient()); 
+		System.assertEquals(null,twaps.getSmsStatusCallback()); 
 	}
 	
 }

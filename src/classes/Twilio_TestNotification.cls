@@ -23,8 +23,8 @@ private class Twilio_TestNotification {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioNotificationList twnots = api.getClient().getAccount().getNotifications();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioNotificationList twnots = client.getAccount().getNotifications();
 		System.assertNotEquals(null, twnots);
 		
 		List<TwilioNotification> twnotslist = twnots.getPageData();
@@ -58,7 +58,7 @@ private class Twilio_TestNotification {
 		// Get an API client and request the Twilio Account
 		map<String,string> params=new map<string,string>();
 		params.put('log','0');
-		twnots = api.getClient().getAccount().getNotifications(params);
+		twnots = client.getAccount().getNotifications(params);
 		System.assertNotEquals(null, twnots);
 		
 		Iterator<TwilioNotification> twnotslist1 = twnots.iterator();
@@ -100,9 +100,9 @@ private class Twilio_TestNotification {
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
 		
-		TwilioNotification twnotif=api.getClient().getAccount().getNotification('NO11cc7e50dc46a37eb4ebfaa67a66dc76');
+		TwilioNotification twnotif=client.getAccount().getNotification('NO11cc7e50dc46a37eb4ebfaa67a66dc76');
 		System.assertEquals('NO11cc7e50dc46a37eb4ebfaa67a66dc76', twnotif.getSid());
 		System.assertEquals('CA0a51c27d11664fedb1de993c5bd1a57b',twnotif.getCallSid());		
 		System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3',twnotif.getAccountSid());
@@ -132,11 +132,11 @@ private class Twilio_TestNotification {
 			); 
 		
 			
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		boolean isdel = api.getClient().getAccount().getNotification('NO11cc7e50dc46a37eb4ebfaa67a66dc76').deleteNotification();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		boolean isdel = client.getAccount().getNotification('NO11cc7e50dc46a37eb4ebfaa67a66dc76').deleteNotification();
 		system.assert(true,isdel); 
 		
-		TwilioNotification twnot = new TwilioNotification(api.getClient());
-		TwilioNotificationList lsttwnot = new TwilioNotificationList(api.getClient());
+		TwilioNotification twnot = new TwilioNotification(client);
+		TwilioNotificationList lsttwnot = new TwilioNotificationList(client);
 	}
 }

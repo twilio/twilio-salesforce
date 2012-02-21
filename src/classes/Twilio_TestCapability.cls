@@ -1,8 +1,6 @@
 @isTest
 class Twilio_TestCapability {
 
-	/* TEST METHODS */
-    
     final static String ACCOUNT_SID = 'CA5ea9c5d78e1f35fc01c204682d056e22';
 	final static String AUTH_TOKEN = '12345678901234567890123456789012';
 	final static String APP_SID = 'AP9b2e38d8c592488c397fc871a82a74ec';

@@ -36,8 +36,8 @@ global class TwilioAccountList extends TwilioResource.ListResource
 		return 'accounts';
 	}
 	
-	public TwilioAccount createAccount(Map<String, String> params) {
-		return (TwilioAccount)this.create(params);
+	public TwilioAccount create(Map<String, String> params) {
+		return (TwilioAccount)this.createInstance(params);
 	}
 	
 	public List<TwilioAccount> getPageData() {

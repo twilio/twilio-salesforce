@@ -48,8 +48,8 @@ global class TwilioApplicationList extends TwilioResource.ListResource
 		return 'applications';
 	}
 
-	public TwilioApplication createApplication(Map<String, String> params) {
-		return (TwilioApplication)this.create(params);
+	public TwilioApplication create(Map<String, String> params) {
+		return (TwilioApplication)this.createInstance(params);
 	}
 	
 	public List<TwilioApplication> getPageData() {
@@ -65,5 +65,17 @@ global class TwilioApplicationList extends TwilioResource.ListResource
 	
 	global Iterator<TwilioApplication> iterator() {
 		return new TwilioIterator.ApplicationIterator(this);
+	}
+	
+	/**
+	 * Delete.
+	 *
+	 * @return true, if successful
+	 * @throws TwilioRestException the twilio rest exception
+	 */
+	public boolean deleteResource(String sid) {
+		TwilioAccount requestAccount = getClient().getAccount(getRequestAccountSid());
+		TwilioApplication app = requestAccount.getApplication(sid);
+		return app.deleteResource();
 	}
 }

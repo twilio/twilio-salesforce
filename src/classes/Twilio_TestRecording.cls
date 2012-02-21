@@ -25,8 +25,8 @@ private class Twilio_TestRecording
             );
         
         // Get an API client and request the Twilio Account
-        TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
-        TwilioRecordinglist twrecs = api.getClient().getAccount().getrecordings();
+        TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
+        TwilioRecordinglist twrecs = client.getAccount().getrecordings();
         System.assertNotEquals(null, twrecs);
         
         List<TwilioRecording> twreclist = twrecs.getPageData();
@@ -52,7 +52,7 @@ private class Twilio_TestRecording
             );
         
         
-        twrecs = api.getClient().getAccount().getrecordings(params);
+        twrecs = client.getAccount().getrecordings(params);
         System.assertNotEquals(null, twrecs);
                 
         Iterator<TwilioRecording> it = twrecs.iterator();
@@ -88,8 +88,8 @@ private class Twilio_TestRecording
             );
         
         // Get an API client and request the Twilio Account
-        TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
-        TwilioRecording twrec = api.getClient().getAccount().getRecording('RE4e03662f6b8c01856fbd8f3769c2351a');
+        TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3', authToken);
+        TwilioRecording twrec = client.getAccount().getRecording('RE4e03662f6b8c01856fbd8f3769c2351a');
         
         System.assertEquals('RE4e03662f6b8c01856fbd8f3769c2351a', twrec.getSid());
         System.assertEquals('CAfd61c7aff9ee4da8a053d49a35a5ff7f',twrec.getCallsid());
@@ -110,14 +110,8 @@ private class Twilio_TestRecording
 			); 
 		
 			
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		//try{
-		boolean isdel=api.getClient().getAccount().getRecording('RE4e03662f6b8c01856fbd8f3769c2351a').deleteRecording();
-		
-		//}catch(Exception e){}
-		system.assert(true,isdel); 
-		
-		TwilioRecording rec=new TwilioRecording(api.getclient());
-		TwilioRecordingList lstrec=new TwilioRecordingList(api.getclient());
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		boolean isdel=client.getAccount().getRecording('RE4e03662f6b8c01856fbd8f3769c2351a').deleteResource();
+		System.assert(true,isdel);
 	}	   
 }

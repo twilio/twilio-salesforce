@@ -49,7 +49,7 @@ global class TwilioOutgoingCallerIdList extends TwilioResource.ListResource
 		return 'outgoing_caller_ids';
 	}
 	
-	public TwilioCallerIdValidation createOutgoingCallerId(Map<String,String> params) {
+	public TwilioCallerIdValidation create(Map<String,String> params) {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', params);
 		return new TwilioCallerIdValidation(response);
@@ -70,5 +70,13 @@ global class TwilioOutgoingCallerIdList extends TwilioResource.ListResource
 	/* returns an iterator spanning all data pages */
 	global Iterator<TwilioOutgoingCallerId> iterator() {
 		return new TwilioIterator.OutgoingCallerIdIterator(this);
+	}
+	
+	/* convenience methods */
+	public TwilioCallerIdValidation validate(String phoneNumber) {
+		Map<String,String> params = new Map<String,String> {
+			'PhoneNumber' => phoneNumber
+		};
+		return create(params);
 	}
 }

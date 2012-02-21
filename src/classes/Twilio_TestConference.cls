@@ -38,8 +38,8 @@ private class Twilio_TestConference
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
-		TwilioConferenceList twconflist = api.getClient().getAccount().getConferences();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioConferenceList twconflist = client.getAccount().getConferences();
 		System.assertNotEquals(null, twconflist);
 		List<TwilioConference> twconf= twconflist.getPageData();
 		System.assertEquals(1, twconf.size());
@@ -91,10 +91,10 @@ private class Twilio_TestConference
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
 		map<string,string> p=new map<string,string>();
 		p.put('status','completed');
-		TwilioConferenceList twconflist = api.getClient().getAccount().getConferences(p);
+		TwilioConferenceList twconflist = client.getAccount().getConferences(p);
 		System.assertNotEquals(null, twconflist);
 		
 		Iterator<TwilioConference> it = twconflist.iterator();
@@ -135,8 +135,8 @@ private class Twilio_TestConference
 			);
 		
 		// Get an API client and request the Twilio Account
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
-		TwilioConference twconf = api.getClient().getAccount().getConference('CFbbe46ff1274e283f7e3ac1df0072ab39');
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
+		TwilioConference twconf = client.getAccount().getConference('CFbbe46ff1274e283f7e3ac1df0072ab39');
 		
 		System.assertEquals('CFbbe46ff1274e283f7e3ac1df0072ab39', twconf.getsid());
 		System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3', twconf.getAccountsid());
@@ -151,8 +151,8 @@ private class Twilio_TestConference
 			TwilioParticipant twpcpts=twpps.get(0);
 		*/
 		
-		TwilioConference twconf1=new TwilioConference(api.getclient());
-		TwilioConferenceList twconflist=new TwilioConferenceList(api.getclient());
+		TwilioConference twconf1=new TwilioConference(client);
+		TwilioConferenceList twconflist=new TwilioConferenceList(client);
 	}
 	
 	static testmethod void testTwilioParticipants_get() {
@@ -182,8 +182,8 @@ private class Twilio_TestConference
 			); 
 		
 			// Get an API client and request the Twilio Account
-			TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
-			TwilioParticipantList twppslist = new TwilioParticipantList(api.getclient(),'CFbbe46ff1274e283f7e3ac1df0072ab39');		
+			TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
+			TwilioParticipantList twppslist = new TwilioParticipantList(client,'CFbbe46ff1274e283f7e3ac1df0072ab39');		
 			twppslist.setRequestAccountsid('AC03c2fcd60e144e7cbeee413fcbf812a3');
 			List<TwilioParticipant> twpps = twppslist.getPageData();
 			System.assertEquals(1, twpps.size());
@@ -204,8 +204,8 @@ private class Twilio_TestConference
 			TwilioParticipant twp= it.next(); 
 			system.assertEquals(false,it.hasnext());
 			
-			TwilioParticipantList twppslist1 = new TwilioParticipantList(api.getclient());
-			TwilioParticipant twpps1 = new TwilioParticipant(api.getclient());
+			TwilioParticipantList twppslist1 = new TwilioParticipantList(client);
+			TwilioParticipant twpps1 = new TwilioParticipant(client);
 	}
 	
 	static testmethod void testTwilioParticipantList_mute() {
@@ -229,8 +229,8 @@ private class Twilio_TestConference
 			); 
 		
 			
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
-		TwilioParticipant twppslist = new TwilioParticipant(api.getclient(),'CFbbe46ff1274e283f7e3ac1df0072ab39','CA386025c9bf5d6052a1d1ea42b4d16662');		
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
+		TwilioParticipant twppslist = new TwilioParticipant(client,'CFbbe46ff1274e283f7e3ac1df0072ab39','CA386025c9bf5d6052a1d1ea42b4d16662');		
 		twppslist.setRequestAccountsid('AC03c2fcd60e144e7cbeee413fcbf812a3');
 		
 		TwilioParticipant twpcpts=twppslist.mute(); 
@@ -266,11 +266,11 @@ private class Twilio_TestConference
 			); 
 		
 			
-			TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
-			TwilioParticipant twppslist = new TwilioParticipant(api.getclient(),'CFbbe46ff1274e283f7e3ac1df0072ab39','CA386025c9bf5d6052a1d1ea42b4d16662');		
-			twppslist.setRequestAccountsid('AC03c2fcd60e144e7cbeee413fcbf812a3');
+			TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
+			TwilioParticipant twppslist = new TwilioParticipant(client,'CFbbe46ff1274e283f7e3ac1df0072ab39','CA386025c9bf5d6052a1d1ea42b4d16662');		
+			twppslist.setRequestAccountSid('AC03c2fcd60e144e7cbeee413fcbf812a3');
 			
-			TwilioParticipant twpcpts=twppslist.unmute(); 
+			TwilioParticipant twpcpts = twppslist.unmute(); 
 			
 			System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3', twpcpts.getaccountsid());
 			System.assertEquals('CA386025c9bf5d6052a1d1ea42b4d16662', twpcpts.getcallsid());
@@ -292,8 +292,8 @@ private class Twilio_TestConference
 			); 
 		
 			
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
-		TwilioParticipant twppslist = new TwilioParticipant(api.getclient(),'CFbbe46ff1274e283f7e3ac1df0072ab39','CA386025c9bf5d6052a1d1ea42b4d16662');		
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);		
+		TwilioParticipant twppslist = new TwilioParticipant(client,'CFbbe46ff1274e283f7e3ac1df0072ab39','CA386025c9bf5d6052a1d1ea42b4d16662');		
 		twppslist.setRequestAccountsid('AC03c2fcd60e144e7cbeee413fcbf812a3');
 		//try{
 		boolean isdel=twppslist.kick();

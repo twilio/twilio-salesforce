@@ -29,8 +29,8 @@ private class Twilio_TestSandbox {
 			);
 			
 		// Get an API client and request the Twilio Call
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
-        TwilioSandbox sandbox = api.getClient().getAccount().getSandbox();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
+        TwilioSandbox sandbox = client.getAccount().getSandbox();
         
         // assert correct behavior
         System.assertEquals('63729915',sandbox.getPin());
@@ -48,7 +48,7 @@ private class Twilio_TestSandbox {
         System.assertEquals(Datetime.newInstanceGmt(2008,11,11,20,52,56), sandbox.getDateUpdated());
         System.assertEquals('/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Sandbox.json',sandbox.getUri());
         
-        TwilioSandbox sandbox1 = new TwilioSandbox(api.getClient(),new map<string,object>());
+        TwilioSandbox sandbox1 = new TwilioSandbox(client,new map<string,object>());
     }
     
     static testmethod void testTwilioSandbox_post() {
@@ -86,9 +86,9 @@ private class Twilio_TestSandbox {
 			};
 		
 		// Get an API client and request the Twilio Call
-		TwilioAPI api = new TwilioAPI('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
-		api.getClient().getAccount().getSandbox().updateResource(params);
-        TwilioSandbox sandbox = api.getClient().getAccount().getSandbox();
+		TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeed179fcbf812a3',authToken);
+		client.getAccount().getSandbox().updateResource(params);
+        TwilioSandbox sandbox = client.getAccount().getSandbox();
         		
         // assert correct behavior
         System.assertEquals('63729915',sandbox.getPin());
