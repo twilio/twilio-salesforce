@@ -1,91 +1,96 @@
-.. module:: twilio.rest.resources
-
 =================
 Applications
 =================
 
-An application inside of Twilio is just a set of URLs and other configuration data that tells Twilio how to behave when one of your Twilio numbers receives a call or SMS message.
+A TwiML application inside of Twilio is just a set of URLs and other configuration data that tells Twilio how to behave when one of your Twilio numbers receives a call or SMS message.
 
 For more information, see the `Application REST Resource <http://www.twilio.com/docs/api/rest/applications>`_ documentation.
 
 Listing Your Applications
 --------------------------
 
-The following code will print out the :attr:`friendly_name` for each :class:`Application`.
+The following code will print out the :attr:`FriendlyName` for each :class:`TwilioApplication`.
 
-.. code-block:: python
+.. code-block:: javascript
 
-    from twilio.rest import TwilioRestClient
-
-    # To find these visit https://www.twilio.com/user/account
-    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
-    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
-
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    for app in client.applications.list():
-        print app.friendly_name
+    String ACCOUNT_SID = 'AXXXXXXXXXXXXXXXXX';
+    String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
+    TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+    
+    for (TwilioApplication app : client.getApplications().getPageData()) {
+    	System.debug(app.getFriendlyName());
+    }
 
 
 Filtering Applications
 ---------------------------
 
-You can filter applications by FriendlyName
+You can filter applications by Friendly Name
 
-.. code-block:: python
+.. code-block:: javascript
 
-    from twilio.rest import TwilioRestClient
-
-    # To find these visit https://www.twilio.com/user/account
-    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
-    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
-
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    for app in client.applications.list(friendly_name="FOO"):
-        print app.sid
+    String ACCOUNT_SID = 'AXXXXXXXXXXXXXXXXX';
+    String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
+    TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+    
+    Map<String,String> filters = new Map<String,String> {
+    		'FriendlyName' => 'FOO'
+    	};
+    TwilioApplicationList apps = client.getApplications(filters);
+    
+    for (TwilioApplication app : apps.getPageData()) {
+    	System.debug(app.getSid());
+    }
 
 Creating an Application
 -------------------------
 
-When creating an application, no fields are required. We create an application with only a :attr:`friendly_name`. :meth:`Applications.create()` accepts many other arguments for url configuration.
+When creating an application, no fields are required. We create an application with only a Friendly Name. :meth:`TwilioApplicationList.create()` accepts many other arguments for url configuration.
 
-.. code-block:: python
+.. code-block:: javascript
 
-    from twilio.rest import TwilioRestClient
-
-    # To find these visit https://www.twilio.com/user/account
-    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
-    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
-
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    application = client.applications.create(friendly_name="My New App")
+    String ACCOUNT_SID = 'AXXXXXXXXXXXXXXXXX';
+    String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
+    TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+    
+    Map<String,String> properties = new Map<String,String> {
+    		'FriendlyName' => 'My New App'
+    	};
+    TwilioApplication app = client.getApplications().create(properties);
 
 
 Updating an Application
 ------------------------
 
-.. code-block:: python
+.. code-block:: javascript
 
-    from twilio.rest import TwilioRestClient
-
-    # To find these visit https://www.twilio.com/user/account
-    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
-    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
-
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    url = "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
-    application = client.applications.update(app_sid, voice_url=url)
+    String ACCOUNT_SID = 'AXXXXXXXXXXXXXXXXX';
+    String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
+    TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+    
+    String app_sid = 'AP123';
+    TwilioApplication app = client.getApplication(app_sid);
+    Map<String,String> properties = new Map<String,String> {
+    		'VoiceUrl' =>
+    		'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
+    	};
+    app.updateResource(properties);
 
 
 Deleting an Application
 -------------------------
 
-.. code-block:: python
+You can delete an application from the list resource or the instance resource:
 
-    from twilio.rest import TwilioRestClient
+.. code-block:: javascript
 
-    # To find these visit https://www.twilio.com/user/account
-    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
-    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
-
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    client.applications.delete(app_sid)
+    String ACCOUNT_SID = 'AXXXXXXXXXXXXXXXXX';
+    String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
+    TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+    
+    String app_sid = 'AP123';
+    // delete from the list resource
+    client.getApplications().deleteApplication(app_sid);
+    // or do the same thing from the instance resource
+    client.getApplication(app_sid).deleteApplication();
+    
