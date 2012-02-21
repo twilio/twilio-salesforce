@@ -28,7 +28,7 @@ TwiML creation begins with the :class:`TwilioTwiML.Response` class. Each success
    <Response>
 
 
-Sometimes you'll want to set properties beyond what's covered in the constructor (outlined in the :doc:`complete reference </api/twiml>`).  In these cases, assign the verb class to its own variable and set its properties before appending it to the response.
+Sometimes you'll want to set properties beyond what's covered in the constructor.  In these cases, assign the verb class to its own variable and set its properties before appending it to the response.
 
 .. code-block:: javascript
    
@@ -81,6 +81,6 @@ Serving TwiML Requests from a Force.com Site
 More Information
 ================
 
-The complete list of TwiML verbs and attributes is available in the library's :doc:`TwiML reference </api/twiml>` and in the `Twilio docs <http://www.twilio.com/docs/api/twiml>`_.
+The complete list of TwiML verbs and attributes is available in the `Twilio Markup Language <http://www.twilio.com/docs/api/twiml>`_ documentation.
 
 
