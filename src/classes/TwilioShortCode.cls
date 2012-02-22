@@ -63,8 +63,8 @@ global class TwilioShortCode extends TwilioResource.InstanceResource {
 		super(client, properties);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
+	/**
+	 * Overrides TwilioResource.getResourceLocation()
 	 */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
