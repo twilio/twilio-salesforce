@@ -59,6 +59,10 @@
         <name>ApexClass</name>
     </types>
     <types>
+        <members>*</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
         <members>Twilio</members>
         <name>RemoteSiteSetting</name>
     </types>
