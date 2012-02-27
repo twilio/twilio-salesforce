@@ -17,7 +17,7 @@ Take your existing Twilio applications and bring them to the browser using the `
 Twilio Client Mobile SDKs
 =========================
 
-Add voice to your mobile applications with the `Twilio Client Mobile SDKs for Android and iOS <http://www.twilio.com/api/client/sdk>`_.
+Add voice to your mobile applications with the `Twilio Client Mobile SDKs for iOS and Android <http://www.twilio.com/api/client/ios>`_.
 
 
 Token Generation
