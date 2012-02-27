@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 /**
  * The Class Transcription.
  * 
- * For more information see {@see <a href='http://www.twilio.com/docs/api/rest/transcription'>http://www.twilio.com/docs/api/rest/transcription}
+ * For more information see http://www.twilio.com/docs/api/rest/transcription
  */
 global class TwilioTranscription extends TwilioResource.InstanceResource {
 	
@@ -62,9 +62,7 @@ global class TwilioTranscription extends TwilioResource.InstanceResource {
 		super(client, properties);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
+	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
 				+ this.getRequestAccountSid() + '/Transcriptions/'

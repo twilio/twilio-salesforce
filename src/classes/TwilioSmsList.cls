@@ -48,30 +48,27 @@ global class TwilioSmsList extends TwilioResource.ListResource implements Iterab
 		super(client, filters);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
+	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
 				+ this.getRequestAccountSid() + '/SMS/Messages.json';
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
-	 */
+	/* implements method from TwilioResource.ListResource */
 	public override Object makeNew(TwilioRestClient client, Map<String, Object> params) {
 		return new TwilioSms(client, params);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.ListResource#getListKey()
-	 */
+	/* implements method from TwilioResource.ListResource */
 	public override String getListKey() {
 		return 'sms_messages';
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.factory.SmsFactory#create(java.util.Map)
+	/**
+	 * Send a new SMS message using the supplied parameters
+	 *
+	 * See http://www.twilio.com/docs/api/rest/sending-sms
+	 *   for a list of parameters
 	 */
 	public TwilioSms create(Map<String, String> params) {
 		return (TwilioSms)this.createInstance(params);

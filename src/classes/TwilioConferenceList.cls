@@ -49,25 +49,19 @@ global class TwilioConferenceList extends TwilioResource.ListResource
 		super(client, filters);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
+	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
 				+ this.getRequestAccountSid() + '/Conferences.json';
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
-	 */
+	/* implements method from TwilioResource.ListResource */
 	public override Object makeNew(TwilioRestClient client,
 			Map<String, Object> params) {
 		return new TwilioConference(client, params);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.ListResource#getListKey()
-	 */
+	/* implements method from TwilioResource.ListResource */
 	public override String getListKey() {
 		return 'conferences';
 	}

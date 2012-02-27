@@ -62,9 +62,7 @@ global class TwilioNotificationList extends TwilioResource.ListResource
 		this.parentCallSid = parentCallSid;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
+	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
 				+ this.getRequestAccountSid()
@@ -72,17 +70,13 @@ global class TwilioNotificationList extends TwilioResource.ListResource
 				+ '/Notifications.json';
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.ListResource#makeNew(com.twilio.sdk.TwilioRestClient, java.util.Map)
-	 */
+	/* implements method from TwilioResource.ListResource */
 	public override Object makeNew(TwilioRestClient client,
 			Map<String, Object> params) {
 		return new TwilioNotification(client, params);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.ListResource#getListKey()
-	 */
+	/* implements method from TwilioResource.ListResource */
 	public override String getListKey() {
 		return 'notifications';
 	}

@@ -62,9 +62,7 @@ global class TwilioConference extends TwilioResource.InstanceResource {
 		super(client, properties);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
+	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
 				+ this.getRequestAccountSid() + '/Conferences/' + this.getSid() + '.json';

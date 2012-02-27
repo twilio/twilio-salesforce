@@ -81,9 +81,7 @@ global class TwilioAvailablePhoneNumberList extends TwilioResource.ListResource
 	}
 	
 
-	/* (non-Javadoc)
-	 * @see com.twilio.sdk.resource.Resource#getResourceLocation()
-	 */
+	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
 				+ this.getRequestAccountSid() + '/AvailablePhoneNumbers/'
