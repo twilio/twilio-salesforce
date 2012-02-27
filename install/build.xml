@@ -1,0 +1,19 @@
+<project name="Twilio Helper Library for Salesforce" default="deployTwilioCheckOnly" basedir="." xmlns:sf="antlib:com.salesforce">
+
+    <property file="build.properties"/>
+    <property environment="env"/>
+
+    <!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged -->
+    <target name="deployTwilio" description="Deploys the Twilio Helper Library for Salesforce to your organization">
+      <echo message="Deploying Twilio Helper Library for Salesforce..."/>
+      <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="../src"/>
+    </target>
+
+    <!-- Shows check only; never actually saves to the server -->
+    <target name="deployTwilioCheckOnly" description="Deploys the Twilio Helper Library in check-only mode, without saving changes">
+      <echo message="Run 'ant deployTwilio' to deploy this library to your organization."/> 
+      <echo message="Testing deployment of Twilio Helper Library for Salesforce without saving changes..."/>
+      <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="../src" checkOnly="true"/> 
+    </target>
+
+</project>
