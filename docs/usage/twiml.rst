@@ -67,15 +67,45 @@ You can provide multiple actions in sequence simply by appending more verbs to t
 Serving TwiML Requests from a Force.com Site
 ============================================
 
-#. Log into `Salesforce <https://login.salesforce.com>`_. Go to **Setup | App Setup | Develop | Sites** and create a new site. Set the home page to TwilioSamplePage and add TwilioTestUser to the list of Site Visualforce Pages. Ensure you activate the site.
+1. Create the following Apex page controller :class:`MyTwiMLController`:
 
-#. Log into your `Twilio account <https://www.twilio.com/user/account>`_. Go to **Apps** and click **Create TwiML App**.  Set the **Voice Request URL** to your site's secure URL -- for example, https://twiliotest-developer-edition.na14.force.com/
+  .. code-block:: javascript
 
-#. TODO: Copy your Twilio API credentials
+    public class MyTwiMLController {
+    
+      public MyTwiMLController() {}
+	
+      public String getTwiml() {
+        TwilioTwiML.Response res = new TwilioTwiML.Response();
+        res.append(new TwilioTwiML.Say('Hello, Monkey!'));
+        res.append(
+          new TwilioTwiML.Play('http://demo.twilio.com/hellomonkey/monkey.mp3'));
+        res.append(new TwilioTwiML.Hangup());
+        return res.toXML();
+      }
+    }
+	
+2. Create the following Visualforce page :class:`TwiMLPage`:
 
-#. TODO: Test your app
+  .. code-block:: html
 
-#. Now you have the sample page working, you have a starting point for a TwiML app running on Force.com. Examine TwilioSamplePage and TwilioSampleController to see how the sample app is put together.
+    <apex:page controller="TwiMLPage"
+      showheader="false"
+      contentType="text/xml"
+      >{! '<?xml version=\"1.0\" encoding=\"UTF-8\"?>' }
+    {!dial}
+    </apex:page>
+
+3. In Salesforce, go to **Setup | App Setup | Develop | Sites** and create a new site. Set the home page to :class:`TwiMLPage` to the list of Site Visualforce Pages. Ensure you activate the site.
+
+
+4. Log into your `Twilio account <https://www.twilio.com/user/account>`_. Go to **Numbers**, buy a phone number, and set the **Voice Request URL** to the URL of your Visualforce page on your Site -- for example, https://twiliotest-developer-edition.na14.force.com/TwiMLPage
+
+
+5. Test your app by calling the phone number.
+
+
+Now you have the sample page working, you have a starting point for a TwiML app running on Force.com. Examine TwilioSamplePage and TwilioSampleController to see how the sample app is put together.
 
 
 More Information
