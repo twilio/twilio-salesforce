@@ -42,3 +42,117 @@ Because the purpose of the Capability Token is to authorize the direct connectio
 Once your client-side app has a valid token, it can make outbound and/or receive inbound calls through Twilio directly, until the token expires.
 
 
+Adding Twilio Client to Salesforce
+==================================
+
+Using the TwilioCapability class
+--------------------------------
+
+Capability tokens are used by Twilio Client to provide connection security and authorization. The `Capability Token documentation <http://www.twilio.com/docs/client/capability-tokens>`_ explains in depth the purpose and features of these tokens.
+
+:class:`TwilioCapability` is responsible for the creation of these capability tokens. You’ll need your Twilio AccountSid and AuthToken.
+
+.. code-block:: javascript
+
+    String accountSid = 'ACXXXXXXXXXXXXXXXXX';
+    String authToken = 'YYYYYYYYYYYYYYYYYY';
+    TwilioCapability capability = new TwilioCapability(accountSid, authToken);
+
+Allow Incoming Connections
+--------------------------
+Before a device running Twilio Client can recieve incoming connections, the instance must first register a name (such as “Alice” or “Bob”). The :meth:`allowClientIncoming()` method adds the client name to the capability token.
+
+.. code-block:: javascript
+
+    capability.allowClientIncoming('Alice');
+
+Allow Outgoing Connections
+--------------------------
+To make an outgoing connection from a Twilio Client device, you’ll need to choose a Twilio Application to handle TwiML URLs. A Twilio Application is a collection of URLs responsible for outputing valid TwiML to control phone calls and SMS.
+
+.. code-block:: javascript
+
+    // Twilio Application Sid
+    String applicationSid = 'APabe7650f654fc34655fc81ae71caa3ff';
+    capability.allowClientOutgoing(applicationSid);
+
+Generate a Token
+----------------
+
+.. code-block:: javascript
+
+	String token = capability.generateToken();
+
+By default, this token will expire in one hour. If you’d like to change the token expiration, :meth:`generateToken()` takes an optional expires argument.
+
+.. code-block:: javascript
+
+	String token = capability.generateToken(600);
+
+This token will now expire in 10 minutes. If you haven’t guessed already, expires is expressed in seconds.
+
+Visualforce Example
+===================
+
+The controller is responsible for generating the token so it can be embedded in the Visualforce page.
+
+.. code-block:: javascript
+
+	public class TwilioClientController {
+		private TwilioCapability capability;
+		
+		public TwilioClientController() {
+			capability = TwilioAPI.createCapability();
+			capability.allowClientOutgoing(
+				TwilioAPI.getTwilioConfig().ApplicationSid__c,
+				null);
+		}
+		
+		public String getToken() { return capability.generateToken(); }
+	}
+
+The Visualforce page includes the `twilio.min.js` Javascript library and calls `Twilio.Device.setup(token)` to authorize the client-side device.  Buttons on the page allow the user to invoke :meth:`Twilio.Device.connect` and :meth:`Twilio.Device.disconnectAll`.
+
+.. code-block:: html
+
+	<apex:page controller="TwilioClientController" showHeader="false">
+		<apex:includeScript 
+		  value="//static.twilio.com/libs/twiliojs/1.0/twilio.min.js"/>
+		<apex:includeScript 
+		  value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"/>
+		<apex:stylesheet 
+		  value="http://static0.twilio.com/packages/quickstart/client.css"/>
+		
+		<script type="text/javascript">
+		  // pass the Capability Token to the Device
+		  Twilio.Device.setup("{! token }");
+	 
+		  Twilio.Device.connect(function (conn) {
+			$("#log").text("Successfully established call");
+		  });
+		  
+		  Twilio.Device.disconnect(function (conn) {
+			$("#log").text("Call ended");
+		  });
+	 
+		  function call() {
+			Twilio.Device.connect();
+		  }
+		  
+		  function hangup() {
+			Twilio.Device.disconnectAll();
+		  }
+		</script>
+		<div height="100%" width="100%" class="bg">
+			<button class="call" onclick="call();">
+			  Call
+			</button>
+			
+			<button class="hangup" onclick="hangup();">
+			  Hangup
+			</button>
+		 
+			<div id="log"/>
+			<br/>
+		</div>
+	</apex:page>
