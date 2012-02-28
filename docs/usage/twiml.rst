@@ -93,7 +93,7 @@ Serving TwiML Requests from a Force.com Site
       showheader="false"
       contentType="text/xml"
       >{! '<?xml version=\"1.0\" encoding=\"UTF-8\"?>' }
-    {!dial}
+    {!twiml}
     </apex:page>
 
 3. In Salesforce, go to **Setup | App Setup | Develop | Sites** and create a new site. Set the home page to :class:`TwiMLPage` to the list of Site Visualforce Pages. Ensure you activate the site.
