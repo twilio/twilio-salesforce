@@ -56,8 +56,6 @@ global class TwilioAuthorizedConnectAppList extends TwilioResource.ListResource
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
 	 * see TwilioResource#getResourceLocation()
 	 */
 	public override String getResourceLocation() {
@@ -66,8 +64,6 @@ global class TwilioAuthorizedConnectAppList extends TwilioResource.ListResource
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
 	 * see TwilioResource.ListResource#makeNew(TwilioRestClient, Map)
 	 */
 	public override Object makeNew(TwilioRestClient client,
