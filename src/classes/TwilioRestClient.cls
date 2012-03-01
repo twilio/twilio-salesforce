@@ -550,4 +550,53 @@ public class TwilioRestClient {
 	public String getAccountSid() {
 		return this.accountSid;
 	}
+	
+	/**
+	 * Validate the signature on an incoming call from Twilio
+	 *
+	 * @param expectedSignature 
+	 *		The received signature. In an Apex REST method, this will be
+	 *		<code>RestContext.request.headers.get('X-Twilio-Signature')</code>.
+	 *				
+	 * @param url 
+	 *		The endpoint URL, for example 
+	 *		<code>https://mysite.force.com/services/apexrest/twiliosms</code>.
+	 *		In an Apex REST method, this will be <code>'https://' + 
+	 *		RestContext.request.headers.get('Host') + '/services/apexrest' + 
+	 *      RestContext.request.requestURI</code>.
+	 *
+	 * @param params 
+	 *		The params map from the incoming message. In an Apex REST method, 
+	 *		this will be <code>RestContext.request.params</code>.
+	 *
+	 * @return true if the signature is valid, false otherwise
+	 */
+	public boolean validateRequest(String expectedSignature, String url, Map<String,String> params) {
+		try {
+			// sort the params alphabetically, and append the key and value of each to the url
+			String data = url;        
+            if(params!=null){
+                List<String> sortedKeys = new List<String>(params.keySet());
+                sortedKeys.sort();
+                
+                for (String s: sortedKeys) {
+                    data += s;
+                    String v='';
+                    if (params.get(s)!=null)
+                        v=params.get(s);
+                    data += v;
+                }
+            }
+
+			//compute the hmac on input data bytes, with AuthToken as key
+            Blob mac = Crypto.generateMac('hmacSHA1', Blob.valueOf(data), Blob.valueOf(authToken));
+           
+            //base64-encode the hmac
+			String signature = EncodingUtil.base64Encode(mac);
+            
+            return signature.equals(expectedSignature);
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

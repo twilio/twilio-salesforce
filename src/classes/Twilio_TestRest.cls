@@ -156,4 +156,60 @@ private class Twilio_TestRest {
     	}
     	System.assert(e instanceof TwilioRestException);  	
     }
+    
+    static testmethod void testValidateRequest() {
+    	//The Twilio authToken is the encryption key
+        String methodAuthToken = '1c892n40nd03kdnc0112slzkl3091j20';
+        TwilioRestClient client = new TwilioRestClient(accountSid,methodAuthToken);
+        
+    	// This is the signature we expect
+        String expected_sig = 'fF+xx6dTinOaCdZ0aIeNkHr/ZAA=';
+        
+        //This is the url that twilio requested
+        String url = 'http://www.postbin.org/1ed898x';
+
+        //These are the post params twilio sent in its request
+        Map<String,String> params = new Map<String,String>{
+            'AccountSid'=>'AC9a9f9392lad99kla0sklakjs90j092j3',
+            'ApiVersion'=>'2010-04-01',
+            'CallSid'=>'CAd800bb12c0426a7ea4230e492fef2a4f',
+            'CallStatus'=>'ringing',
+            'Called'=>'+15306384866',
+            'CalledCity'=>'OAKLAND',
+            'CalledCountry'=>'US',
+            'CalledState'=>'CA',
+            'CalledZip'=>'94612',
+            'Caller'=>'+15306666666',
+            'CallerCity'=>'SOUTH LAKE TAHOE',
+            'CallerCountry'=>'US',
+            'CallerName'=>'CA Wireless Call',
+            'CallerState'=>'CA',
+            'CallerZip'=>'89449',
+            'Direction'=>'inbound',
+            'From'=>'+15306666666',
+            'FromCity'=>'SOUTH LAKE TAHOE',
+            'FromCountry'=>'US',
+            'FromState'=>'CA',
+            'FromZip'=>'89449',
+            'To'=>'+15306384866',
+            'ToCity'=>'OAKLAND',
+            'ToCountry'=>'US',
+            'ToState'=>'CA',
+            'ToZip'=>'94612'
+        };
+        boolean result = client.validateRequest(expected_sig, url, params);
+
+        System.assertEquals(true,result);
+        
+        // Now tamper with something, and the result should be false
+        params.put('CalledState', 'NV');
+        result = client.validateRequest(expected_sig, url, params);
+
+        System.assertEquals(false,result);
+        
+        // Pass nulls, and the result should still be false
+        result = client.validateRequest(null, null, null);
+
+        System.assertEquals(false,result);
+    }
 }
