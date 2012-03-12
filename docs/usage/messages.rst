@@ -16,9 +16,9 @@ Send a text message in only a few lines of code.
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
     Map<String,String> properties = new Map<String,String> {
-		    'To'='+13216851234',
-            'From'='+15555555555',
-            'Body'='Hello!'
+		    'To'   => '+13216851234',
+            'From' => '+15555555555',
+            'Body' => 'Hello!'
         };
     TwilioSMS message = client.getAccount().getSmsMessages().create(properties);
 
@@ -56,7 +56,7 @@ The list resource supports filtering on :attr:`To`, :attr:`From`, and :attr:`Dat
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
     Map<String,String> filters = new Map<String,String> {
-    		'To' => '+5466758723',
+    		'To'       => '+5466758723',
     		'DateSent' => TwilioParser.formatFilterDatetime(2012,1,1)
     	};
     for (TwilioSms message : client.getAccount().getSmsMessages(filters).getPageData()) {
