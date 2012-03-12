@@ -22,7 +22,7 @@ This sample calls the `to` phone number and plays music.  The `from` number must
             'from' => '9991231234',
             'url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
         };
-    TwilioCall call = client.getAccount().getCalls().createCall(params);
+    TwilioCall call = client.getAccount().getCalls().create(params);
 
 Send an SMS
 ===========
@@ -40,7 +40,7 @@ This sample texts *Hello there!* to the `to` phone number.  The `from` number mu
             'from' => '+15555555555',
             'body' => 'Hello there!'
         };
-    TwilioSMS sms = client.getAccount().getSMSMessages().createSMS(params);
+    TwilioSMS sms = client.getAccount().getSMSMessages().create(params);
 
 Generate TwiML
 ==============
