@@ -16,9 +16,9 @@ Send a text message in only a few lines of code.
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
     Map<String,String> properties = new Map<String,String> {
-		    'To'='+13216851234',
-            'From'='+15555555555',
-            'Body'='Hello!'
+		    'To' => '+13216851234',
+            'From' => '+15555555555',
+            'Body' => 'Hello!'
         };
     TwilioSMS message = client.getAccount().getSmsMessages().create(properties);
 
