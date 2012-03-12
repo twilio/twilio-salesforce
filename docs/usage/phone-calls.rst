@@ -19,9 +19,9 @@ can be successfully started, you'll need a url which outputs valid `TwiML
     TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
     
     Map<String,String> params = new Map<String,String>() {
-			'to' => '9991231234',
-			'from' => '9991231234',
-			'url' => 'http://foo.com/call.xml'
+			'To' => '9991231234',
+			'From' => '9991231234',
+			'Url' => 'http://foo.com/call.xml'
 		};
     
     TwilioCall call = client.getAccount().getCalls().create(params);
