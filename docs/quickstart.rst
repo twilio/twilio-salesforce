@@ -18,9 +18,9 @@ This sample calls the `to` phone number and plays music.  The `from` number must
     TwilioRestClient client = new TwilioRestClient(account, token);
     
     Map<String,String> params = new Map<String,String> {
-            'to'   => '9991231234',
-            'from' => '9991231234',
-            'url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
+            'To'   => '9991231234',
+            'From' => '9991231234',
+            'Url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
         };
     TwilioCall call = client.getAccount().getCalls().create(params);
 
@@ -36,9 +36,9 @@ This sample texts *Hello there!* to the `to` phone number.  The `from` number mu
     TwilioRestClient client = new TwilioRestClient(account, token);
     
     Map<String,String> params = new Map<String,String> {
-            'to'   => '+12316851234',
-            'from' => '+15555555555',
-            'body' => 'Hello there!'
+            'To'   => '+12316851234',
+            'From' => '+15555555555',
+            'Body' => 'Hello there!'
         };
     TwilioSMS sms = client.getAccount().getSMSMessages().create(params);
 
