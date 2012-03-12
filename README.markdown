@@ -55,7 +55,7 @@ Map<String,String> params = new Map<String,String> {
         'from' => '9991231234',
         'url' => 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
     };
-TwilioCall call = client.getAccount().getCalls().createCall(params);
+TwilioCall call = client.getAccount().getCalls().create(params);
 ```
 
 Send an SMS
@@ -72,7 +72,7 @@ Map<String,String> params = new Map<String,String> {
         'from' => '+15555555555',
         'body' => 'Hello there!'
     };
-TwilioSMS sms = client.getAccount().getSMSMessages().createSMS(params);
+TwilioSMS sms = client.getAccount().getSMSMessages().create(params);
 ```
 
 Generate TwiML
