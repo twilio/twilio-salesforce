@@ -60,7 +60,7 @@ TwilioCall call = client.getAccount().getCalls().create(params);
 
 Send an SMS
 -----------
-This sample texts *Hello there!* to the `to` phone number.  The `from` number must be a [verified number](https://www.twilio.com/user/account/phone-numbers/verified) on your Twilio account.
+This sample texts *Hello there!* to the `to` phone number.  The `from` number must be a number which you have purchased from Twilio. Unlike voice calls, SMS messages cannot be sent from a verified number.
 
 ```javascript
 String account = 'ACXXXXXXXXXXXXXXXXX';
