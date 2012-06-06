@@ -26,9 +26,9 @@ We've made it easy to get started. Just grab the code from GitHub and deploy it 
 
 #. Install the `Force.com Migration Tool <http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm>`_ plugin for Ant, if you don't already have it.
 
-#. Edit :file:`install/build.properties` to insert your Salesforce username and password.
+#. Edit :file:`install/build.properties` to insert your Salesforce username and password.  Since you will be using the API to access Salesforce, remember to `append your Security Token <http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_concepts_security.htm#topic-title_login_token>`_ to your password.
 
-#. Open a terminal window to the :file:`install` folder, then deploy using Ant:
+#. Open your command line to the :file:`install` folder, then deploy using Ant:
 
    .. code-block:: bash
 
