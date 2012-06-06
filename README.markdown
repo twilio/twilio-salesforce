@@ -22,9 +22,9 @@ We've made it easy to get started. Just grab the code from GitHub and deploy it 
 
 1. Install the [Force.com Migration Tool](http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm) plugin for Ant, if you don't already have it.
 
-1. Edit `install/build.properties` to insert your Salesforce username and password.
+1. Edit `install/build.properties` to insert your Salesforce username and password.  Since we will be using the API to access Salesforce, remember to [append your Security Token](http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_concepts_security.htm#topic-title_login_token) to your password.
 
-1. Open a terminal window to the `install` folder, then deploy using Ant:
+1. Open your command line to the `install` folder, then deploy using Ant:
 
     ```bash
     $ ant deployTwilio
