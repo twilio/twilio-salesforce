@@ -185,6 +185,32 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 	}
 	
 	/**
+     	* Returns the message list.
+     	* See http://www.twilio.com/docs/api/rest/message
+     	*/
+	 public TwilioMessageList getMessages() {
+        	return this.getMessages(new Map<String, String>());
+    	}
+
+	/**
+     	* Returns the messages list, applying the supplied filters.
+     	* See http://www.twilio.com/docs/api/rest/message
+     	*/
+    	public TwilioMessageList getMessages(Map<String, String> filters) {
+        	TwilioMessageList message = new TwilioMessageList(this.getClient(), filters);
+        	message.setRequestAccountSid(this.getRequestAccountSid());
+
+		return message;
+    	}
+    
+    	/** Returns a given message by sid */
+    	public TwilioMessage getMessage(String sid) {
+        	TwilioMessage message = new TwilioMessage(this.getClient(), sid);
+        	message.setRequestAccountSid(this.getRequestAccountSid());
+        	return message;
+    	} 
+    	
+	/**
 	 * Suspend a subaccount.
 	 *
 	 * @return the account
