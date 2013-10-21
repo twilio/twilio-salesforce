@@ -198,6 +198,26 @@ global class TwilioIterator {
 		}
 	}
 	
+	
+    	global class MessageIterator extends ObjectIteratorSupport implements Iterator<TwilioMessage> {
+        	global MessageIterator(TwilioMessageList twlist) {
+            	super(twlist);
+        	}
+        
+        	global TwilioMessage next() {
+            	return (TwilioMessage)getNext(); 
+        	}
+    	}
+    
+    	global class MediaIterator extends ObjectIteratorSupport implements Iterator<TwilioMedia> {
+        	global MediaIterator(TwilioMediaList twlist) {
+            	super(twlist);
+        	}
+        
+        	global TwilioMedia next() {
+            	return (TwilioMedia)getNext(); 
+		}
+    	}
 	global class TranscriptionIterator extends ObjectIteratorSupport implements Iterator<TwilioTranscription> {
 		global TranscriptionIterator(TwilioTranscriptionList twlist) {
 			super(twlist);
