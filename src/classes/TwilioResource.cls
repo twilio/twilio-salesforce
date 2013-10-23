@@ -442,6 +442,12 @@ public abstract class TwilioResource
 			return makeNew(this.getClient(), response.toMap());
 		}
 		
+        /* implements method from TwilioResource.ListResource */
+                public Object createInstance(List<TwilioNameValuePair> params) {
+                        TwilioRestResponse response = this.getClient().safeRequestPair(
+                                        this.getResourceLocation(), 'POST', params);
+                        return makeNew(this.getClient(), response.toMap());
+                }
 		
 		/**
 		 * Gets the page data.

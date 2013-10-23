@@ -49,6 +49,10 @@ global class TwilioMessageList extends TwilioResource.ListResource implements It
   public TwilioMessage create(Map<String, String> params) {
     return (TwilioMessage)this.createInstance(params);
   }
+    
+    public TwilioMessage create(List<TwilioNameValuePair> params) {
+    	return (TwilioMessage) this.createInstance(params);    
+    }
   
   public List<TwilioMessage> getPageData() {
     List<TwilioMessage> returnList = new List<TwilioMessage>();

@@ -21,6 +21,12 @@
         <members>TwilioIncomingPhoneNumber</members>
         <members>TwilioIncomingPhoneNumberList</members>
         <members>TwilioIterator</members>
+        <members>TwilioMedia</members>
+        <members>TwilioMediaList</members>
+        <members>TwilioMember</members>
+        <members>TwilioMemberList</members>
+        <members>TwilioMessage</members>
+        <members>TwilioMessageList</members>
         <members>TwilioNotification</members>
         <members>TwilioNotificationList</members>
         <members>TwilioOutgoingCallerId</members>
@@ -28,6 +34,8 @@
         <members>TwilioParser</members>
         <members>TwilioParticipant</members>
         <members>TwilioParticipantList</members>
+        <members>TwilioQueue</members>
+        <members>TwilioQueueList</members>
         <members>TwilioRecording</members>
         <members>TwilioRecordingList</members>
         <members>TwilioResource</members>
