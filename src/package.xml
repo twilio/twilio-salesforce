@@ -57,6 +57,7 @@
         <members>Twilio_TestConference</members>
         <members>Twilio_TestConnectApps</members>
         <members>Twilio_TestHTTPMock</members>
+        <members>Twilio_TestMessage</members>
         <members>Twilio_TestNotification</members>
         <members>Twilio_TestPhoneNumbers</members>
         <members>Twilio_TestRecording</members>
