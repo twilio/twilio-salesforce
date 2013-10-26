@@ -50,6 +50,7 @@
         <members>TwilioTranscription</members>
         <members>TwilioTranscriptionList</members>
         <members>TwilioTwiML</members>
+        <members>TwilioNameValuePair</members>
         <members>Twilio_TestAccounts</members>
         <members>Twilio_TestApplication</members>
         <members>Twilio_TestCalls</members>
