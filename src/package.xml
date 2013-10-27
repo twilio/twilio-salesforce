@@ -27,6 +27,7 @@
         <members>TwilioMemberList</members>
         <members>TwilioMessage</members>
         <members>TwilioMessageList</members>
+        <members>TwilioNameValuePair</members>
         <members>TwilioNotification</members>
         <members>TwilioNotificationList</members>
         <members>TwilioOutgoingCallerId</members>
@@ -50,7 +51,6 @@
         <members>TwilioTranscription</members>
         <members>TwilioTranscriptionList</members>
         <members>TwilioTwiML</members>
-        <members>TwilioNameValuePair</members>
         <members>Twilio_TestAccounts</members>
         <members>Twilio_TestApplication</members>
         <members>Twilio_TestCalls</members>
