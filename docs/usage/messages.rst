@@ -2,7 +2,7 @@
 SMS Messages
 ============
 
-For more information, see the `SMS Message REST Resource <http://www.twilio.com/docs/api/rest/sms>`_ documentation.
+For more information, see the `SMS Message REST Resource <http://www.twilio.com/docs/api/rest/message>`_ documentation.
 
 Sending a Text Message
 ----------------------
@@ -20,10 +20,32 @@ Send a text message in only a few lines of code.
         	'From' => '+15555555555',
     		'Body' => 'Hello!'
     	};
-    TwilioSMS message = client.getAccount().getSmsMessages().create(properties);
+    TwilioMessage message = client.getAccount().getMessages().create(properties);
 
 
 .. note:: The message body must be less than 160 characters in length
+
+Sending a MMS
+----------------------
+
+Send a MMS in only a few lines of code.
+
+.. code-block:: javascript
+
+    String ACCOUNT_SID = 'AXXXXXXXXXXXXXXXXX';
+    String AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYY';
+    TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+    
+    List<TwilioNameValuePair> properties = new List<TwilioNameValuePair>();
+    properties.add(new TwilioNameValuePair('To','+13216851234'));
+	properties.add(new TwilioNameValuePair('From','+15555555555'));
+	properties.add(new TwilioNameValuePair('MediaUrl','https://www.twilio.com/packages/company/img/logos_downloadable_round.png'));  
+    
+    TwilioMessage message = client.getAccount().getMessages().create(properties);
+
+
+.. note:: The message body must be less than 160 characters in length
+
 
 If you want to send a message from a `short code
 <http://www.twilio.com/api/sms/short-codes>`_ on Twilio, just set :attr:`From`
