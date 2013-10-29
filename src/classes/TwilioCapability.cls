@@ -112,6 +112,7 @@ global class TwilioCapability {
         this.scopes.add(buildScopeString('stream', 'subscribe', value));
     }
 
+<<<<<<< HEAD
     /**
      * Generates a new token based on the credentials and permissions that
      * previously has been granted to this token.
@@ -119,7 +120,7 @@ global class TwilioCapability {
      * @return the newly generated token that is valid for 3600 seconds
      */
     global String generateToken() {
-        return generateToken(System.currentTimeMillis() + 3600);
+        return generateToken(3600);
     }
 
     /**
@@ -137,10 +138,41 @@ global class TwilioCapability {
         buildOutgoingScope();       
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('iss', this.accountSid);
-        payload.put('exp', String.valueOf(System.currentTimeMillis() + ttl));
+        payload.put('exp', String.valueOf(System.currentTimeMillis()/1000 + ttl));
         payload.put('scope', join(this.scopes, ' '));
         return jwtEncode(payload, this.authToken);
     }
+=======
+	/**
+	 * Generates a new token based on the credentials and permissions that
+	 * previously has been granted to this token.
+	 * 
+	 * @return the newly generated token that is valid for 3600 seconds
+	 */
+	global String generateToken() {
+		return generateToken(3600);
+	}
+
+	/**
+	 * Generates a new token based on the credentials and permissions that
+	 * previously has been granted to this token.
+	 * 
+	 * @param expiresAt
+	 *            the expiration instance of the token.
+	 * @return the newly generated token that is valid for ttl seconds
+	 */
+	global String generateToken(long ttl) {
+		// Build these scopes lazily when we generate tokens so we know
+		// if we have a default or incoming client name to use
+		buildIncomingScope();
+		buildOutgoingScope();		
+		Map<String, Object> payload = new Map<String, Object>();
+		payload.put('iss', this.accountSid);
+		payload.put('exp', String.valueOf(System.currentTimeMillis()/1000 + ttl));
+		payload.put('scope', join(this.scopes, ' '));
+		return jwtEncode(payload, this.authToken);
+	}
+>>>>>>> 2c915fb8265a9ce66ddd795c4da3e6915d62e809
 
 
     /* PRIVATE METHODS */
