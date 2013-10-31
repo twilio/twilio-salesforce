@@ -119,7 +119,7 @@ global class TwilioCapability {
      * @return the newly generated token that is valid for 3600 seconds
      */
     global String generateToken() {
-        return generateToken(3600);
+        return generateToken(System.currentTimeMillis() + 3600);
     }
 
     /**
@@ -137,10 +137,11 @@ global class TwilioCapability {
         buildOutgoingScope();       
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('iss', this.accountSid);
-        payload.put('exp', String.valueOf(System.currentTimeMillis()/1000 + ttl));
+        payload.put('exp', String.valueOf(System.currentTimeMillis() + ttl));
         payload.put('scope', join(this.scopes, ' '));
         return jwtEncode(payload, this.authToken);
     }
+
 
     /* PRIVATE METHODS */
     

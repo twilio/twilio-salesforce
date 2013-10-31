@@ -29,7 +29,7 @@ private class Twilio_TestRest {
 	final static String authToken = '12345678901234567890123456789012';
 	
     static testMethod void testTwilioRestResponse() {
-        String url = 'https://api.twilio.com';
+        String url = 'http://api.twilio.com';
         String queryString = 'a=1&b=2';
         String responseText = 'This is a test';
         TwilioRestResponse response = new TwilioRestResponse(url+'?'+queryString,responseText,200);
