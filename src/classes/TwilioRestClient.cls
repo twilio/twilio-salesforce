@@ -28,7 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 public class TwilioRestClient {
 
     /** The Constant VERSION. */
-    private static final String VERSION = '3.0';
+    private static final String VERSION = '3.2.0';
 
     /** The endpoint. */
     private String endpoint = 'https://api.twilio.com';
@@ -471,10 +471,12 @@ public class TwilioRestClient {
                 String contentType;
                 if (Test.isRunningTest()) {
                         // can't execute HTTP requests during test execution
+                        system.debug('I am here');
                         Twilio_TestHTTPMock.Response responseMock = Twilio_TestHTTPMock.getInstance().send(request);
                         responseBody = (responseMock.getBody()==null)?'':responseMock.getBody();
                         statusCode = responseMock.getStatusCode();
                         contentType = responseMock.getHeader('Content-Type');
+                        system.debug('Response Mock :'+responseMock);
                 } else {
                         // execute HTTP request
                         HttpResponse response = (new Http()).send(request);
@@ -524,9 +526,9 @@ public class TwilioRestClient {
         HttpRequest request = buildMethod(method, path, params);
 
         request.setHeader('X-Twilio-Client', 'salesforce-' + VERSION);
-        request.setHeader('User-Agent', 'twilio-salesforce-' + VERSION);
+        request.setHeader('User-Agent', 'twilio-salesforce/' + VERSION);
         request.setHeader('Accept', 'application/json');
-        
+        request.setHeader('Accept-Charset', 'utf-8');
         request.setHeader('Authorization',
                     'Basic '+EncodingUtil.base64Encode(Blob.valueOf(this.accountSid + ':' + this.authToken)));
         
