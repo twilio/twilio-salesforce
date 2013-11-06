@@ -35,7 +35,7 @@ global class TwilioQueue extends TwilioResource.InstanceResource
     }
     
     public Integer getCurrentSize() {
-        Integer prop = (Integer)this.getObject(CURRENT_SIZE);
+        Integer prop = this.getPropertyInteger(CURRENT_SIZE);
         if (prop != null) {
             return prop;
         } else {
@@ -44,7 +44,7 @@ global class TwilioQueue extends TwilioResource.InstanceResource
     }
     
     public Integer getMaxSize() {
-        Integer prop = (Integer)this.getObject(MAX_SIZE);
+        Integer prop = this.getPropertyInteger(MAX_SIZE);
         if (prop != null) {
             return prop;
         } else {
@@ -53,7 +53,7 @@ global class TwilioQueue extends TwilioResource.InstanceResource
     }
 
     public Integer getAverageWaitTime() {
-        Integer prop = (Integer) this.getObject(AVERAGE_WAIT_TIME);
+        Integer prop = (Integer) this.getPropertyInteger(AVERAGE_WAIT_TIME);
         if (prop != null) {
             return prop;
         } else {
