@@ -471,7 +471,7 @@ public class TwilioRestClient {
                 String contentType;
                 if (Test.isRunningTest()) {
                         // can't execute HTTP requests during test execution
-                        system.debug('I am here');
+                    	system.debug('Request :'+request);
                         Twilio_TestHTTPMock.Response responseMock = Twilio_TestHTTPMock.getInstance().send(request);
                         responseBody = (responseMock.getBody()==null)?'':responseMock.getBody();
                         statusCode = responseMock.getStatusCode();

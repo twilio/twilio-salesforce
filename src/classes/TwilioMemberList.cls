@@ -34,6 +34,17 @@ global class TwilioMemberList extends TwilioResource.ListResource implements Ite
                 + this.queueSid + '/Members.json';
     }
     
+    public List<TwilioMember> getPageData() {
+        List<TwilioMember> returnList = new List<TwilioMember>();
+    
+        for (Object o : this.getObjectPageData()) {
+            if (o instanceof TwilioMember) {
+                returnList.add((TwilioMember) o);
+            }
+        }
+        return returnList;
+    }
+    
     /* implement method from Iterable<TwilioMember> interface */
     global Iterator<TwilioMember> iterator() 
     {

@@ -130,17 +130,6 @@ global class TwilioMedia extends TwilioResource.InstanceResource
         }
         
         /**
-         * Gets the duration
-         *
-         * @return the duration
-         */
-        public Integer getDuration() 
-        {
-            Integer duration = (Integer) this.getObject('duration');
-            return duration;        
-        }
-
-        /**
          * Gets the api version.
          *
          * @return the api version

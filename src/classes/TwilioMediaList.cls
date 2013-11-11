@@ -65,8 +65,19 @@ global class TwilioMediaList extends TwilioResource.ListResource implements Iter
         return this.requestMessageSid;
     }
     
+    public List<TwilioMedia> getPageData() {
+        List<TwilioMedia> returnList = new List<TwilioMedia>();
+    
+        for (Object o : this.getObjectPageData()) {
+            if (o instanceof TwilioMedia) {
+                returnList.add((TwilioMedia) o);
+            }
+        }
+        return returnList;
+    }
     global Iterator<TwilioMedia> iterator() 
     {
         return new TwilioIterator.MediaIterator(this);
     }
+    
 }

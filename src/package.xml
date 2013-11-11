@@ -67,6 +67,8 @@
         <members>Twilio_TestSms</members>
         <members>Twilio_TestTwiML</members>
         <members>Twilio_TestQueue</members>
+        <members>Twilio_TestMedia</members>
+        <members>Twilio_TestMember</members>
         <name>ApexClass</name>
     </types>
     <types>
