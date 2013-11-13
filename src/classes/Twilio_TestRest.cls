@@ -25,9 +25,9 @@ OTHER DEALINGS IN THE SOFTWARE.
 @isTest
 private class Twilio_TestRest {
 
-	final static String accountSid = 'AC03c2fcd60e144e7cbeed179fcbf812a3';
-	final static String authToken = '12345678901234567890123456789012';
-	
+    final static String accountSid = 'AC03c2fcd60e144e7cbeed179fcbf812a3';
+    final static String authToken = '12345678901234567890123456789012';
+    
     static testMethod void testTwilioRestResponse() {
         String url = 'https://api.twilio.com';
         String queryString = 'a=1&b=2';
@@ -77,12 +77,12 @@ private class Twilio_TestRest {
         
         Exception restEx = null;
         try {
-        	Map<String,Object> xmlMap = response.toMap();
+            Map<String,Object> xmlMap = response.toMap();
         } catch (Exception e) {
-        	restEx = e;
-    	}
-    	System.assert(restEx instanceof TwilioRestException);
-    	
+            restEx = e;
+        }
+        System.assert(restEx instanceof TwilioRestException);
+        
         
         response.setUrl('test');
         System.assertEquals('test', response.getUrl());
@@ -92,77 +92,77 @@ private class Twilio_TestRest {
     }
     
     static testmethod void testTwilioRestClient() {
-    	TwilioRestClient client = new TwilioRestClient(accountSid, authToken);
-    	
-    	client.setNumRetries(3);
-    	System.assertEquals(3, client.getNumRetries());
-    	
-    	Exception e = null;
-    	try {
-	    	client.safeRequest('https://api.twilio.com', 'PUT', new Map<String,String>{'key'=>'val'});
-    	} catch (TwilioRestException tre) {
-    		e = tre;
-    	}
-    	System.assert(e instanceof TwilioRestException);
-    	
-    	e = null;
-    	try {
-    		client.safeRequest('https://api.twilio.com', 'DELETE', null);
-    	} catch (TwilioRestException tre) {
-    		e = tre;
-    	}
-    	System.assert(e instanceof TwilioRestException);    	
-    	
-    	client = new TwilioRestClient(accountSid,authToken,'https://anotherendpoint.twilio.com');
-    	System.assertEquals('https://anotherendpoint.twilio.com', client.getEndpoint());
-    	
-    	e = null;
-    	try {
-    		client = new TwilioRestClient(null,authToken);
-    	} catch (TwilioRestException tre) {
-    		e = tre;
-    	}
-    	System.assert(e instanceof TwilioRestException);
-    	
-    	e = null;
-    	try {
-    		client = new TwilioRestClient('badSid',authToken);
-    	} catch (TwilioRestException tre) {
-    		e = tre;
-    	}
-    	System.assert(e instanceof TwilioRestException);
-    	
-    	e = null;
-    	try {
-    		client = new TwilioRestClient('ACbadSid',authToken);
-    	} catch (TwilioRestException tre) {
-    		e = tre;
-    	}
-    	System.assert(e instanceof TwilioRestException);
-    	
-    	e = null;
-    	try {
-    		client = new TwilioRestClient(accountSid,null);
-    	} catch (TwilioRestException tre) {
-    		e = tre;
-    	}
-    	System.assert(e instanceof TwilioRestException);
-    	
-    	e = null;
-    	try {
-    		client = new TwilioRestClient(accountSid,'badToken');
-    	} catch (TwilioRestException tre) {
-    		e = tre;
-    	}
-    	System.assert(e instanceof TwilioRestException);  	
+        TwilioRestClient client = new TwilioRestClient(accountSid, authToken);
+        
+        client.setNumRetries(3);
+        System.assertEquals(3, client.getNumRetries());
+        
+        Exception e = null;
+        try {
+            client.safeRequest('https://api.twilio.com', 'PUT', new Map<String,String>{'key'=>'val'});
+        } catch (TwilioRestException tre) {
+            e = tre;
+        }
+        System.assert(e instanceof TwilioRestException);
+        
+        e = null;
+        try {
+            client.safeRequest('https://api.twilio.com', 'DELETE', null);
+        } catch (TwilioRestException tre) {
+            e = tre;
+        }
+        System.assert(e instanceof TwilioRestException);        
+        
+        client = new TwilioRestClient(accountSid,authToken,'https://anotherendpoint.twilio.com');
+        System.assertEquals('https://anotherendpoint.twilio.com', client.getEndpoint());
+        
+        e = null;
+        try {
+            client = new TwilioRestClient(null,authToken);
+        } catch (TwilioRestException tre) {
+            e = tre;
+        }
+        System.assert(e instanceof TwilioRestException);
+        
+        e = null;
+        try {
+            client = new TwilioRestClient('badSid',authToken);
+        } catch (TwilioRestException tre) {
+            e = tre;
+        }
+        System.assert(e instanceof TwilioRestException);
+        
+        e = null;
+        try {
+            client = new TwilioRestClient('ACbadSid',authToken);
+        } catch (TwilioRestException tre) {
+            e = tre;
+        }
+        System.assert(e instanceof TwilioRestException);
+        
+        e = null;
+        try {
+            client = new TwilioRestClient(accountSid,null);
+        } catch (TwilioRestException tre) {
+            e = tre;
+        }
+        System.assert(e instanceof TwilioRestException);
+        
+        e = null;
+        try {
+            client = new TwilioRestClient(accountSid,'badToken');
+        } catch (TwilioRestException tre) {
+            e = tre;
+        }
+        System.assert(e instanceof TwilioRestException);    
     }
     
     static testmethod void testValidateRequest() {
-    	//The Twilio authToken is the encryption key
+        //The Twilio authToken is the encryption key
         String methodAuthToken = '1c892n40nd03kdnc0112slzkl3091j20';
         TwilioRestClient client = new TwilioRestClient(accountSid,methodAuthToken);
         
-    	// This is the signature we expect
+        // This is the signature we expect
         String expected_sig = 'fF+xx6dTinOaCdZ0aIeNkHr/ZAA=';
         
         //This is the url that twilio requested

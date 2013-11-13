@@ -210,6 +210,26 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
         return message;
     }
     
+    public TwilioQueueList getQueues() 
+    {
+        TwilioQueueList Queuelist = new TwilioQueueList(this.getClient(), filters);
+        Queuelist.setRequestAccountSid(this.getRequestAccountSid());
+        return Queuelist;
+    }
+
+     /**
+         * Get a given queue by sid
+         *
+         * @param sid The Sid starting with QU
+         * @return the TwilioQueue object
+     */
+     public TwilioQueue getQueue(String sid) 
+     {
+         TwilioQueue queue = new TwilioQueue(this.getClient(), sid);
+         queue.setRequestAccountSid(this.getRequestAccountSid());
+         return queue;
+     }
+        
     /**
      * Suspend a subaccount.
      *

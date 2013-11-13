@@ -142,6 +142,7 @@ global class TwilioCapability {
         return jwtEncode(payload, this.authToken);
     }
 
+
     /* PRIVATE METHODS */
     
     /**

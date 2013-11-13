@@ -69,6 +69,7 @@ public class Twilio_TestHTTPMock {
         Map<String,Response> resourceMap = this.methodMap.get(method.toUpperCase());        
         if (resourceMap!=null) {
             res = resourceMap.get(uri.toUpperCase());
+            system.debug('uri:'+uri.toUpperCase());
             system.debug('Resource Map:'+resourceMap+' , Keys :'+resourceMap.keySet());
             if (res!=null) {
                 System.debug('Twilio_TestHTTPMock::getResponse() Found Resource for '+method+' '+uri+' = '+res);

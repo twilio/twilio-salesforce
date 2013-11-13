@@ -247,6 +247,10 @@ public abstract class TwilioResource
 			this.getClient().safeRequest(this.getResourceLocation(), 'POST', params);
 		}
 		
+        public void updateResource(List<TwilioNameValuePair> params)
+        {
+        	this.getClient().safeRequestPair(this.getResourceLocation(), 'POST',params);   
+        }
 		protected override void parseResponse(TwilioRestResponse response) {
 			Map<String, Object> properties = response.toMap();
 			this.properties = new Map<String, Object>(properties);
