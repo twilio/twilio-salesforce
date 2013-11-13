@@ -206,7 +206,7 @@ public class TwilioRestResponse {
 	 * @return true if this looks like a JSON response
 	 */
 	public boolean isJson() {
-		return (this.contentType!=null && this.contentType.equalsIgnoreCase('application/json'));
+		return (this.contentType!=null && this.contentType.startsWithIgnoreCase('application/json'));
 	}
 
 	/**
