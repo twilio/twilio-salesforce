@@ -28,85 +28,85 @@ OTHER DEALINGS IN THE SOFTWARE.
  * For more information see http://www.twilio.com/docs/api/rest/recording
  */
 global class TwilioRecordingList extends TwilioResource.ListResource
-	implements Iterable<TwilioRecording> {
+    implements Iterable<TwilioRecording> {
 
-	private String parentCallSid;
+    private String parentCallSid;
 
-	/**
-	 * Instantiates a new recording list.
-	 *
-	 * @param client the client
-	 */
-	public TwilioRecordingList(TwilioRestClient client) {
-		super(client);
-	}
+    /**
+     * Instantiates a new recording list.
+     *
+     * @param client the client
+     */
+    public TwilioRecordingList(TwilioRestClient client) {
+        super(client);
+    }
 
-	/**
-	 * Instantiates a new recording list.
-	 *
-	 * @param client the client
-	 * @param filters the filters
-	 */
-	public TwilioRecordingList(TwilioRestClient client, Map<String, String> filters) {
-		super(client, filters);
-	}
-	
-	/**
-	 * Instantiates a new recording list under a Call resource.
-	 *
-	 * @param client the client
-	 * @param filters the filters
-	 */
-	public TwilioRecordingList(TwilioRestClient client, String parentCallSid) {
-		super(client);
-		this.parentCallSid = parentCallSid;
-	}
+    /**
+     * Instantiates a new recording list.
+     *
+     * @param client the client
+     * @param filters the filters
+     */
+    public TwilioRecordingList(TwilioRestClient client, Map<String, String> filters) {
+        super(client, filters);
+    }
+    
+    /**
+     * Instantiates a new recording list under a Call resource.
+     *
+     * @param client the client
+     * @param filters the filters
+     */
+    public TwilioRecordingList(TwilioRestClient client, String parentCallSid) {
+        super(client);
+        this.parentCallSid = parentCallSid;
+    }
 
-	/* implements method from TwilioResource */
-	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid()				
-				+ (this.parentCallSid!=null ? ('/Calls/'+this.parentCallSid) : '')
-				+ '/Recordings.json';
-	}
+    /* implements method from TwilioResource */
+    public override String getResourceLocation() {
+        return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
+                + this.getRequestAccountSid()               
+                + (this.parentCallSid!=null ? ('/Calls/'+this.parentCallSid) : '')
+                + '/Recordings.json';
+    }
 
-	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioRecording(client, params);
-	}
+    /* implements method from TwilioResource.ListResource */
+    public override Object makeNew(TwilioRestClient client,
+            Map<String, Object> params) {
+        return new TwilioRecording(client, params);
+    }
 
-	/* implements method from TwilioResource.ListResource */
-	public override String getListKey() {
-		return 'recordings';
-	}
-	
-	/* returns the current response results page */
-	public List<TwilioRecording> getPageData() {
-		List<TwilioRecording> returnList = new List<TwilioRecording>();
-		
-		for (Object o : this.getObjectPageData()) {
-			if (o instanceof TwilioRecording) {
-				returnList.add((TwilioRecording) o);
-			}
-		}
-		return returnList;
-	}
-	
-	/* returns an iterator spanning all data pages */
-	global Iterator<TwilioRecording> iterator() {
-		return new TwilioIterator.RecordingIterator(this);
-	}
-	
-	/**
-	 * Delete.
-	 *
-	 * @return true, if successful
-	 * @throws TwilioRestException the twilio rest exception
-	 */
-	public boolean deleteResource(String sid) {
-		TwilioAccount requestAccount = getClient().getAccount(getRequestAccountSid());
-		TwilioRecording rec = requestAccount.getRecording(sid);
-		return rec.deleteResource();
-	}
+    /* implements method from TwilioResource.ListResource */
+    public override String getListKey() {
+        return 'recordings';
+    }
+    
+    /* returns the current response results page */
+    public List<TwilioRecording> getPageData() {
+        List<TwilioRecording> returnList = new List<TwilioRecording>();
+        
+        for (Object o : this.getObjectPageData()) {
+            if (o instanceof TwilioRecording) {
+                returnList.add((TwilioRecording) o);
+            }
+        }
+        return returnList;
+    }
+    
+    /* returns an iterator spanning all data pages */
+    global Iterator<TwilioRecording> iterator() {
+        return new TwilioIterator.RecordingIterator(this);
+    }
+    
+    /**
+     * Delete.
+     *
+     * @return true, if successful
+     * @throws TwilioRestException the twilio rest exception
+     */
+    public boolean deleteResource(String sid) {
+        TwilioAccount requestAccount = getClient().getAccount(getRequestAccountSid());
+        TwilioRecording rec = requestAccount.getRecording(sid);
+        return rec.deleteResource();
+    }
 }

@@ -105,7 +105,7 @@ global class TwilioCapability {
      */
     global void allowEventStream(Map<String, String> filters) {
         Map<String, String> value = new Map<String, String>();
-        value.put('path', '/2010-04-01/Events');
+        value.put('path', '/' + TwilioRestClient.DEFAULT_VERSION + '/Events');
         if (filters != null) {
             value.put('params', generateParamString(filters));
         }
@@ -138,7 +138,7 @@ global class TwilioCapability {
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('iss', this.accountSid);
         payload.put('exp', String.valueOf(System.currentTimeMillis()/1000 + ttl));
-        payload.put('scope', join(this.scopes, ' '));
+        payload.put('scope', String.join(this.scopes, ' '));
         return jwtEncode(payload, this.authToken);
     }
 
@@ -197,7 +197,7 @@ global class TwilioCapability {
     /**
      * Construct URL-style query param string, e.g. key1=val1&key2=val2&...keyN=valN
      */
-    private static String generateParamString(Map<String, String> params) {
+   @TestVisible private static String generateParamString(Map<String, String> params) {
         String queryString = '';
         
         Set<String> keySet = params.keySet();
@@ -225,17 +225,17 @@ global class TwilioCapability {
         segments.add(urlSafeEncodeBase64(JSON.serialize(header)));
         segments.add(urlSafeEncodeBase64(JSON.serialize(payload)));
 
-        String signature = sign(join(segments, '.'), key);
+        String signature = sign(String.join(segments, '.'), key);
         segments.add(signature);
 
-        return join(segments, '.');
+        return String.join(segments, '.');
     }
 
-    private static String urlSafeEncodeBase64(String data) {
+    @TestVisible private static String urlSafeEncodeBase64(String data) {
         return urlSafeEncodeBase64(Blob.valueOf(data));
     }
 
-    private static String urlSafeEncodeBase64(Blob data) {
+    @TestVisible private static String urlSafeEncodeBase64(Blob data) {
         String encodedString = EncodingUtil.base64Encode(data);
         return encodedString.replace('+','-').replace('/','_').replace('=', ''); // make URL-safe
     }
@@ -243,6 +243,8 @@ global class TwilioCapability {
     /**
      * Construct a String containing the contents of 'vals' separated by 'sep'
      */
+    // Now part of built-in String methods in Apex
+    /*
     private static String join(List<String> vals, String sep) {
         String sb = '';
         for (Iterator<String> it=vals.iterator(); it.hasNext(); ) {
@@ -253,6 +255,7 @@ global class TwilioCapability {
         }
         return sb;
     }
+    */
 
     /**
      * Generate a signature for the token
@@ -264,28 +267,6 @@ global class TwilioCapability {
         Blob mac = Crypto.generateMac('hmacSHA256', Blob.valueOf(data), Blob.valueOf(key));
         String result = urlSafeEncodeBase64(mac);
         return result;
-    }
-    
-    /* UNIT TESTS FOR PRIVATE METHODS */
-    static testMethod void testGenerateParamString() {
-        System.assertEquals('', generateParamString(new Map<String,String>()));
-        System.assertEquals('a=b', generateParamString(new Map<String,String> {'a'=>'b'} ));
-        System.assertEquals('cat=dog&foo=bar', generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
-        System.assertEquals('e=f&c=d&a=b', generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
-        System.assertEquals('split+key2=split+val2&split+key1=split+val1', generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
-    }
-    
-    static testMethod void testEncodeBase64() {
-        System.assertEquals('',urlSafeEncodeBase64(''));
-        System.assertEquals('QQ',urlSafeEncodeBase64('A'));     
-        System.assertEquals('QUI',urlSafeEncodeBase64('AB'));
-        System.assertEquals('QUJDRA',urlSafeEncodeBase64('ABCD'));
-    }
-    
-    static testMethod void testJoin() {
-        System.assertEquals('', join(new List<String>(),','));
-        System.assertEquals('a', join(new List<String>{'a'},','));
-        System.assertEquals('a,b,c,d,e', join(new List<String>{'a','b','c','d','e'},','));
     }
     
     /* ACCESSOR METHODS FOR EXTERNAL TESTS */
