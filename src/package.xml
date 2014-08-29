@@ -51,6 +51,7 @@
         <members>TwilioTranscription</members>
         <members>TwilioTranscriptionList</members>
         <members>TwilioTwiML</members>
+        <members>Twilio_TestAPI</members>
         <members>Twilio_TestAccounts</members>
         <members>Twilio_TestApplication</members>
         <members>Twilio_TestCalls</members>
@@ -58,26 +59,28 @@
         <members>Twilio_TestConference</members>
         <members>Twilio_TestConnectApps</members>
         <members>Twilio_TestHTTPMock</members>
+        <members>Twilio_TestMedia</members>
+        <members>Twilio_TestMember</members>
         <members>Twilio_TestMessage</members>
         <members>Twilio_TestNotification</members>
+        <members>Twilio_TestParser</members>
         <members>Twilio_TestPhoneNumbers</members>
+        <members>Twilio_TestQueue</members>
         <members>Twilio_TestRecording</members>
         <members>Twilio_TestRest</members>
+        <members>Twilio_TestRestExceptn</members>
         <members>Twilio_TestSandbox</members>
         <members>Twilio_TestSms</members>
         <members>Twilio_TestTwiML</members>
-        <members>Twilio_TestQueue</members>
-        <members>Twilio_TestMedia</members>
-        <members>Twilio_TestMember</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
+        <members>TwilioConfig__c</members>
         <name>CustomObject</name>
     </types>
     <types>
         <members>Twilio</members>
         <name>RemoteSiteSetting</name>
     </types>
-    <version>23.0</version>
+    <version>30.0</version>
 </Package>
