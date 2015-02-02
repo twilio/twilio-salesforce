@@ -394,6 +394,17 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
     }
 
     /**
+     * Get the single participant by Call SID
+     * 
+     * @return
+     */
+    public TwilioParticipant getParticipant(String conferenceSid, string callSid) {
+        TwilioParticipant twparticipant = new TwilioParticipant(this.getClient(), conferenceSid, callSid);
+        twparticipant.setRequestAccountSid(this.getRequestAccountSid());
+        return twparticipant;  
+    }
+
+    /**
      * Returns the incoming phone numbers list.
      * See http://www.twilio.com/docs/api/rest/incoming-phone-numbers
      */
