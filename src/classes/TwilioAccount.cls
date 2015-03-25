@@ -126,6 +126,9 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 
     /** Constructs a Twilio API resource URI for this Account. Overrides method from TwilioResource. */
     public override String getResourceLocation() {
+       system.debug('Account Resource Location:' + '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
+                + this.getRequestAccountSid() + '.json');
+
         return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
                 + this.getRequestAccountSid() + '.json';
     }
@@ -611,4 +614,86 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
         sb.setRequestAccountSid(this.getRequestAccountSid());
         return sb;
     }
+
+    /**
+     * Returns the Workspaces list.
+     * See http://www.twilio.com/docs/api/rest/recording
+     */
+    public TwilioTRWorkspaceList getWorkspaces() {
+        return this.getWorkspaces(new Map<String, String>());
+    }
+
+    /**
+     * Returns a list of Workspaces in this account, applying the supplied filters.
+     * See http://www.twilio.com/docs/api/rest/applications
+     */
+    public TwilioTRWorkspaceList getWorkspaces(Map<String, String> filters) {
+        TwilioTRWorkspaceList twlist = new TwilioTRWorkspaceList(this.getClient(), filters);
+        twlist.setRequestAccountSid(this.getRequestAccountSid());
+        return twlist;
+    }
+    
+    /**
+     * Returns a given Workspace instance by sid.
+     */
+    public TwilioTRWorkspace getWorkspace(String sid) {
+        TwilioTRWorkspace workspace = new TwilioTRWorkspace(this.getClient(), sid);
+        workspace.setRequestAccountSid(this.getRequestAccountSid());
+        return workspace;
+    }
+
+    /**
+     * Get the Tasks list
+     * 
+     * @return
+     */
+    public TwilioTRTaskList getTasks(String workspaceSid) {
+        TwilioTRTaskList twlist = new TwilioTRTaskList(this.getClient(), workspaceSid);
+        twlist.setRequestAccountSid(this.getRequestAccountSid());
+        return twlist;
+    }    
+
+    /**
+     * Get the TaskQueues list
+     * 
+     * @return
+     */
+    public TwilioTRTaskQueueList getTaskQueues(String workspaceSid) {
+        TwilioTRTaskQueueList twlist = new TwilioTRTaskQueueList(this.getClient(), workspaceSid);
+        twlist.setRequestAccountSid(this.getRequestAccountSid());
+        return twlist;
+    }  
+
+   /**
+     * Get the Workflows list
+     * 
+     * @return
+     */
+    public TwilioTRWorkflowList getWorkflows(String workspaceSid) {
+        TwilioTRWorkflowList twlist = new TwilioTRWorkflowList(this.getClient(), workspaceSid);
+        twlist.setRequestAccountSid(this.getRequestAccountSid());
+        return twlist;
+    }      
+
+   /**
+     * Get the Workers list
+     * 
+     * @return
+     */
+    public TwilioTRWorkerList getWorkers(String workspaceSid) {
+        TwilioTRWorkerList twlist = new TwilioTRWorkerList(this.getClient(), workspaceSid);
+        twlist.setRequestAccountSid(this.getRequestAccountSid());
+        return twlist;
+    }      
+
+    /**
+     * Get the Activities list
+     * 
+     * @return
+     */
+    public TwilioTRActivitiesList getActivities(String workspaceSid) {
+        TwilioTRActivitiesList twlist = new TwilioTRActivitiesList(this.getClient(), workspaceSid);
+        twlist.setRequestAccountSid(this.getRequestAccountSid());
+        return twlist;
+    }  
 }

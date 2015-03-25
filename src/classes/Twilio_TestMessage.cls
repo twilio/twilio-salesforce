@@ -115,6 +115,42 @@ private class Twilio_TestMessage
         System.assertEquals(Datetime.newInstanceGmt(2012,2,1,10,49,17),mms.getDatesent());
     }
     
+    static testmethod void testTWilioMessageList() {
+        string messageListJsonBody='{"first_page_uri": "/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Messages.json?DateSent=2015-03-10&PageSize=50&Page=0", '+
+            '"end": 7, "previous_page_uri": null, "messages": [{"sid": "SM324277b2f35a415e93d043d6a5962c15", "date_created": "Tue, 10 Mar 2015 00:00:00 +0000", '+
+            '"date_updated": "Tue, 10 Mar 2015 00:00:00 +0000", "date_sent": "Tue, 10 Mar 2015 00:00:00 +0000", "account_sid": "AC03c2fcd60e144e7cbeee413fcbf812a3", '+
+            '"to": "+17187578157", "from": "+16467603227", "body": "Thanks for sending in your inquiry we are working on your case.", '+
+            '"status": "delivered", "num_segments": "1", "num_media": "0", "direction": "outbound-api", "api_version": "2010-04-01", "price": "-0.00750", '+
+            '"price_unit": "USD", "error_code": null, "error_message": null, "uri": "/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Messages/SM324277b2f35a415e93d043d6a5962c15.json", '+
+            '"subresource_uris": {"media": "/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Messages/SM324277b2f35a415e93d043d6a5962c15/Media.json"}}], '+
+            '"uri": "/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Messages.json?DateSent=2015-03-10&PageSize=50&Page=0", "page_size": 50, "start": 0, ' +
+            '"next_page_uri": null, "num_pages": 1, "total": 1, "last_page_uri": "/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Messages.json?DateSent=2015-03-10&PageSize=50&Page=0", "page": 0}';
+
+        Twilio_TestHTTPMock.getInstance().putResponse('GET',
+            'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Messages.json',
+            new Twilio_TestHTTPMock.Response(messageListJsonBody,200));
+            TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);        
+            TwilioMessageList messageList= client.getAccount().getMessages();
+            for (TwilioMessage sms: messageList.getPageData()) {
+                System.assertEquals('SM324277b2f35a415e93d043d6a5962c15', sms.getsid());
+                System.assertEquals('AC03c2fcd60e144e7cbeee413fcbf812a3', sms.getaccountsid());
+                System.assertEquals('+17187578157',sms.getto());
+                System.assertEquals('+16467603227',sms.getfrom());
+                System.assertEquals('Thanks for sending in your inquiry we are working on your case.',sms.getbody());
+                System.assertEquals('delivered',sms.getStatus());
+                System.assertEquals('-0.00750',sms.getPrice());
+                System.assertEquals('outbound-api',sms.getDirection());
+                System.assertEquals('2010-04-01',sms.getApiVersion());
+                System.assertEquals(Datetime.newInstanceGmt(2015,3,10,0,0,0),sms.getDateCreated());
+                System.assertEquals(Datetime.newInstanceGmt(2015,3,10,0,0,0),sms.getDateUpdated());
+                System.assertEquals(Datetime.newInstanceGmt(2015,3,10,0,0,0),sms.getDatesent());
+            }
+
+          Iterator<TwilioMessage> it = messageList.iterator();
+            System.assertEquals(true, it.hasNext());
+         TwilioMessage message=it.next();  
+    }
+
     static testmethod void testTwilioMessage_get() {
         string accountJsonResponseBody='{'
         +'"account_sid": "AC03c2fcd60e144e7cbeee413fcbf812a3",'

@@ -248,5 +248,75 @@ global class TwilioIterator {
         }
     }
     
+    global class TRWorkspaceIterator extends ObjectIteratorSupport implements Iterator<TwilioTRWorkspace> {
+        global TRWorkspaceIterator(TwilioTRWorkspaceList twlist) {
+            super(twlist);
+        }
+        
+        global TwilioTRWorkspace next() {
+            return (TwilioTRWorkspace)getNext();
+        }
+    }
+
+    global class TRTaskIterator extends ObjectIteratorSupport implements Iterator<TwilioTRTask> {
+        global TRTaskIterator(TwilioTRTaskList twlist) {
+            super(twlist);
+        }
+        
+        global TwilioTRTask next() {
+            return (TwilioTRTask)getNext();
+        }
+    }
+
+     global class TRTaskQueueIterator extends ObjectIteratorSupport implements Iterator<TwilioTRTaskQueue> {
+        global TRTaskQueueIterator(TwilioTRTaskQueueList twlist) {
+            super(twlist);
+        }
+        
+        global TwilioTRTaskQueue next() {
+            return (TwilioTRTaskQueue)getNext();
+        }
+    }   
+    
+    global class TRWorkflowIterator extends ObjectIteratorSupport implements Iterator<TwilioTRWorkflow> {
+        global TRWorkflowIterator(TwilioTRWorkflowList twlist) {
+            super(twlist);
+        }
+        
+        global TwilioTRWorkflow next() {
+            return (TwilioTRWorkflow)getNext();
+        }
+    }   
+
+    global class TRWorkerIterator extends ObjectIteratorSupport implements Iterator<TwilioTRWorker> {
+        global TRWorkerIterator(TwilioTRWorkerList twlist) {
+            super(twlist);
+        }
+        
+        global TwilioTRWorker next() {
+            return (TwilioTRWorker)getNext();
+        }
+    } 
+
+    global class TRActivitiesIterator extends ObjectIteratorSupport implements Iterator<TwilioTRActivities> {
+        global TRActivitiesIterator(TwilioTRActivitiesList twlist) {
+            super(twlist);
+        }
+        
+        global TwilioTRActivities next() {
+            return (TwilioTRActivities)getNext();
+        }
+    } 
+
+     global class TRReservationIterator extends ObjectIteratorSupport implements Iterator<TwilioTRReservation> {
+        global TRReservationIterator(TwilioTRReservationList twlist) {
+            super(twlist);
+        }
+        
+        global TwilioTRReservation next() {
+            return (TwilioTRReservation)getNext();
+        }
+    }     
+         
     global class TwilioUnsupportedOperationException extends Exception {}
 }

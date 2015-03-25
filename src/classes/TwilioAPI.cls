@@ -44,28 +44,28 @@ OTHER DEALINGS IN THE SOFTWARE.
  */
 global class TwilioAPI {
 
-    private class MissingTwilioConfigCustomSettingsException extends Exception {}
+	private class MissingTwilioConfigCustomSettingsException extends Exception {}
 
-    private static TwilioRestClient client;
-    
+	private static TwilioRestClient client;
+	
     private TwilioAPI() {}
     
     /**
      * Get a TwilioRestClient pre-populated with your TwilioConfig credentials
      */
     public static TwilioRestClient getDefaultClient() {
-        if (client==null) {
-            TwilioConfig__c twilioCfg = getTwilioConfig();
-            TwilioAPI.client = new TwilioRestClient(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c);
-        }
-        return TwilioAPI.client;
+    	if (client==null) {
+    		TwilioConfig__c twilioCfg = getTwilioConfig();
+	    	TwilioAPI.client = new TwilioRestClient(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c);
+    	}
+	   	return TwilioAPI.client;
     }
     
     /**
      * Get your primary account using your TwilioConfig credentials
      */
     public static TwilioAccount getDefaultAccount() {
-        return getDefaultClient().getAccount();
+    	return getDefaultClient().getAccount();
     }
     
     /**
@@ -73,32 +73,53 @@ global class TwilioAPI {
      * with your TwilioConfig credentials
      */
     public static TwilioCapability createCapability() {
-        TwilioConfig__c twilioCfg = getTwilioConfig();
-        return new TwilioCapability(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c);       
+		TwilioConfig__c twilioCfg = getTwilioConfig();
+		return new TwilioCapability(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c);    	
     }
     
+    /**
+     * Get a new Twilio TaskRouter Worker capability token generator pre-populated
+     * with your TwilioConfig credentials
+     */
+    public static TwilioTRCapability createTRCapability(string workspaceSid, string workerSid) {
+        TwilioConfig__c twilioCfg = getTwilioConfig();
+        return new TwilioTRCapability(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c, workspaceSid, workerSid);    
+    }
+
     /**
      * Get a new TwilioRestClient authorized with the credentials provided
      */
     public static TwilioRestClient createClient(String accountSid, String authToken) {
-        return new TwilioRestClient(accountSid, authToken);
+    	return new TwilioRestClient(accountSid, authToken);
     }
     
     /**
      * Load the org default TwilioConfig record
      */
     public static TwilioConfig__c getTwilioConfig() {
-        TwilioConfig__c twilioCfg;
-        if (Test.isRunningTest()) {
-            twilioCfg = new TwilioConfig__c();
-            twilioCfg.AccountSid__c = 'ACba8bc05eacf94afdae398e642c9cc32d'; // dummy sid
-            twilioCfg.AuthToken__c = '12345678901234567890123456789012';    // dummy token
-        } else {
-            twilioCfg = TwilioConfig__c.getOrgDefaults();
-            if (twilioCfg==null)
-                throw new MissingTwilioConfigCustomSettingsException('Please enter your Twilio account credentials under Twilio Config custom settings (go to Setup | Develop | Custom Settings | Manage Twilio Config)');
-        }
-        return twilioCfg;
+    	TwilioConfig__c twilioCfg;
+    	if (Test.isRunningTest()) {
+    		twilioCfg = new TwilioConfig__c();
+    		twilioCfg.AccountSid__c = 'ACba8bc05eacf94afdae398e642c9cc32d'; // dummy sid
+    		twilioCfg.AuthToken__c = '12345678901234567890123456789012';    // dummy token
+    	} else {
+    		twilioCfg = TwilioConfig__c.getOrgDefaults();
+	    	if (twilioCfg==null)
+	    		throw new MissingTwilioConfigCustomSettingsException('Please enter your Twilio account credentials under Twilio Config custom settings (go to Setup | Develop | Custom Settings | Manage Twilio Config)');
+    	}
+   		return twilioCfg;
     }
+
     
+    @isTest
+    static void test_TwilioAPI() {
+        TwilioRestClient trc = TwilioAPI.createClient('ACba8bc05eacf94afdae398e642c9cc32d', '12345678901234567890123456789012');
+        TwilioCapability tc = TwilioAPI.createCapability();
+		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getTwilioConfig().AccountSid__c);
+		System.assertEquals('12345678901234567890123456789012', TwilioAPI.getTwilioConfig().AuthToken__c);
+		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getDefaultClient().getAccountSid());
+		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getDefaultClient().getAccount().getSid());
+		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getDefaultAccount().getSid());
+	}
+	
 }
