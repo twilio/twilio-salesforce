@@ -75,9 +75,9 @@ class Twilio_TestCapability {
     static testMethod void testGenerateParamString() {
         System.assertEquals('', TwilioCapability.generateParamString(new Map<String,String>()));
         System.assertEquals('a=b', TwilioCapability.generateParamString(new Map<String,String> {'a'=>'b'} ));
-        System.assertEquals('cat=dog&foo=bar', TwilioCapability.generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
-        System.assertEquals('e=f&c=d&a=b', TwilioCapability.generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
-        System.assertEquals('split+key2=split+val2&split+key1=split+val1', TwilioCapability.generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
+        System.assertEquals('foo=bar&cat=dog', TwilioCapability.generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
+        System.assertEquals('a=b&c=d&e=f', TwilioCapability.generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
+        System.assertEquals('split+key1=split+val1&split+key2=split+val2', TwilioCapability.generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
     }
     
     static testMethod void testEncodeBase64() {
