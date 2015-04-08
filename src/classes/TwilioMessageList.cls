@@ -31,8 +31,10 @@ global class TwilioMessageList extends TwilioResource.ListResource implements It
   }
 
   /* implements method from TwilioResource.ListResource */
-  public override Object makeNew(TwilioRestClient client, Map<String, Object> params) {
-    return new TwilioMessage(client, params);
+  public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+    TwilioMessage msg = new TwilioMessage((TwilioRestClient)client, params);
+    msg.setRequestAccountSid(this.getRequestAccountSid());
+    return msg;
   }
 
   /* implements method from TwilioResource.ListResource */
@@ -51,7 +53,7 @@ global class TwilioMessageList extends TwilioResource.ListResource implements It
   }
     
     public TwilioMessage create(List<TwilioNameValuePair> params) {
-        return (TwilioMessage) this.createInstance(params);    
+    	return (TwilioMessage) this.createInstance(params);    
     }
   
   public List<TwilioMessage> getPageData() {

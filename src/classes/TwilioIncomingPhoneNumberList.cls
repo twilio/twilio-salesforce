@@ -57,9 +57,10 @@ global class TwilioIncomingPhoneNumberList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioIncomingPhoneNumber(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioIncomingPhoneNumber incoming = new TwilioIncomingPhoneNumber((TwilioRestClient)client, params);
+		incoming.setRequestAccountSid(this.getRequestAccountSid());
+		return incoming;
 	}
 
 	/* implements method from TwilioResource.ListResource */

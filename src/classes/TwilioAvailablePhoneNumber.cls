@@ -148,7 +148,7 @@ global class TwilioAvailablePhoneNumber extends TwilioResource.InstanceResource 
 		Map<String,String> props = new Map<String,String>();
 		props.put('PhoneNumber', getPhoneNumber());
 		
-		TwilioAccount requestAccount = getClient().getAccount(getRequestAccountSid());
+		TwilioAccount requestAccount = ((TwilioRestClient)getClient()).getAccount(getRequestAccountSid());
 		TwilioIncomingPhoneNumber incoming = requestAccount.getIncomingPhoneNumbers().create(props);
 		this.purchased = true;
 		return incoming;

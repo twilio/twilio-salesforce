@@ -71,9 +71,10 @@ global class TwilioNotificationList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioNotification(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioNotification notification =  new TwilioNotification((TwilioRestClient)client, params);
+		notification.setRequestAccountSid(this.getRequestAccountSid());
+		return notification;
 	}
 
 	/* implements method from TwilioResource.ListResource */

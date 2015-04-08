@@ -169,7 +169,7 @@ global class TwilioMessage extends TwilioResource.InstanceResource {
          
     public TwilioMedia getMedia(String mediaSid) 
     {
-        TwilioMedia media = new TwilioMedia(this.getClient(), this.getSid(), mediaSid);
+        TwilioMedia media = new TwilioMedia((TwilioRestClient)this.getClient(), this.getSid(), mediaSid);
         media.setRequestAccountSid(this.getRequestAccountSid());
         return media;
     }
@@ -180,8 +180,45 @@ global class TwilioMessage extends TwilioResource.InstanceResource {
          * @return the MediaList associated with this message
     */
     public TwilioMediaList getMedia() {
-        TwilioMediaList media = new TwilioMediaList(this.getClient(), this.getSid());
+        TwilioMediaList media = new TwilioMediaList((TwilioRestClient)this.getClient(), this.getSid());
         media.setRequestAccountSid(this.getRequestAccountSid());
         return media;
+    }
+
+    /**
+     * Delete this Message. This will remove it from your
+     * account.
+     * 
+     * @throws TwilioRestException
+     *             if there is an error in the request
+     * @return true, if successful
+     * 
+     */
+    public boolean deleteMessage() {
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), 'DELETE', null);
+        
+        return !response.isError();
+    }
+
+    /**
+     * Redact this Message. This will remove the body of the message from your
+     * account.
+     * 
+     * @throws TwilioRestException
+     *             if there is an error in the request
+     * @return true, if successful
+     * 
+     */
+    public TwilioMessage redact() {
+        Map<String, String> vars = new Map<String, String>();
+        vars.put('Body', '');
+
+        TwilioRestResponse response = this.getClient().safeRequest(
+                this.getResourceLocation(), 'POST', vars);
+
+        TwilioMessage message = new TwilioMessage((TwilioRestClient)this.getClient(), response.toMap());
+        message.setRequestAccountSid(this.getRequestAccountSid());
+        return message;
     }
 }

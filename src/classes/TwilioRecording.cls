@@ -154,7 +154,7 @@ global class TwilioRecording extends TwilioResource.InstanceResource {
 	}
 	
 	public TwilioTranscriptionList getTranscriptions() {
-		TwilioTranscriptionList twlist = new TwilioTranscriptionList(this.getClient(), this.getSid());
+		TwilioTranscriptionList twlist = new TwilioTranscriptionList((TwilioRestClient)this.getClient(), this.getSid());
 		twlist.setRequestAccountSid(this.getRequestAccountSid());
 		return twlist;
 	}

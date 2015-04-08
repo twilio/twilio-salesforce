@@ -68,7 +68,7 @@ global class TwilioMember extends TwilioResource.InstanceResource
         vars.put(METHOD, methodInfo);
         TwilioRestResponse response = this.getClient().safeRequest(this.getResourceLocation(), 'POST', vars);
 
-        TwilioMember member = new TwilioMember(this.getClient(), response.toMap(), getQueueSid());
+        TwilioMember member = new TwilioMember((TwilioRestClient)this.getClient(), response.toMap(), getQueueSid());
         member.setRequestAccountSid(this.getRequestAccountSid());
         return member;
     }

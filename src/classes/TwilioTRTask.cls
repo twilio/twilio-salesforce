@@ -29,7 +29,7 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRTask(TwilioRestClient client) {
+	public TwilioTRTask(TwilioTRRestClient client) {
     	super(client);
     }
     
@@ -39,7 +39,7 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public TwilioTRTask(TwilioRestClient client, String workspaceSid, String sid) {
+	public TwilioTRTask(TwilioTRRestClient client, String workspaceSid, String sid) {
 		super(client);
 		this.setProperty('workspace_sid', workspaceSid);
 		this.setProperty('sid', sid);
@@ -51,7 +51,7 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 	 * @param client  the client
 	 * @param properties  properties to set on the new call as key/value pairs
 	 */
-	public TwilioTRTask(TwilioRestClient client, Map<String, Object> properties) {
+	public TwilioTRTask(TwilioTRRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,10 +59,9 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 	 * Returns the URI of this resource, relative to the API endpoint.
 	 */
 	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' 
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/' 
 				+ this.getWorkspaceSid() +  '/Tasks/' 
-				+ this.getSid() + '.json';
+				+ this.getSid();
 	}
 	
 
@@ -194,17 +193,30 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 		return (Map<String,Object>)this.getObject('links');
 	}
 
+	/** Returns the resource's URL */
+	public String getUrl() {
+		return getProperty('url');
+	}
+	
 	/**
 	 * Get the reservation list
 	 * 
 	 * @return
 	 */
 	public TwilioTRReservationList getReservations() {
-		System.debug('Get Reservations: ' + this.getSid());
-		TwilioTRReservationList twlist = new TwilioTRReservationList(this.getClient(), this.getWorkspaceSid(), this.getSid());
+		TwilioTRReservationList twlist = new TwilioTRReservationList((TwilioTRRestClient)this.getClient(), this.getWorkspaceSid(), this.getSid());
 		twlist.setRequestAccountSid(this.getRequestAccountSid());
 		return twlist;
 	}	
+
+    /**
+     * Returns the reservation list with the given filters.
+     */
+    public TwilioTRReservationList getReservations(Map<String, String> filters) {
+        TwilioTRReservationList twlist = new TwilioTRReservationList((TwilioTRRestClient)this.getClient(), this.getWorkspaceSid(), filters);
+        return twlist;
+    }
+
 
 	/**
 	 * Get the reservation instance by sid
@@ -212,7 +224,7 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 	 * @return
 	 */
 	public TwilioTRReservation getReservation(String sid) {
-		TwilioTRReservation reservation = new TwilioTRReservation(this.getClient(), this.getWorkspaceSid(), this.getSid(), sid);
+		TwilioTRReservation reservation = new TwilioTRReservation((TwilioTRRestClient)this.getClient(), this.getWorkspaceSid(), this.getSid(), sid);
 		reservation.setRequestAccountSid(this.getRequestAccountSid());
 		return reservation;
 	}	
@@ -233,7 +245,7 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioTRTask t = new TwilioTRTask(this.getClient(), response.toMap());
+		TwilioTRTask t = new TwilioTRTask((TwilioTRRestClient)this.getClient(), response.toMap());
 		t.setRequestAccountSid(this.getRequestAccountSid());
 		return t;
 	}
@@ -248,7 +260,7 @@ global class TwilioTRTask extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'DELETE', null);
 
-		TwilioTRTask t = new TwilioTRTask(this.getClient(), response.toMap());
+		TwilioTRTask t = new TwilioTRTask((TwilioTRRestClient)this.getClient(), response.toMap());
 		t.setRequestAccountSid(this.getRequestAccountSid());
 		return t;
 	}

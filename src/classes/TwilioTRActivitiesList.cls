@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
  * 
  *  For more information see see http://www.twilio.com/docs/api/rest/call
  */
-global class TwilioTRActivitiesList extends TwilioResource.ListResource
+global class TwilioTRActivitiesList extends TwilioResource.NextGenListResource
 	implements Iterable<TwilioTRActivities> {  
 	
 	/** The workspace sid. */
@@ -38,7 +38,7 @@ global class TwilioTRActivitiesList extends TwilioResource.ListResource
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRActivitiesList(TwilioRestClient client) {
+	public TwilioTRActivitiesList(TwilioTRRestClient client) {
 		super(client);
 	}
 	
@@ -48,8 +48,9 @@ global class TwilioTRActivitiesList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TwilioTRActivitiesList(TwilioRestClient client, Map<String, String> filters) {
+	public TwilioTRActivitiesList(TwilioTRRestClient client, String workspaceSid, Map<String, String> filters) {
 		super(client, filters);
+		this.workspaceSid = workspaceSid;
 	}
 
 	/**
@@ -58,25 +59,21 @@ global class TwilioTRActivitiesList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
 	 */
-	public TwilioTRActivitiesList(TwilioRestClient client, String workspaceSid) {
+	public TwilioTRActivitiesList(TwilioTRRestClient client, String workspaceSid) {
 		super(client);
 		this.workspaceSid = workspaceSid;
 	}
 
 	/* implements method from TwilioResource */
 	public override String getResourceLocation() {		
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/'
-				+ this.workspaceSid +  '/Activities.json';
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/'
+				+ this.workspaceSid +  '/Activities';
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
+	public override Object makeNew(TwilioClient client,
 			Map<String, Object> params) {
-		TwilioTRActivities activities =  new TwilioTRActivities(client, params);
-		activities.setRequestAccountSid(this.getRequestAccountSid());
-		return activities;
-		//return new TwilioTRActivities(client, params);
+		return new TwilioTRActivities((TwilioTRRestClient)client, params);
 	}
 
 	/* implements method from TwilioResource.ListResource */

@@ -35,8 +35,10 @@ global class TwilioMediaList extends TwilioResource.ListResource implements Iter
         
 
   /* implements method from TwilioResource.ListResource */
-  public override Object makeNew(TwilioRestClient client, Map<String, Object> params) {
-    return new TwilioMedia(client, params);
+  public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+    TwilioMedia media = new TwilioMedia((TwilioRestClient)client, params);
+    media.setRequestAccountSid(this.getRequestAccountSid());
+    return media;
   }
   
   /* implements method from TwilioResource.ListResource */

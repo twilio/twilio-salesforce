@@ -32,9 +32,9 @@ global class TwilioIterator {
         /** The itr. */
         private Iterator<Object> itr;
         
-        private TwilioResource.ListResource twlist;
+        private TwilioResource.TwilioListResource twlist;
 
-        protected ObjectIteratorSupport(TwilioResource.ListResource twlist) {
+        protected ObjectIteratorSupport(TwilioResource.TwilioListResource twlist) {
             this.itr = twlist.getObjectPageData().iterator();
             this.twlist = twlist;
         }

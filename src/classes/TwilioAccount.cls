@@ -41,7 +41,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 
     /* Constructor */
     public TwilioAccount(TwilioRestClient client) {
-        super(client);
+       super(client);
     }
 
     /* Constructor, using predefined set of property values */
@@ -126,9 +126,6 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
 
     /** Constructs a Twilio API resource URI for this Account. Overrides method from TwilioResource. */
     public override String getResourceLocation() {
-       system.debug('Account Resource Location:' + '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-                + this.getRequestAccountSid() + '.json');
-
         return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
                 + this.getRequestAccountSid() + '.json';
     }
@@ -147,7 +144,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/call
      */
     public TwilioCallList getCalls(Map<String, String> filters) {
-        TwilioCallList calls = new TwilioCallList(this.getClient(), filters);
+        TwilioCallList calls = new TwilioCallList((TwilioRestClient)this.getClient(), filters);
         calls.setRequestAccountSid(this.getRequestAccountSid());
         
         return calls;
@@ -155,7 +152,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
     
     /** Returns a given call instance by sid */
     public TwilioCall getCall(String sid) {
-        TwilioCall call = new TwilioCall(this.getClient(), sid);
+        TwilioCall call = new TwilioCall((TwilioRestClient)this.getClient(), sid);
         call.setRequestAccountSid(this.getRequestAccountSid());
         return call;
     }
@@ -174,7 +171,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/sms
      */
     public TwilioSmsList getSmsMessages(Map<String, String> filters) {
-        TwilioSmsList sms = new TwilioSmsList(this.getClient(), filters);
+        TwilioSmsList sms = new TwilioSmsList((TwilioRestClient)this.getClient(), filters);
         sms.setRequestAccountSid(this.getRequestAccountSid());
 
         return sms;
@@ -182,7 +179,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
     
     /** Returns a given SMS message by sid */
     public TwilioSms getSms(String sid) {
-        TwilioSms sms = new TwilioSms(this.getClient(), sid);
+        TwilioSms sms = new TwilioSms((TwilioRestClient)this.getClient(), sid);
         sms.setRequestAccountSid(this.getRequestAccountSid());
         return sms;
     }
@@ -200,7 +197,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/message
      */
     public TwilioMessageList getMessages(Map<String, String> filters) {
-        TwilioMessageList message = new TwilioMessageList(this.getClient(), filters);
+        TwilioMessageList message = new TwilioMessageList((TwilioRestClient)this.getClient(), filters);
         message.setRequestAccountSid(this.getRequestAccountSid());
 
         return message;
@@ -208,14 +205,14 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
     
     /** Returns a given message by sid */
     public TwilioMessage getMessage(String sid) {
-        TwilioMessage message = new TwilioMessage(this.getClient(), sid);
+        TwilioMessage message = new TwilioMessage((TwilioRestClient)this.getClient(), sid);
         message.setRequestAccountSid(this.getRequestAccountSid());
         return message;
     }
     
     public TwilioQueueList getQueues() 
     {
-        TwilioQueueList Queuelist = new TwilioQueueList(this.getClient(), filters);
+        TwilioQueueList Queuelist = new TwilioQueueList((TwilioRestClient)this.getClient(), filters);
         Queuelist.setRequestAccountSid(this.getRequestAccountSid());
         return Queuelist;
     }
@@ -228,7 +225,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      */
      public TwilioQueue getQueue(String sid) 
      {
-         TwilioQueue queue = new TwilioQueue(this.getClient(), sid);
+         TwilioQueue queue = new TwilioQueue((TwilioRestClient)this.getClient(), sid);
          queue.setRequestAccountSid(this.getRequestAccountSid());
          return queue;
      }
@@ -246,7 +243,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
         TwilioRestResponse response = this.getClient().safeRequest(
                 this.getResourceLocation(), 'POST', vars);
 
-        TwilioAccount a = new TwilioAccount(this.getClient(), response.toMap());
+        TwilioAccount a = new TwilioAccount((TwilioRestClient)this.getClient(), response.toMap());
         a.setRequestAccountSid(this.getRequestAccountSid());
         return a;
     }
@@ -264,7 +261,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
         TwilioRestResponse response = this.getClient().safeRequest(
                 this.getResourceLocation(), 'POST', vars);
 
-        TwilioAccount a = new TwilioAccount(this.getClient(), response.toMap());
+        TwilioAccount a = new TwilioAccount((TwilioRestClient)this.getClient(), response.toMap());
         a.setRequestAccountSid(this.getRequestAccountSid());
         return a;
     }
@@ -282,7 +279,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
         TwilioRestResponse response = this.getClient().safeRequest(
                 this.getResourceLocation(), 'POST', vars);
 
-        TwilioAccount a = new TwilioAccount(this.getClient(), response.toMap());
+        TwilioAccount a = new TwilioAccount((TwilioRestClient)this.getClient(), response.toMap());
         a.setRequestAccountSid(this.getRequestAccountSid());
         return a;
     }
@@ -300,7 +297,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/applications
      */
     public TwilioApplicationList getApplications(Map<String, String> filters) {
-        TwilioApplicationList twlist = new TwilioApplicationList(this.getClient(), filters);
+        TwilioApplicationList twlist = new TwilioApplicationList((TwilioRestClient)this.getClient(), filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -309,7 +306,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given Application instance by sid.
      */
     public TwilioApplication getApplication(String sid) {
-        TwilioApplication app = new TwilioApplication(this.getClient(), sid);
+        TwilioApplication app = new TwilioApplication((TwilioRestClient)this.getClient(), sid);
         app.setRequestAccountSid(this.getRequestAccountSid());
         return app;
     }
@@ -329,7 +326,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      */
     public TwilioAvailablePhoneNumberList getAvailablePhoneNumbers(Map<String, String> filters) {
         TwilioAvailablePhoneNumberList twlist = new TwilioAvailablePhoneNumberList(
-                this.getClient(), filters);
+                (TwilioRestClient)this.getClient(), filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -352,7 +349,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
     public TwilioAvailablePhoneNumberList getAvailablePhoneNumbers(
             Map<String, String> filters, String isoCountry, String type) {
         TwilioAvailablePhoneNumberList twlist = new TwilioAvailablePhoneNumberList(
-                this.getClient(), filters, isoCountry, type);
+                (TwilioRestClient)this.getClient(), filters, isoCountry, type);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
 
         return twlist;
@@ -371,7 +368,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/conference
      */
     public TwilioConferenceList getConferences(Map<String, String> filters) {
-        TwilioConferenceList twlist = new TwilioConferenceList(this.getClient(), filters);
+        TwilioConferenceList twlist = new TwilioConferenceList((TwilioRestClient)this.getClient(), filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -380,7 +377,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given conference instance by sid.
      */
     public TwilioConference getConference(String sid) {
-        TwilioConference conf = new TwilioConference(this.getClient(), sid);
+        TwilioConference conf = new TwilioConference((TwilioRestClient)this.getClient(), sid);
         conf.setRequestAccountSid(this.getRequestAccountSid());
         return conf;
     }
@@ -391,7 +388,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * @return
      */
     public TwilioParticipantList getParticipants(String conferenceSid) {
-        TwilioParticipantList twlist = new TwilioParticipantList(this.getClient(), conferenceSid);
+        TwilioParticipantList twlist = new TwilioParticipantList((TwilioRestClient)this.getClient(), conferenceSid);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -411,7 +408,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
     public TwilioIncomingPhoneNumberList getIncomingPhoneNumbers(
             Map<String, String> filters) {
         TwilioIncomingPhoneNumberList twlist = new TwilioIncomingPhoneNumberList(
-                this.getClient(), filters);
+                (TwilioRestClient)this.getClient(), filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -420,7 +417,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given incoming phone number instance by sid.
      */
     public TwilioIncomingPhoneNumber getIncomingPhoneNumber(String sid) {
-        TwilioIncomingPhoneNumber pn = new TwilioIncomingPhoneNumber(this.getClient(), sid);
+        TwilioIncomingPhoneNumber pn = new TwilioIncomingPhoneNumber((TwilioRestClient)this.getClient(), sid);
         pn.setRequestAccountSid(this.getRequestAccountSid());
         return pn;
     }
@@ -436,7 +433,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns the Short Code list with filters.
      */
     public TwilioShortCodeList getShortCodes(Map<String, String> filters) {
-        TwilioShortCodeList twlist = new TwilioShortCodeList(this.getClient(), filters);
+        TwilioShortCodeList twlist = new TwilioShortCodeList((TwilioRestClient)this.getClient(), filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -445,7 +442,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given Short Code instance by sid.
      */
     public TwilioShortCode getShortCode(String sid) {
-        TwilioShortCode sc = new TwilioShortCode(this.getClient(), sid);
+        TwilioShortCode sc = new TwilioShortCode((TwilioRestClient)this.getClient(), sid);
         sc.setRequestAccountSid(this.getRequestAccountSid());
         return sc;
     }
@@ -463,7 +460,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns the notifications.
      */
     public TwilioNotificationList getNotifications(Map<String, String> filters) {
-        TwilioNotificationList twlist = new TwilioNotificationList(this.getClient(), filters);
+        TwilioNotificationList twlist = new TwilioNotificationList((TwilioRestClient)this.getClient(), filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -472,7 +469,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given notification instance by sid
      */
     public TwilioNotification getNotification(String sid) {
-        TwilioNotification n = new TwilioNotification(this.getClient(), sid);
+        TwilioNotification n = new TwilioNotification((TwilioRestClient)this.getClient(), sid);
         n.setRequestAccountSid(this.getRequestAccountSid());
         return n;
     }
@@ -492,9 +489,9 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
     public TwilioOutgoingCallerIdList getOutgoingCallerIds(Map<String, String> filters) {
         TwilioOutgoingCallerIdList twlist;
         if (filters==null) {
-            twlist = new TwilioOutgoingCallerIdList(this.getClient());
+            twlist = new TwilioOutgoingCallerIdList((TwilioRestClient)this.getClient());
         } else {
-            twlist = new TwilioOutgoingCallerIdList(this.getClient(), filters);
+            twlist = new TwilioOutgoingCallerIdList((TwilioRestClient)this.getClient(), filters);
         }
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
@@ -504,7 +501,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given outgoing caller id instance by sid.
      */
     public TwilioOutgoingCallerId getOutgoingCallerId(String sid) {
-        TwilioOutgoingCallerId cid = new TwilioOutgoingCallerId(this.getClient(), sid);
+        TwilioOutgoingCallerId cid = new TwilioOutgoingCallerId((TwilioRestClient)this.getClient(), sid);
         cid.setRequestAccountSid(this.getRequestAccountSid());
         return cid;
     }
@@ -523,7 +520,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/recording
      */
     public TwilioRecordingList getRecordings(Map<String, String> filters) {
-        TwilioRecordingList twlist = new TwilioRecordingList(this.getClient(), filters);
+        TwilioRecordingList twlist = new TwilioRecordingList((TwilioRestClient)this.getClient(), filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
     }
@@ -532,7 +529,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given recording instance by sid.
      */
     public TwilioRecording getRecording(String sid) {
-        TwilioRecording r = new TwilioRecording(this.getClient(), sid);
+        TwilioRecording r = new TwilioRecording((TwilioRestClient)this.getClient(), sid);
         r.setRequestAccountSid(this.getRequestAccountSid());
         return r;
     }
@@ -550,7 +547,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/transcription
      */
     public TwilioTranscriptionList getTranscriptions(Map<String, String> filters) {
-        TwilioTranscriptionList twlist = new TwilioTranscriptionList(this.getClient(),
+        TwilioTranscriptionList twlist = new TwilioTranscriptionList((TwilioRestClient)this.getClient(),
                 filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
@@ -560,7 +557,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given transcription instance by sid
      */
     public TwilioTranscription getTranscription(String sid) {
-        TwilioTranscription tr = new TwilioTranscription(this.getClient(), sid);
+        TwilioTranscription tr = new TwilioTranscription((TwilioRestClient)this.getClient(), sid);
         tr.setRequestAccountSid(this.getRequestAccountSid());
         return tr;
     }
@@ -571,7 +568,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/connect-apps
      */
     public TwilioConnectAppList getConnectApps(Map<String, String> filters) {
-        TwilioConnectAppList twlist = new TwilioConnectAppList(this.getClient(),
+        TwilioConnectAppList twlist = new TwilioConnectAppList((TwilioRestClient)this.getClient(),
                 filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
@@ -581,7 +578,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given connect app instance by sid
      */
     public TwilioConnectApp getConnectApp(String sid) {
-        TwilioConnectApp cn = new TwilioConnectApp(this.getClient(), sid);
+        TwilioConnectApp cn = new TwilioConnectApp((TwilioRestClient)this.getClient(), sid);
         cn.setRequestAccountSid(this.getRequestAccountSid());
         return cn;
     }
@@ -591,7 +588,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * See http://www.twilio.com/docs/api/rest/connect-apps
      */
     public TwilioAuthorizedConnectAppList getAuthorizedConnectApps(Map<String, String> filters) {
-        TwilioAuthorizedConnectAppList twlist = new TwilioAuthorizedConnectAppList(this.getClient(),
+        TwilioAuthorizedConnectAppList twlist = new TwilioAuthorizedConnectAppList((TwilioRestClient)this.getClient(),
                 filters);
         twlist.setRequestAccountSid(this.getRequestAccountSid());
         return twlist;
@@ -601,7 +598,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns a given connect app instance by sid.
      */
     public TwilioAuthorizedConnectApp getAuthorizedConnectApp(String sid) {
-        TwilioAuthorizedConnectApp cn = new TwilioAuthorizedConnectApp(this.getClient(), sid);
+        TwilioAuthorizedConnectApp cn = new TwilioAuthorizedConnectApp((TwilioRestClient)this.getClient(), sid);
         cn.setRequestAccountSid(this.getRequestAccountSid());
         return cn;
     }
@@ -610,90 +607,8 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * Returns the developer sandbox.
      */
     public TwilioSandbox getSandbox() {
-        TwilioSandbox sb = new TwilioSandbox(this.getClient());
+        TwilioSandbox sb = new TwilioSandbox((TwilioRestClient)this.getClient());
         sb.setRequestAccountSid(this.getRequestAccountSid());
         return sb;
     }
-
-    /**
-     * Returns the Workspaces list.
-     * See http://www.twilio.com/docs/api/rest/recording
-     */
-    public TwilioTRWorkspaceList getWorkspaces() {
-        return this.getWorkspaces(new Map<String, String>());
-    }
-
-    /**
-     * Returns a list of Workspaces in this account, applying the supplied filters.
-     * See http://www.twilio.com/docs/api/rest/applications
-     */
-    public TwilioTRWorkspaceList getWorkspaces(Map<String, String> filters) {
-        TwilioTRWorkspaceList twlist = new TwilioTRWorkspaceList(this.getClient(), filters);
-        twlist.setRequestAccountSid(this.getRequestAccountSid());
-        return twlist;
-    }
-    
-    /**
-     * Returns a given Workspace instance by sid.
-     */
-    public TwilioTRWorkspace getWorkspace(String sid) {
-        TwilioTRWorkspace workspace = new TwilioTRWorkspace(this.getClient(), sid);
-        workspace.setRequestAccountSid(this.getRequestAccountSid());
-        return workspace;
-    }
-
-    /**
-     * Get the Tasks list
-     * 
-     * @return
-     */
-    public TwilioTRTaskList getTasks(String workspaceSid) {
-        TwilioTRTaskList twlist = new TwilioTRTaskList(this.getClient(), workspaceSid);
-        twlist.setRequestAccountSid(this.getRequestAccountSid());
-        return twlist;
-    }    
-
-    /**
-     * Get the TaskQueues list
-     * 
-     * @return
-     */
-    public TwilioTRTaskQueueList getTaskQueues(String workspaceSid) {
-        TwilioTRTaskQueueList twlist = new TwilioTRTaskQueueList(this.getClient(), workspaceSid);
-        twlist.setRequestAccountSid(this.getRequestAccountSid());
-        return twlist;
-    }  
-
-   /**
-     * Get the Workflows list
-     * 
-     * @return
-     */
-    public TwilioTRWorkflowList getWorkflows(String workspaceSid) {
-        TwilioTRWorkflowList twlist = new TwilioTRWorkflowList(this.getClient(), workspaceSid);
-        twlist.setRequestAccountSid(this.getRequestAccountSid());
-        return twlist;
-    }      
-
-   /**
-     * Get the Workers list
-     * 
-     * @return
-     */
-    public TwilioTRWorkerList getWorkers(String workspaceSid) {
-        TwilioTRWorkerList twlist = new TwilioTRWorkerList(this.getClient(), workspaceSid);
-        twlist.setRequestAccountSid(this.getRequestAccountSid());
-        return twlist;
-    }      
-
-    /**
-     * Get the Activities list
-     * 
-     * @return
-     */
-    public TwilioTRActivitiesList getActivities(String workspaceSid) {
-        TwilioTRActivitiesList twlist = new TwilioTRActivitiesList(this.getClient(), workspaceSid);
-        twlist.setRequestAccountSid(this.getRequestAccountSid());
-        return twlist;
-    }  
 }

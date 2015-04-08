@@ -141,7 +141,7 @@ global class TwilioConference extends TwilioResource.InstanceResource {
 	 * @return
 	 */
 	public TwilioParticipantList getParticipants() {
-		TwilioParticipantList twlist = new TwilioParticipantList(this.getClient(), this.getSid());
+		TwilioParticipantList twlist = new TwilioParticipantList((TwilioRestClient)this.getClient(), this.getSid());
 		twlist.setRequestAccountSid(this.getRequestAccountSid());
 		return twlist;
 	}

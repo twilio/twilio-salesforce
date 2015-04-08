@@ -29,7 +29,7 @@ global class TwilioTRWorkflow extends TwilioResource.InstanceResource {
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRWorkflow(TwilioRestClient client) {
+	public TwilioTRWorkflow(TwilioTRRestClient client) {
     	super(client);
     }
     
@@ -39,7 +39,7 @@ global class TwilioTRWorkflow extends TwilioResource.InstanceResource {
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public TwilioTRWorkflow(TwilioRestClient client, String workspaceSid, String sid) {
+	public TwilioTRWorkflow(TwilioTRRestClient client, String workspaceSid, String sid) {
 		super(client);
 		this.setProperty('workspace_sid', workspaceSid);
 		this.setProperty('sid', sid);
@@ -51,7 +51,7 @@ global class TwilioTRWorkflow extends TwilioResource.InstanceResource {
 	 * @param client  the client
 	 * @param properties  properties to set on the new call as key/value pairs
 	 */
-	public TwilioTRWorkflow(TwilioRestClient client, Map<String, Object> properties) {
+	public TwilioTRWorkflow(TwilioTRRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,13 +59,11 @@ global class TwilioTRWorkflow extends TwilioResource.InstanceResource {
 	 * Returns the URI of this resource, relative to the API endpoint.
 	 */
 	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' 
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/' 
 				+ this.getWorkspaceSid() +  '/Workflows/' 
-				+ this.getSid() + '.json';
+				+ this.getSid();
 	}
 	
-
 	/*
 	 * Property getters
 	 */
@@ -165,5 +163,9 @@ global class TwilioTRWorkflow extends TwilioResource.InstanceResource {
 	public Map<String,Object> getSubresourceUris() {
 		return (Map<String,Object>)this.getObject('links');
 	}
-	
+
+	/** Returns the resource's URL */
+	public String getUrl() {
+		return getProperty('url');
+	}
 }

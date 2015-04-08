@@ -57,9 +57,10 @@ global class TwilioOutgoingCallerIdList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioOutgoingCallerId(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioOutgoingCallerId callerId = new TwilioOutgoingCallerId((TwilioRestClient)client, params);
+		callerId.setRequestAccountSid(this.getRequestAccountSid());
+		return callerId;
 	}
 
 	/* implements method from TwilioResource.ListResource */

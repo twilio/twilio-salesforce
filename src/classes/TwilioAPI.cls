@@ -47,7 +47,9 @@ global class TwilioAPI {
 	private class MissingTwilioConfigCustomSettingsException extends Exception {}
 
 	private static TwilioRestClient client;
-	
+    private static TwilioTRRestClient trClient;
+    private static TwilioLookupsRestClient lookupsClient;
+
     private TwilioAPI() {}
     
     /**
@@ -60,7 +62,29 @@ global class TwilioAPI {
     	}
 	   	return TwilioAPI.client;
     }
-    
+
+    /**
+     * Get a TwilioTRRestClient pre-populated with your TwilioConfig credentials
+     */
+    public static TwilioTRRestClient getDefaultTRClient() {
+        if (trClient==null) {
+            TwilioConfig__c twilioCfg = getTwilioConfig();
+            TwilioAPI.trClient = new TwilioTRRestClient(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c);
+        }
+        return TwilioAPI.trClient;
+    }
+
+    /**
+     * Get a TwilioLookupsRestClient pre-populated with your TwilioConfig credentials
+     */
+    public static TwilioLookupsRestClient getDefaultLookupsClient() {
+        if (lookupsClient==null) {
+            TwilioConfig__c twilioCfg = getTwilioConfig();
+            TwilioAPI.lookupsClient = new TwilioLookupsRestClient(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c);
+        }
+        return TwilioAPI.lookupsClient;
+    }
+
     /**
      * Get your primary account using your TwilioConfig credentials
      */
@@ -85,6 +109,7 @@ global class TwilioAPI {
         TwilioConfig__c twilioCfg = getTwilioConfig();
         return new TwilioTRCapability(twilioCfg.AccountSid__c, twilioCfg.AuthToken__c, workspaceSid, workerSid);    
     }
+
 
     /**
      * Get a new TwilioRestClient authorized with the credentials provided

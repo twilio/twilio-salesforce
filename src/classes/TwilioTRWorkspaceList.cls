@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
  * 
  *  For more information see see http://www.twilio.com/docs/api/rest/call
  */
-global class TwilioTRWorkspaceList extends TwilioResource.ListResource
+global class TwilioTRWorkspaceList extends TwilioResource.NextGenListResource
 	implements Iterable<TwilioTRWorkspace> {  
 	
 	/**
@@ -35,7 +35,7 @@ global class TwilioTRWorkspaceList extends TwilioResource.ListResource
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRWorkspaceList(TwilioRestClient client) {
+	public TwilioTRWorkspaceList(TwilioTRRestClient client) {
 		super(client);
 	}
 	
@@ -45,22 +45,19 @@ global class TwilioTRWorkspaceList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TwilioTRWorkspaceList(TwilioRestClient client, Map<String, String> filters) {
+	public TwilioTRWorkspaceList(TwilioTRRestClient client, Map<String, String> filters) {
 		super(client, filters);
 	}
 
 	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces.json';
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces';
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
+	public override Object makeNew(TwilioClient client,
 			Map<String, Object> params) {
-		TwilioTRWorkspace w = new TwilioTRWorkspace(client, params);
-		w.setRequestAccountSid(this.getRequestAccountSid());
-		return w;
+		return new TwilioTRWorkspace((TwilioTRRestClient)client, params);
 	}
 
 	/* implements method from TwilioResource.ListResource */
@@ -75,7 +72,6 @@ global class TwilioTRWorkspaceList extends TwilioResource.ListResource
 	/* returns the current response results page */
 	public List<TwilioTRWorkspace> getPageData() {
 		List<TwilioTRWorkspace> returnList = new List<TwilioTRWorkspace>();
-		
 		for (Object o : this.getObjectPageData()) {
 			if (o instanceof TwilioTRWorkspace) {
 				returnList.add((TwilioTRWorkspace) o);

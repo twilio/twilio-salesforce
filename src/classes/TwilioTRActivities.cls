@@ -29,7 +29,7 @@ global class TwilioTRActivities extends TwilioResource.InstanceResource {
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRActivities(TwilioRestClient client) {
+	public TwilioTRActivities(TwilioTRRestClient client) {
     	super(client);
     }
     
@@ -39,7 +39,7 @@ global class TwilioTRActivities extends TwilioResource.InstanceResource {
 	 * @param client the activity
 	 * @param sid the sid
 	 */
-	public TwilioTRActivities(TwilioRestClient client, String workspacesid, String sid) {
+	public TwilioTRActivities(TwilioTRRestClient client, String workspacesid, String sid) {
 		super(client);
 		this.setProperty('workspace_sid', workspacesid);
 		this.setProperty('sid', sid);
@@ -51,7 +51,7 @@ global class TwilioTRActivities extends TwilioResource.InstanceResource {
 	 * @param client  the client
 	 * @param properties  properties to set on the new call as key/value pairs
 	 */
-	public TwilioTRActivities(TwilioRestClient client, Map<String, Object> properties) {
+	public TwilioTRActivities(TwilioTRRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,10 +59,9 @@ global class TwilioTRActivities extends TwilioResource.InstanceResource {
 	 * Returns the URI of this resource, relative to the API endpoint.
 	 */
 	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' 
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/' 
 				+ this.getWorkspaceSid() +  '/Activities/' 
-				+ this.getSid() + '.json';
+				+ this.getSid();
 	}
 	
 
@@ -132,5 +131,9 @@ global class TwilioTRActivities extends TwilioResource.InstanceResource {
 	public Map<String,Object> getSubresourceUris() {
 		return (Map<String,Object>)this.getObject('links');
 	}
-	
+
+	/** Returns the resource's URL */
+	public String getUrl() {
+		return getProperty('url');
+	}	
 }

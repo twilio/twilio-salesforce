@@ -261,8 +261,8 @@ private class Twilio_TestPhoneNumbers {
 			);
 		
 			map<string,string> params=new map<string,string>();
-			params.put('Contains','51034*****');
 			params.put('AreaCode','510');
+			params.put('Contains','51034*****');
 
 			// Get an API client and request the Twilio Account
 			TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d', authToken);

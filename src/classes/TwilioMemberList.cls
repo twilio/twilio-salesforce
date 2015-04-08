@@ -18,8 +18,10 @@ global class TwilioMemberList extends TwilioResource.ListResource implements Ite
     }
     
     /* implements method from TwilioResource.ListResource */
-    public override Object makeNew(TwilioRestClient client, Map<String, Object> params) {
-        return new TwilioMember(client, params, queueSid);
+    public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+        TwilioMember member = new TwilioMember((TwilioRestClient)client, params, queueSid);
+        member.setRequestAccountSid(this.getRequestAccountSid());
+        return member;
     }
     
     /* implements method from TwilioResource.ListResource */
@@ -48,6 +50,6 @@ global class TwilioMemberList extends TwilioResource.ListResource implements Ite
     /* implement method from Iterable<TwilioMember> interface */
     global Iterator<TwilioMember> iterator() 
     {
-        return new TwilioIterator.MemberIterator(this);
+       return new TwilioIterator.MemberIterator(this);
     }
 }

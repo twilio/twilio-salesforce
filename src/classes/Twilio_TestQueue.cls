@@ -124,5 +124,4 @@ private class Twilio_TestQueue
         System.assertEquals('0',String.valueof(queue.getAverageWaitTime()));*/
 
     }
-
 }

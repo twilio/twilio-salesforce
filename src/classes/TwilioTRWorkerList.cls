@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
  * 
  *  For more information see see http://www.twilio.com/docs/api/rest/call
  */
-global class TwilioTRWorkerList extends TwilioResource.ListResource
+global class TwilioTRWorkerList extends TwilioResource.NextGenListResource
 	implements Iterable<TwilioTRWorker> {  
 	
 	/** The workspace sid. */
@@ -38,7 +38,7 @@ global class TwilioTRWorkerList extends TwilioResource.ListResource
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRWorkerList(TwilioRestClient client) {
+	public TwilioTRWorkerList(TwilioTRRestClient client) {
 		super(client);
 	}
 	
@@ -48,8 +48,9 @@ global class TwilioTRWorkerList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TwilioTRWorkerList(TwilioRestClient client, Map<String, String> filters) {
+	public TwilioTRWorkerList(TwilioTRRestClient client, String workspaceSid, Map<String, String> filters) {
 		super(client, filters);
+		this.workspaceSid = workspaceSid;	
 	}
 
 	/**
@@ -58,25 +59,21 @@ global class TwilioTRWorkerList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
 	 */
-	public TwilioTRWorkerList(TwilioRestClient client, String workspaceSid) {
+	public TwilioTRWorkerList(TwilioTRRestClient client, String workspaceSid) {
 		super(client);
 		this.workspaceSid = workspaceSid;
 	}
 
 	/* implements method from TwilioResource */
 	public override String getResourceLocation() {		
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/'
-				+ this.workspaceSid +  '/Workers.json';
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/'
+				+ this.workspaceSid +  '/Workers';
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
+	public override Object makeNew(TwilioClient client,
 			Map<String, Object> params) {
-		//return new TwilioTRWorker(client, params);
-		TwilioTRWorker worker =  new TwilioTRWorker(client, params);
-		worker.setRequestAccountSid(this.getRequestAccountSid());
-		return worker;
+		return new TwilioTRWorker((TwilioTRRestClient)client, params);
 	}
 
 	/* implements method from TwilioResource.ListResource */

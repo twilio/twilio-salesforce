@@ -66,9 +66,10 @@ global class TwilioAuthorizedConnectAppList extends TwilioResource.ListResource
 	/*
 	 * see TwilioResource.ListResource#makeNew(TwilioRestClient, Map)
 	 */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioAuthorizedConnectApp(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioAuthorizedConnectApp connectApp = new TwilioAuthorizedConnectApp((TwilioRestClient)client, params);
+		connectApp.setRequestAccountSid(this.getRequestAccountSid());
+		return connectApp;
 	}
 
 	/**

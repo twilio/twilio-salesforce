@@ -58,9 +58,10 @@ global class TwilioApplicationList extends TwilioResource.ListResource
 	/* 
 	 * see TwilioResource.ListResource#makeNew()
 	 */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioApplication(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+			TwilioApplication application = new TwilioApplication((TwilioRestClient)client, params);
+			application.setRequestAccountSid(this.getRequestAccountSid());
+			return application;
 	}
 
 	/* 
@@ -96,7 +97,7 @@ global class TwilioApplicationList extends TwilioResource.ListResource
 	 * @throws TwilioRestException the twilio rest exception
 	 */
 	public boolean deleteResource(String sid) {
-		TwilioAccount requestAccount = getClient().getAccount(getRequestAccountSid());
+		TwilioAccount requestAccount = ((TwilioRestClient)getClient()).getAccount(getRequestAccountSid());
 		TwilioApplication app = requestAccount.getApplication(sid);
 		return app.deleteResource();
 	}

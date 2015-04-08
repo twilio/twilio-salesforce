@@ -173,7 +173,7 @@ global class TwilioParticipant extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioParticipant p = new TwilioParticipant(this.getClient(), response.toMap());
+		TwilioParticipant p = new TwilioParticipant((TwilioRestClient)this.getClient(), response.toMap());
 		p.setRequestAccountSid(this.getRequestAccountSid());
 		return p;
 	}
@@ -191,7 +191,7 @@ global class TwilioParticipant extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioParticipant p = new TwilioParticipant(this.getClient(), response.toMap());
+		TwilioParticipant p = new TwilioParticipant((TwilioRestClient)this.getClient(), response.toMap());
 		p.setRequestAccountSid(this.getRequestAccountSid());
 		return p;
 	}

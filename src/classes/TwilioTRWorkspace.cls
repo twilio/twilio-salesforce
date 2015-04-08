@@ -29,7 +29,7 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRWorkspace(TwilioRestClient client) {
+	public TwilioTRWorkspace(TwilioTRRestClient client) {
     	super(client);
     }
     
@@ -39,7 +39,7 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public TwilioTRWorkspace(TwilioRestClient client, String sid) {
+	public TwilioTRWorkspace(TwilioTRRestClient client, String sid) {
 		super(client);
 		this.setProperty('sid', sid);
 	}
@@ -50,7 +50,7 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 * @param client  the client
 	 * @param properties  properties to set on the new call as key/value pairs
 	 */
-	public TwilioTRWorkspace(TwilioRestClient client, Map<String, Object> properties) {
+	public TwilioTRWorkspace(TwilioTRRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -58,13 +58,7 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 * Returns the URI of this resource, relative to the API endpoint.
 	 */
 	public override String getResourceLocation() {
-		system.debug('TRWorkspace Resource Location:' + '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' + this.getSid()
-				+ '.json');
-
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' + this.getSid()
-				+ '.json';
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/' + this.getSid();
 	}
 	
 	/** 
@@ -142,23 +136,34 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 		return (Map<String,Object>)this.getObject('links');
 	}
 
+	/** Returns the resource's URL */
+	public String getUrl() {
+		return getProperty('url');
+	}
+
 	/**
 	 * Get the task list
 	 * 
 	 * @return
 	 */
 	public TwilioTRTaskList getTasks() {
-		TwilioTRTaskList twlist = new TwilioTRTaskList(this.getClient(), this.getSid());
-		twlist.setRequestAccountSid(this.getRequestAccountSid());
+		TwilioTRTaskList twlist = new TwilioTRTaskList((TwilioTRRestClient)this.getClient(), this.getSid());
 		return twlist;
 	}	
+
+    /**
+     * Returns the task list with the given filters.
+     */
+    public TwilioTRTaskList getTasks(Map<String, String> filters) {
+        TwilioTRTaskList twlist = new TwilioTRTaskList((TwilioTRRestClient)this.getClient(), this.getSid(), filters);
+        return twlist;
+    }
 
     /**
      * Returns a given task instance by sid
      */
     public TwilioTRTask getTask(String sid) {
-        TwilioTRTask task = new TwilioTRTask(this.getClient(), this.getSid(), sid);
-        task.setRequestAccountSid(this.getRequestAccountSid());
+        TwilioTRTask task = new TwilioTRTask((TwilioTRRestClient)this.getClient(), this.getSid(), sid);
         return task;
     }
 
@@ -168,17 +173,23 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 * @return
 	 */
 	public TwilioTRTaskQueueList getTaskQueues() {
-		TwilioTRTaskQueueList twlist = new TwilioTRTaskQueueList(this.getClient(), this.getSid());
-		twlist.setRequestAccountSid(this.getRequestAccountSid());
+		TwilioTRTaskQueueList twlist = new TwilioTRTaskQueueList((TwilioTRRestClient)this.getClient(), this.getSid());
 		return twlist;
 	}	
+
+    /**
+     * Returns the taskqueue list with the given filters.
+     */
+    public TwilioTRTaskQueueList getTaskQueues(Map<String, String> filters) {
+        TwilioTRTaskQueueList twlist = new TwilioTRTaskQueueList((TwilioTRRestClient)this.getClient(), this.getSid(), filters);
+        return twlist;
+    }
 
     /**
      * Returns a given taskqueue instance by sid
      */
     public TwilioTRTaskQueue getTaskQueue(String sid) {
-        TwilioTRTaskQueue queue = new TwilioTRTaskQueue(this.getClient(), this.getSid(), sid);
-        queue.setRequestAccountSid(this.getRequestAccountSid());
+        TwilioTRTaskQueue queue = new TwilioTRTaskQueue((TwilioTRRestClient)this.getClient(), this.getSid(), sid);
         return queue;
     }
 
@@ -189,17 +200,23 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 * @return
 	 */
 	public TwilioTRWorkflowList getWorkflows() {
-		TwilioTRWorkflowList twlist = new TwilioTRWorkflowList(this.getClient(), this.getSid());
-		twlist.setRequestAccountSid(this.getRequestAccountSid());
+		TwilioTRWorkflowList twlist = new TwilioTRWorkflowList((TwilioTRRestClient)this.getClient(), this.getSid());
 		return twlist;
 	}
+
+    /**
+     * Returns the workflow list with the given filters.
+     */
+    public TwilioTRWorkflowList getWorkflows(Map<String, String> filters) {
+        TwilioTRWorkflowList twlist = new TwilioTRWorkflowList((TwilioTRRestClient)this.getClient(), this.getSid(), filters);
+        return twlist;
+    }
 
     /**
      * Returns a given workflow instance by sid
      */
     public TwilioTRWorkflow getWorkflow(String sid) {
-        TwilioTRWorkflow workflow = new TwilioTRWorkflow(this.getClient(), this.getSid(), sid);
-        workflow.setRequestAccountSid(this.getRequestAccountSid());
+        TwilioTRWorkflow workflow = new TwilioTRWorkflow((TwilioTRRestClient)this.getClient(), this.getSid(), sid);
         return workflow;
     }
 
@@ -209,17 +226,24 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 * @return
 	 */
 	public TwilioTRWorkerList getWorkers() {
-		TwilioTRWorkerList twlist = new TwilioTRWorkerList(this.getClient(), this.getSid());
-		twlist.setRequestAccountSid(this.getRequestAccountSid());
+		TwilioTRWorkerList twlist = new TwilioTRWorkerList((TwilioTRRestClient)this.getClient(), this.getSid());
 		return twlist;
 	}			
+
+    /**
+     * Returns the worker list with the given filters.
+     */
+    public TwilioTRWorkerList getWorkers(Map<String, String> filters) {
+        TwilioTRWorkerList twlist = new TwilioTRWorkerList((TwilioTRRestClient)this.getClient(), this.getSid(), filters);
+        return twlist;
+    }
+
 
     /**
      * Returns a given worker instance by sid
      */
     public TwilioTRWorker getWorker(String sid) {
-        TwilioTRWorker worker = new TwilioTRWorker(this.getClient(), this.getSid(), sid);
-        worker.setRequestAccountSid(this.getRequestAccountSid());
+        TwilioTRWorker worker = new TwilioTRWorker((TwilioTRRestClient)this.getClient(), this.getSid(), sid);
         return worker;
     }
 
@@ -229,21 +253,26 @@ global class TwilioTRWorkspace extends TwilioResource.InstanceResource {
 	 * @return
 	 */
 	public TwilioTRActivitiesList getActivities() {
-		TwilioTRActivitiesList twlist = new TwilioTRActivitiesList(this.getClient(), this.getSid());
-		twlist.setRequestAccountSid(this.getRequestAccountSid());
+		TwilioTRActivitiesList twlist = new TwilioTRActivitiesList((TwilioTRRestClient)this.getClient(), this.getSid());
 		return twlist;
 	}
 
+    /**
+     * Returns the worker list with the given filters.
+     */
+    public TwilioTRActivitiesList getActivities(Map<String, String> filters) {
+        TwilioTRActivitiesList twlist = new TwilioTRActivitiesList((TwilioTRRestClient)this.getClient(), this.getSid(), filters);
+        return twlist;
+    }
+    
 	/**
 	 * Get the activiy
 	 * 
 	 * @return
 	 */
 	public TwilioTRActivities getActivity(String sid) {
-		TwilioTRActivities activity = new TwilioTRActivities(this.getClient(), this.getSid(), sid);
-		activity.setRequestAccountSid(this.getRequestAccountSid());
+		TwilioTRActivities activity = new TwilioTRActivities((TwilioTRRestClient)this.getClient(), this.getSid(), sid);
 		return activity;
 	}	
 			
-
 }

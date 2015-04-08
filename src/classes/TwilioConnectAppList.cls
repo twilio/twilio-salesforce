@@ -62,8 +62,10 @@ global class TwilioConnectAppList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new TwilioConnectApp(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioConnectApp connect = new TwilioConnectApp((TwilioRestClient)client, params);
+		connect.setRequestAccountSid(this.getRequestAccountSid());
+		return connect;
 	}
 
 	/* implements method from TwilioResource.ListResource */

@@ -72,9 +72,10 @@ global class TwilioTranscriptionList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioTranscription(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioTranscription transcription = new TwilioTranscription((TwilioRestClient)client, params);
+		transcription.setRequestAccountSid(this.getRequestAccountSid());
+		return transcription;
 	}
 
 	/* implements method from TwilioResource.ListResource */

@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
  * 
  *  For more information see see http://www.twilio.com/docs/api/rest/call
  */
-global class TwilioTRTaskList extends TwilioResource.ListResource
+global class TwilioTRTaskList extends TwilioResource.NextGenListResource
 	implements Iterable<TwilioTRTask> {  
 	
 	/** The workspace sid. */
@@ -38,7 +38,7 @@ global class TwilioTRTaskList extends TwilioResource.ListResource
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRTaskList(TwilioRestClient client) {
+	public TwilioTRTaskList(TwilioTRRestClient client) {
 		super(client);
 	}
 	
@@ -48,8 +48,9 @@ global class TwilioTRTaskList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TwilioTRTaskList(TwilioRestClient client, Map<String, String> filters) {
+	public TwilioTRTaskList(TwilioTRRestClient client, String workspaceSid, Map<String, String> filters) {
 		super(client, filters);
+		this.workspaceSid = workspaceSid;
 	}
 
 	/**
@@ -58,25 +59,21 @@ global class TwilioTRTaskList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
 	 */
-	public TwilioTRTaskList(TwilioRestClient client, String workspaceSid) {
+	public TwilioTRTaskList(TwilioTRRestClient client, String workspaceSid) {
 		super(client);
 		this.workspaceSid = workspaceSid;
 	}
 
 	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/'
-				+ this.workspaceSid +  '/Tasks.json';
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/'
+				+ this.workspaceSid +  '/Tasks';
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
+	public override Object makeNew(TwilioClient client,
 			Map<String, Object> params) {
-		TwilioTRTask task =  new TwilioTRTask(client, params);
-		task.setRequestAccountSid(this.getRequestAccountSid());
-		return task;
-		//return new TwilioTRTask(client, params);
+		return new TwilioTRTask((TwilioTRRestClient)client, params);
 	}
 
 	/* implements method from TwilioResource.ListResource */

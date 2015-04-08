@@ -71,9 +71,10 @@ global class TwilioParticipantList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioParticipant(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioParticipant participant = new TwilioParticipant((TwilioRestClient)client, params);
+		participant.setRequestAccountSid(this.getRequestAccountSid());
+		return participant;
 	}
 
 	/* implements method from TwilioResource.ListResource */

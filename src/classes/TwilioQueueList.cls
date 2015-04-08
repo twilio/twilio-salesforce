@@ -17,8 +17,10 @@ global class TwilioQueueList extends TwilioResource.ListResource implements Iter
       return (TwilioQueue) this.createInstance(params);    
     }
     
-    public override Object makeNew(TwilioRestClient client, Map<String, Object> params) {
-    return new TwilioQueue(client, params);
+    public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+      TwilioQueue q = new TwilioQueue((TwilioRestClient)client, params);
+      q.setRequestAccountSid(this.getRequestAccountSid());
+      return q;
    }
    
      /* implements method from TwilioResource.ListResource */

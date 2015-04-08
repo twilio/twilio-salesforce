@@ -55,8 +55,10 @@ global class TwilioSmsList extends TwilioResource.ListResource implements Iterab
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client, Map<String, Object> params) {
-		return new TwilioSms(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioSms sms = new TwilioSms((TwilioRestClient)client, params);
+		sms.setRequestAccountSid(this.getRequestAccountSid());
+		return sms;
 	}
 
 	/* implements method from TwilioResource.ListResource */

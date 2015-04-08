@@ -190,13 +190,13 @@ global class TwilioCall extends TwilioResource.InstanceResource {
 	}
 	
 	public TwilioNotificationList getNotifications() {
-		TwilioNotificationList twlist = new TwilioNotificationList(this.getClient(), this.getSid());
+		TwilioNotificationList twlist = new TwilioNotificationList((TwilioRestClient)this.getClient(), this.getSid());
 		twlist.setRequestAccountSid(this.getRequestAccountSid());
 		return twlist;
 	}
 	
 	public TwilioRecordingList getRecordings() {
-		TwilioRecordingList twlist = new TwilioRecordingList(this.getClient(), this.getSid());
+		TwilioRecordingList twlist = new TwilioRecordingList((TwilioRestClient)this.getClient(), this.getSid());
 		twlist.setRequestAccountSid(this.getRequestAccountSid());
 		return twlist;
 	}
@@ -223,7 +223,7 @@ global class TwilioCall extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioCall c = new TwilioCall(this.getClient(), response.toMap());
+		TwilioCall c = new TwilioCall((TwilioRestClient)this.getClient(), response.toMap());
 		c.setRequestAccountSid(this.getRequestAccountSid());
 		return c;
 	}
@@ -240,7 +240,7 @@ global class TwilioCall extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioCall c = new TwilioCall(this.getClient(), response.toMap());
+		TwilioCall c = new TwilioCall((TwilioRestClient)this.getClient(), response.toMap());
 		c.setRequestAccountSid(this.getRequestAccountSid());
 		return c;
 	}
@@ -257,8 +257,25 @@ global class TwilioCall extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioCall c = new TwilioCall(this.getClient(), response.toMap());
+		TwilioCall c = new TwilioCall((TwilioRestClient)this.getClient(), response.toMap());
 		c.setRequestAccountSid(this.getRequestAccountSid());
 		return c;
 	}
+
+	/**
+	 * Delete this Call. This will remove it from your
+	 * account.
+	 * 
+	 * @throws TwilioRestException
+	 *             if there is an error in the request
+	 * @return true, if successful
+	 * 
+	 */
+	public boolean deleteCall() {
+		TwilioRestResponse response = this.getClient().safeRequest(
+				this.getResourceLocation(), 'DELETE', null);
+		
+		return !response.isError();
+	}
+
 }

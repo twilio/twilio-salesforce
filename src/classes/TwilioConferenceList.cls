@@ -56,9 +56,10 @@ global class TwilioConferenceList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioConference(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioConference conference = new TwilioConference((TwilioRestClient)client, params);
+		conference.setRequestAccountSid(this.getRequestAccountSid());
+		return conference;
 	}
 
 	/* implements method from TwilioResource.ListResource */

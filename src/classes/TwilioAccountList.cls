@@ -50,9 +50,9 @@ global class TwilioAccountList extends TwilioResource.ListResource
     }
 
     /* implements method from TwilioResource.ListResource */
-    public override Object makeNew(TwilioRestClient client,
+    public override Object makeNew(TwilioClient client,
             Map<String, Object> params) {
-        return new TwilioAccount(client, params);
+        return new TwilioAccount((TwilioRestClient)client, params);
     }
 
     /* implements method from TwilioResource.ListResource */

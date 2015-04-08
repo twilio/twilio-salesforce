@@ -63,19 +63,19 @@ global class TwilioQueue extends TwilioResource.InstanceResource
 
     public TwilioMemberList getMembers() 
     {
-        TwilioMemberList memberlist = new TwilioMemberList(this.getClient(), this.getSid());
+        TwilioMemberList memberlist = new TwilioMemberList((TwilioRestClient)this.getClient(), this.getSid());
         memberlist.setRequestAccountSid(this.getRequestAccountSid());
         return memberlist;
     }
 
     public TwilioMember getMember(String callSid) {
-        TwilioMember member = new TwilioMember(this.getClient(), this.getSid(), callSid);
+        TwilioMember member = new TwilioMember((TwilioRestClient)this.getClient(), this.getSid(), callSid);
         member.setRequestAccountSid(this.getRequestAccountSid());
         return member;
     }
     
     public TwilioMember dequeueHeadOfQueue(String url, String method){
-        TwilioMember m = new TwilioMember(this.getClient(), this.getSid());
+        TwilioMember m = new TwilioMember((TwilioRestClient)this.getClient(), this.getSid());
         m.setRequestAccountSid(this.getRequestAccountSid());
         return m.dequeue(url, method);
     }

@@ -29,7 +29,7 @@ global class TwilioTRReservation extends TwilioResource.InstanceResource {
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRReservation(TwilioRestClient client) {
+	public TwilioTRReservation(TwilioTRRestClient client) {
     	super(client);
     }
     
@@ -39,7 +39,7 @@ global class TwilioTRReservation extends TwilioResource.InstanceResource {
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public TwilioTRReservation(TwilioRestClient client, String workspaceSid, String taskSid, String sid) {
+	public TwilioTRReservation(TwilioTRRestClient client, String workspaceSid, String taskSid, String sid) {
 		super(client);
 		this.setProperty('workspace_sid', workspaceSid);
 		this.setProperty('task_sid', taskSid);
@@ -52,7 +52,7 @@ global class TwilioTRReservation extends TwilioResource.InstanceResource {
 	 * @param client  the client
 	 * @param properties  properties to set on the new call as key/value pairs
 	 */
-	public TwilioTRReservation(TwilioRestClient client, Map<String, Object> properties) {
+	public TwilioTRReservation(TwilioTRRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -60,11 +60,10 @@ global class TwilioTRReservation extends TwilioResource.InstanceResource {
 	 * Returns the URI of this resource, relative to the API endpoint.
 	 */
 	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' 
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/' 
 				+ this.getWorkspaceSid() +  '/Tasks/' 
 				+ this.getTaskSid() + '/Reservations/'
-				+ this.getSid() + '.json';
+				+ this.getSid();
 	}
 	
 
@@ -152,7 +151,12 @@ global class TwilioTRReservation extends TwilioResource.InstanceResource {
 	public Map<String,Object> getSubresourceUris() {
 		return (Map<String,Object>)this.getObject('links');
 	}
-	
+
+	/** Returns the resource's URL */
+	public String getUrl() {
+		return getProperty('url');
+	}
+		
 	/**
 	 * Accept.
 	 *
@@ -166,7 +170,7 @@ global class TwilioTRReservation extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioTRReservation r = new TwilioTRReservation(this.getClient(), response.toMap());
+		TwilioTRReservation r = new TwilioTRReservation((TwilioTRRestClient)this.getClient(), response.toMap());
 		r.setRequestAccountSid(this.getRequestAccountSid());
 		return r;
 	}
@@ -184,7 +188,7 @@ global class TwilioTRReservation extends TwilioResource.InstanceResource {
 		TwilioRestResponse response = this.getClient().safeRequest(
 				this.getResourceLocation(), 'POST', vars);
 
-		TwilioTRReservation r = new TwilioTRReservation(this.getClient(), response.toMap());
+		TwilioTRReservation r = new TwilioTRReservation((TwilioTRRestClient)this.getClient(), response.toMap());
 		r.setRequestAccountSid(this.getRequestAccountSid());
 		return r;
 	}

@@ -29,7 +29,7 @@ global class TwilioTRWorker extends TwilioResource.InstanceResource {
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRWorker(TwilioRestClient client) {
+	public TwilioTRWorker(TwilioTRRestClient client) {
     	super(client);
     }
     
@@ -39,7 +39,7 @@ global class TwilioTRWorker extends TwilioResource.InstanceResource {
 	 * @param client the client
 	 * @param sid the sid
 	 */
-	public TwilioTRWorker(TwilioRestClient client, String workspacesid, String sid) {
+	public TwilioTRWorker(TwilioTRRestClient client, String workspacesid, String sid) {
 		super(client);
 		this.setProperty('workspace_sid', workspacesid);
 		this.setProperty('sid', sid);
@@ -51,7 +51,7 @@ global class TwilioTRWorker extends TwilioResource.InstanceResource {
 	 * @param client  the client
 	 * @param properties  properties to set on the new call as key/value pairs
 	 */
-	public TwilioTRWorker(TwilioRestClient client, Map<String, Object> properties) {
+	public TwilioTRWorker(TwilioTRRestClient client, Map<String, Object> properties) {
 		super(client, properties);
 	}
 
@@ -59,15 +59,9 @@ global class TwilioTRWorker extends TwilioResource.InstanceResource {
 	 * Returns the URI of this resource, relative to the API endpoint.
 	 */
 	public override String getResourceLocation() {
-		system.debug('Resource Location:' + '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' 
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/' 
 				+ this.getWorkspaceSid() +  '/Workers/' 
-				+ this.getSid() + '.json');
-
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/' 
-				+ this.getWorkspaceSid() +  '/Workers/' 
-				+ this.getSid() + '.json';
+				+ this.getSid();
 	}
 	
 
@@ -177,4 +171,8 @@ global class TwilioTRWorker extends TwilioResource.InstanceResource {
 		return (Map<String,Object>)this.getObject('links');
 	}
 	
+	/** Returns the resource's URL */
+	public String getUrl() {
+		return getProperty('url');
+	}
 }

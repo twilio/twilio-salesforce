@@ -35,7 +35,7 @@ global class TwilioCallList extends TwilioResource.ListResource
 	 *
 	 * @param client the client
 	 */
-	public TwilioCallList(TwilioRestClient client) {
+	public TwilioCallList(TwilioClient client) {
 		super(client);
 	}
 	
@@ -45,7 +45,7 @@ global class TwilioCallList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TwilioCallList(TwilioRestClient client, Map<String, String> filters) {
+	public TwilioCallList(TwilioClient client, Map<String, String> filters) {
 		super(client, filters);
 	}
 
@@ -56,9 +56,11 @@ global class TwilioCallList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioCall(client, params);
+	public override Object makeNew(TwilioClient client, 
+		Map<String, Object> params) {
+			TwilioCall call = new TwilioCall((TwilioRestClient)client, params);
+			call.setRequestAccountSid(this.getRequestAccountSid());
+			return call;
 	}
 
 	/* implements method from TwilioResource.ListResource */

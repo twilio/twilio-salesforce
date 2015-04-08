@@ -26,7 +26,7 @@ public abstract class TwilioResource
 {
 	
 	/** The HTTP client. */
-	private TwilioRestClient client;
+	private TwilioClient client;
 
 	/** The request account sid. */
 	private String requestAccountSid;
@@ -39,7 +39,7 @@ public abstract class TwilioResource
 	 *
 	 * @param client the client
 	 */
-	public TwilioResource(TwilioRestClient client) {
+	public TwilioResource(TwilioClient client) {
 		this.client = client;
 	}
 	
@@ -48,7 +48,7 @@ public abstract class TwilioResource
 	 *
 	 * @return the client
 	 */
-	protected TwilioRestClient getClient() {
+	protected TwilioClient getClient() {
 		return this.client;
 	}
 	
@@ -80,7 +80,6 @@ public abstract class TwilioResource
 	protected void load(Map<String, String> params) {
 		String path = this.getResourceLocation();
 		TwilioRestResponse response = this.getClient().safeRequest(path, 'GET', params);
-
 		this.parseResponse(response);
 		this.loaded = true;
 	}
@@ -132,14 +131,18 @@ public abstract class TwilioResource
 		/** The properties. */
 		private Map<String, Object> properties;
 	
+		/** The params. */
+		private Map<String, String> params;
+
 		/**
 		 * Instantiates a new instance resource.
 		 *
 		 * @param client the client
 		 */
-		public InstanceResource(TwilioRestClient client) {
+		public InstanceResource(TwilioClient client) {
 			super(client);
 			this.properties = new Map<String, Object>();
+			this.params = new Map<String, String>();
 		}
 	
 		/**
@@ -148,13 +151,26 @@ public abstract class TwilioResource
 		 * @param client the client
 		 * @param properties the properties
 		 */
-		public InstanceResource(TwilioRestClient client,
+		public InstanceResource(TwilioClient client,
 				Map<String, Object> properties) {
 			super(client);
 			this.properties = new Map<String, Object>(properties);
+			this.params = new Map<String, String>();
 			this.setLoaded(true);
 		}
-	
+
+		/**
+		 * Instantiates a new instance resource.
+		 *
+		 * @param client the client
+		 * @param params the parameters for the instance resource
+		 */
+		public InstanceResource(TwilioClient client, Map<String, String> params) {
+			super(client);
+			this.properties = new Map<String, Object>();
+			this.params = new Map<String, String>(params);
+		}
+
 		/**
 		 * Gets the property.
 		 *
@@ -166,7 +182,7 @@ public abstract class TwilioResource
 			Object prop = properties.get(name);
 	
 			if (prop == null && !this.isLoaded()) {
-				this.load(new Map<String, String>());
+				this.load(params);
 			}
 	
 			prop = properties.get(name);
@@ -206,8 +222,6 @@ public abstract class TwilioResource
 
 		protected Datetime getPropertyISODatetime(String name) {
 			DateTime dt = (DateTime) JSON.deserialize('"' + getProperty(name) + '"', DateTime.class);
-			system.debug('Date to Parse:' + name);
-			system.debug(dt);
 			return DateTime.newInstance( dt.getTime());
 		}
 
@@ -222,7 +236,7 @@ public abstract class TwilioResource
 		protected Object getObject(String name) {
 			Object prop = properties.get(name);
 			if (prop == null && !this.isLoaded()) {
-				this.load(new Map<String, String>());
+				this.load(params);
 			}
 
 			prop = properties.get(name);
@@ -278,41 +292,17 @@ public abstract class TwilioResource
 		}
 	}
 	
-	public abstract class ListResource extends TwilioResource {
-		private final String NEXT_PAGE_URI_KEY_JSON = 'next_page_uri';
-		private final String START_KEY_JSON = 'start';
-		private final String END_KEY_JSON = 'end';
-		private final String PAGE_KEY_JSON = 'page';
-		private final String NUM_PAGES_KEY_JSON = 'num_pages';
-		private final String TOTAL_KEY_JSON = 'total';
-		
+
+	public abstract class TwilioListResource extends TwilioResource {
 		/** The page data. */
 		public List<Object> pageData;
-		
-		/** The next uri. */
-		private String nextUri = null;
-		
-		/** The start. */
-		private Integer startIx = 0;
-		
-		/** The end. */
-		private Integer endIx = 0;
-		
-		/** The page. */
-		private Integer page = 0;
-		
-		/** The num pages. */
-		private Integer numPages = 0;
-		
-		/** The total. */
-		private Integer total = 0;
-		
+
 		/**
 		 * Instantiates a new list resource.
 		 *
 		 * @param client the client
 		 */
-		public ListResource(TwilioRestClient client) {
+		public TwilioListResource(TwilioClient client) {
 			this(client, new Map<String, String>());
 		}
 	
@@ -322,101 +312,48 @@ public abstract class TwilioResource
 		 * @param client the client
 		 * @param filters the filters
 		 */
-		public ListResource(TwilioRestClient client, Map<String, String> filters) {
+		public TwilioListResource(TwilioClient client, Map<String, String> filters) {
 			super(client);
 			this.filters = filters;
 		}
 		
-		/**
-		 * Gets the next uri.
-		 *
-		 * @return the next uri
-		 */
-		public String getNextUri() {
-			return nextUri;
-		}
-	
-		/**
-		 * Gets the start.
-		 *
-		 * @return the start
-		 */
-		public Integer getStart() {
-			return startIx;
-		}
-	
-		/**
-		 * Gets the end.
-		 *
-		 * @return the end
-		 */
-		public Integer getEnd() {
-			return endIx;
-		}
-	
-		/**
-		 * Gets the num pages.
-		 *
-		 * @return the num pages
-		 */
-		public Integer getNumPages() {
-			return numPages;
-		}
-	
-		/**
-		 * Gets the total.
-		 *
-		 * @return the total
-		 */
-		public Integer getTotal() {
-			return total;
-		}
-	
+
 		/**
 		 * Gets the page.
 		 *
 		 * @return the page
 		 */
-		public Integer getPage() {
-			return page;
-		}
+		public abstract Integer getPage();
 	
 		/**
 		 * Checks for next page.
 		 *
 		 * @return true, if successful
 		 */
-		public boolean hasNextPage() {
-			return nextUri != null && this.nextUri.length() > 0;
-		}
+		public abstract boolean hasNextPage();
 	
 		/**
 		 * Fetch next page.
 		 *
 		 * @throws TwilioRestException the twilio rest exception
 		 */
-		public void fetchNextPage() {
-			// Fetch the next page and reset accounts
-			TwilioRestResponse response = this.getClient().get(nextUri);
-			this.parseResponse(response);
-		}
+		public abstract void fetchNextPage();
 		
-		protected override void parseResponse(TwilioRestResponse response) {
-			this.nextUri = null;
-			// Setup paging
-			Map<String, Object> data = response.toMap();
-			this.nextUri = (String) data.get(NEXT_PAGE_URI_KEY_JSON);
+		/**
+		 * Checks for prev page.
+		 *
+		 * @return true, if successful
+		 */
+		public abstract boolean hasPrevPage();
 	
-			this.startIx = this.getIntValue(data.get(START_KEY_JSON));
-			this.endIx = this.getIntValue(data.get(END_KEY_JSON));
-			this.page = this.getIntValue(data.get(PAGE_KEY_JSON));
-			this.numPages = this.getIntValue(data.get(NUM_PAGES_KEY_JSON));
-			this.total = this.getIntValue(data.get(TOTAL_KEY_JSON));
-	
-			// Setup data
-			this.pageData = this.toList(response);
-		}
-		
+		/**
+		 * Fetch prev page.
+		 *
+		 * @throws TwilioRestException the twilio rest exception
+		 */
+		public abstract void fetchPrevPage();
+
+
 		/**
 		 * Gets the Integer value.
 		 *
@@ -507,8 +444,298 @@ public abstract class TwilioResource
 		 * @param params the params
 		 * @return a fully constructed object of type Object
 		 */
-		protected abstract Object makeNew(TwilioRestClient client,
+		protected abstract Object makeNew(TwilioClient client,
 				Map<String, Object> params);
 	}
+
+
+	public abstract class ListResource extends TwilioListResource {
+		private final String PREV_PAGE_URI_KEY_JSON = 'previous_page_uri';		
+		private final String NEXT_PAGE_URI_KEY_JSON = 'next_page_uri';
+		private final String START_KEY_JSON = 'start';
+		private final String END_KEY_JSON = 'end';
+		private final String PAGE_KEY_JSON = 'page';
+		private final String NUM_PAGES_KEY_JSON = 'num_pages';
+		private final String TOTAL_KEY_JSON = 'total';
 		
+		/** The prev uri. */
+		private String prevUri = null;
+
+		/** The next uri. */
+		private String nextUri = null;
+		
+		/** The start. */
+		private Integer startIx = 0;
+		
+		/** The end. */
+		private Integer endIx = 0;
+		
+		/** The page. */
+		private Integer page = 0;
+		
+		/** The num pages. */
+		private Integer numPages = 0;
+		
+		/** The total. */
+		private Integer total = 0;
+		
+		/**
+		 * Instantiates a new list resource.
+		 *
+		 * @param client the client
+		 */
+		public ListResource(TwilioClient client) {
+			this(client, new Map<String, String>());
+		}
+	
+		/**
+		 * Instantiates a new list resource.
+		 *
+		 * @param client the client
+		 * @param filters the filters
+		 */
+		public ListResource(TwilioClient client, Map<String, String> filters) {
+			super(client);
+			this.filters = filters;
+		}
+		
+		/**
+		 * Gets the next uri.
+		 *
+		 * @return the next uri
+		 */
+		public String getNextUri() {
+			return nextUri;
+		}
+	
+		/**
+		 * Gets the start.
+		 *
+		 * @return the start
+		 */
+		public Integer getStart() {
+			return startIx;
+		}
+	
+		/**
+		 * Gets the end.
+		 *
+		 * @return the end
+		 */
+		public Integer getEnd() {
+			return endIx;
+		}
+	
+		/**
+		 * Gets the num pages.
+		 *
+		 * @return the num pages
+		 */
+		public Integer getNumPages() {
+			return numPages;
+		}
+	
+		/**
+		 * Gets the total.
+		 *
+		 * @return the total
+		 */
+		public Integer getTotal() {
+			return total;
+		}
+	
+		/**
+		 * Gets the page.
+		 *
+		 * @return the page
+		 */
+		public override Integer getPage() {
+			return page;
+		}
+	
+		/**
+		 * Checks for next page.
+		 *
+		 * @return true, if successful
+		 */
+		public override boolean hasNextPage() {
+			return nextUri != null && this.nextUri.length() > 0;
+		}
+
+		/**
+		 * Checks for prev page.
+		 *
+		 * @return true, if successful
+		 */
+		public override boolean hasPrevPage() {
+			return prevUri != null && this.prevUri.length() > 0;
+		}
+
+		/**
+		 * Fetch next page.
+		 *
+		 * @throws TwilioRestException the twilio rest exception
+		 */
+		public override void fetchNextPage() {
+			// Fetch the next page and reset accounts
+			TwilioRestResponse response = this.getClient().get(nextUri);
+			this.parseResponse(response);
+		}
+
+		/**
+		 * Fetch prev page.
+		 *
+		 * @throws TwilioRestException the twilio rest exception
+		 */
+		public override void fetchPrevPage() {
+			// Fetch the next page and reset accounts
+			TwilioRestResponse response = this.getClient().get(prevUri);
+			this.parseResponse(response);
+		}
+
+		protected override void parseResponse(TwilioRestResponse response) {
+			this.nextUri = null;
+			// Setup paging
+			Map<String, Object> data = response.toMap();
+			this.nextUri = (String) data.get(NEXT_PAGE_URI_KEY_JSON);
+			this.prevUri = (String) data.get(PREV_PAGE_URI_KEY_JSON);		
+			this.startIx = this.getIntValue(data.get(START_KEY_JSON));
+			this.endIx = this.getIntValue(data.get(END_KEY_JSON));
+			this.page = this.getIntValue(data.get(PAGE_KEY_JSON));
+			this.numPages = this.getIntValue(data.get(NUM_PAGES_KEY_JSON));
+			this.total = this.getIntValue(data.get(TOTAL_KEY_JSON));
+	
+			// Setup data
+			this.pageData = this.toList(response);
+		}
+	}
+
+	public abstract class NextGenListResource extends TwilioListResource {		
+		private final String FIRST_PAGE_URL_JSON = 'first_page_url';
+		private final String NEXT_PAGE_URL_JSON = 'next_page_url';
+		private final String PREV_PAGE_URL_JSON = 'previous_page_url';
+		private final String PAGE_JSON = 'page';
+		private final String PAGE_SIZE_JSON = 'page_size';
+		private final String URL_JSON = 'url';
+		private final String KEY_JSON = 'key';
+
+
+		/** The first url. */
+		private String firstUrl = null;
+
+		/** The next url. */
+		private String nextUrl = null;
+
+		/** The prev url. */
+		private String prevUrl = null;
+		
+		/** The page. */
+		private Integer page = 0;
+		
+		/** The page size. */
+		private Integer pageSize = 0;
+		
+		/** The url. */
+		private String pageUrl = null;
+
+		/** The key */
+		private String key = null;
+		
+		/**
+		 * Instantiates a new list resource.
+		 *
+		 * @param client the client
+		 */
+		public NextGenListResource(TwilioClient client) {
+			this(client, new Map<String, String>());
+		}
+	
+		/**
+		 * Instantiates a new list resource.
+		 *
+		 * @param client the client
+		 * @param filters the filters
+		 */
+		public NextGenListResource(TwilioClient client, Map<String, String> filters) {
+			super(client);
+			this.filters = filters;
+		}
+		
+		/**
+		 * Gets the next uri.
+		 *
+		 * @return the next uri
+		 */
+		public String getNextUrl() {
+			return nextUrl;
+		}
+	
+		/**
+		 * Gets the page.
+		 *
+		 * @return the page
+		 */
+		public override Integer getPage() {
+			return page;
+		}
+	
+	
+
+		/**
+		 * Checks for next page.
+		 *
+		 * @return true, if successful
+		 */
+		public override boolean hasNextPage() {
+			return nextUrl != null && this.nextUrl.length() > 0;
+		}
+	
+		/**
+		 * Fetch next page.
+		 *
+		 * @throws TwilioRestException the twilio rest exception
+		 */
+		public override void fetchNextPage() {
+			// Fetch the next page and reset accounts
+			TwilioRestResponse response = this.getClient().get(nextUrl);
+			this.parseResponse(response);
+		}
+
+		/**
+		 * Checks for next page.
+		 *
+		 * @return true, if successful
+		 */
+		public override boolean hasPrevPage() {
+			return prevUrl != null && this.prevUrl.length() > 0;
+		}
+	
+		/**
+		 * Fetch next page.
+		 *
+		 * @throws TwilioRestException the twilio rest exception
+		 */
+		public override void fetchPrevPage() {
+			// Fetch the next page and reset accounts
+			TwilioRestResponse response = this.getClient().get(prevUrl);
+			this.parseResponse(response);
+		}
+
+		protected override void parseResponse(TwilioRestResponse response) {
+			this.nextUrl = null;
+
+			// Setup paging
+			Map<String, Object> data = response.toMap();
+			Map<String, Object>  meta = (Map<String, Object>) data.get('meta');				
+			this.firstUrl = (String) meta.get(FIRST_PAGE_URL_JSON);			
+			this.nextUrl = (String) meta.get(NEXT_PAGE_URL_JSON);
+			this.prevUrl = (String) meta.get(PREV_PAGE_URL_JSON);
+			this.page = this.getIntValue(meta.get(PAGE_JSON));
+			this.pageSize = this.getIntValue(meta.get(PAGE_SIZE_JSON));
+			this.pageUrl = (String) meta.get(URL_JSON);
+			this.key = (String) meta.get(KEY_JSON);
+			// Setup data
+			this.pageData = this.toList(response);
+		}
+	}
 }

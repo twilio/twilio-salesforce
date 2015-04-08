@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
  * 
  *  For more information see see http://www.twilio.com/docs/api/rest/call
  */
-global class TwilioTRReservationList extends TwilioResource.ListResource
+global class TwilioTRReservationList extends TwilioResource.NextGenListResource
 	implements Iterable<TwilioTRReservation> {  
 	
 	/** The workspace sid. */
@@ -38,7 +38,7 @@ global class TwilioTRReservationList extends TwilioResource.ListResource
 	 *
 	 * @param client the client
 	 */
-	public TwilioTRReservationList(TwilioRestClient client) {
+	public TwilioTRReservationList(TwilioTRRestClient client) {
 		super(client);
 	}
 	
@@ -48,8 +48,9 @@ global class TwilioTRReservationList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param filters the filters
 	 */
-	public TwilioTRReservationList(TwilioRestClient client, Map<String, String> filters) {
+	public TwilioTRReservationList(TwilioTRRestClient client, String workspaceSid, Map<String, String> filters) {
 		super(client, filters);
+		this.workspaceSid = workspaceSid;
 	}
 
 	/**
@@ -58,7 +59,7 @@ global class TwilioTRReservationList extends TwilioResource.ListResource
 	 * @param client the client
 	 * @param workspaceSid the workspace sid
 	 */
-	public TwilioTRReservationList(TwilioRestClient client, String workspaceSid, String taskSid) {
+	public TwilioTRReservationList(TwilioTRRestClient client, String workspaceSid, String taskSid) {
 		super(client);
 		this.workspaceSid = workspaceSid;
 		this.taskSid = taskSid;
@@ -66,19 +67,15 @@ global class TwilioTRReservationList extends TwilioResource.ListResource
 
 	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
-		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Workspaces/'
+		return '/' + TwilioTRRestClient.DEFAULT_VERSION + '/Workspaces/'
 				+ this.workspaceSid +  '/Tasks/'
-				+ this.taskSid + '/Reservations.json';
+				+ this.taskSid + '/Reservations';
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
+	public override Object makeNew(TwilioClient client,
 			Map<String, Object> params) {
-		//return new TwilioTRReservation(client, params);
-		TwilioTRReservation reservation = new TwilioTRReservation(client, params);
-		reservation.setRequestAccountSid(this.getRequestAccountSid());
-		return reservation;
+		return new TwilioTRReservation((TwilioTRRestClient)client, params);
 	}
 
 	/* implements method from TwilioResource.ListResource */

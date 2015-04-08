@@ -5,22 +5,22 @@ private class TwilioTRTest {
     // TwilioTRTask -- BEGIN
 
     // Get an API client and request the Twilio Account
-    private static TwilioRestClient client = new TwilioRestClient('AC00000000000000000000000000000000', authToken);
-    private static String rootURL = 'https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces';
-  	private static String resourceLocation_Task =  rootURL + '/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000.json'; 
-    private static String resourceLocation_TaskList =  rootURL + '/WS00000000000000000000000000000000/Tasks.json'; 
-   	private static String resourceLocation_Worker = rootURL + '/WS00000000000000000000000000000000/Workers/WK00000000000000000000000000000000.json';
-   	private static String resourceLocation_WorkerList = rootURL + '/WS00000000000000000000000000000000/Workers.json';
-   	private static String resourceLocation_TaskQueue = rootURL + '/WS00000000000000000000000000000000/TaskQueues/WQ00000000000000000000000000000000.json';
-   	private static String resourceLocation_TaskQueueList = rootURL + '/WS00000000000000000000000000000000/TaskQueues.json';
-   	private static String resourceLocation_Reservation = rootURL + '/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations/WR00000000000000000000000000000000.json';
-   	private static String resourceLocation_ReservationList = rootURL + '/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations.json';
-   	private static String resourceLocation_Activities = rootURL + '/WS00000000000000000000000000000000/Activities/WA00000000000000000000000000000000.json';
-   	private static String resourceLocation_ActivitiesList = rootURL + '/WS00000000000000000000000000000000/Activities.json';
-   	private static String resourceLocation_Workflow = rootURL + '/WS00000000000000000000000000000000/Workflows/WW00000000000000000000000000000000.json';
-   	private static String resourceLocation_WorkflowList = rootURL + '/WS00000000000000000000000000000000/Workflows.json';
-   	private static String resourceLocation_Workspace = rootURL + '/WS00000000000000000000000000000000.json';
-   	private static String resourceLocation_WorkspaceList = rootURL + '.json';
+    private static TwilioTRRestClient client = new TwilioTRRestClient('AC00000000000000000000000000000000', authToken);
+    private static String rootURL = 'https://taskrouter.twilio.com/v1/Workspaces';
+  	private static String resourceLocation_Task =  rootURL + '/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000'; 
+    private static String resourceLocation_TaskList =  rootURL + '/WS00000000000000000000000000000000/Tasks'; 
+   	private static String resourceLocation_Worker = rootURL + '/WS00000000000000000000000000000000/Workers/WK00000000000000000000000000000000';
+   	private static String resourceLocation_WorkerList = rootURL + '/WS00000000000000000000000000000000/Workers';
+   	private static String resourceLocation_TaskQueue = rootURL + '/WS00000000000000000000000000000000/TaskQueues/WQ00000000000000000000000000000000';
+   	private static String resourceLocation_TaskQueueList = rootURL + '/WS00000000000000000000000000000000/TaskQueues';
+   	private static String resourceLocation_Reservation = rootURL + '/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations/WR00000000000000000000000000000000';
+   	private static String resourceLocation_ReservationList = rootURL + '/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations';
+   	private static String resourceLocation_Activities = rootURL + '/WS00000000000000000000000000000000/Activities/WA00000000000000000000000000000000';
+   	private static String resourceLocation_ActivitiesList = rootURL + '/WS00000000000000000000000000000000/Activities';
+   	private static String resourceLocation_Workflow = rootURL + '/WS00000000000000000000000000000000/Workflows/WW00000000000000000000000000000000';
+   	private static String resourceLocation_WorkflowList = rootURL + '/WS00000000000000000000000000000000/Workflows';
+   	private static String resourceLocation_Workspace = rootURL + '/WS00000000000000000000000000000000';
+   	private static String resourceLocation_WorkspaceList = rootURL;
 
    
     static {
@@ -29,15 +29,15 @@ private class TwilioTRTest {
     		'"attributes": "{}", "date_created": "2015-01-01T00:00:00Z", "date_updated": "2015-01-01T00:00:00Z", ' + 
     		'"priority": 1, "age": 36, "reason": null, "timeout": 86400, "workspace_sid": "WS00000000000000000000000000000000", "workflow_sid": "WW00000000000000000000000000000000",' + 
     		'"workflow_friendly_name": "Workflow Name", "task_queue_sid": "WQ00000000000000000000000000000000", "task_queue_friendly_name": "TaskQueue Name", ' +
-    		'"url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000", ' + 
-    		'"links": {"task_queue": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/TaskQueues/WQ00000000000000000000000000000000", ' +
-    		'"workflow": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workflows/WW00000000000000000000000000000000",' +
-    		'"workspace": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000"}}';
+    		'"url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000", ' + 
+    		'"links": {"task_queue": "hhttps://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/TaskQueues/WQ00000000000000000000000000000000", ' +
+    		'"workflow": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workflows/WW00000000000000000000000000000000",' +
+    		'"workspace": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000"}}';
 
     	// --- TRTaskList Test Response
     	String jsonResponse_TaskList = '{"tasks": [' + jsonResponse_Task + '],' + 
-    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Tasks?PageSize=50&Page=0",'+
-    		'"previous_page_url": null, "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Tasks?PageSize=50&Page=0", "next_page_url": null, "key": "tasks"}}';       
+    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Tasks?PageSize=50&Page=0",'+
+    		'"previous_page_url": null, "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Tasks?PageSize=50&Page=0", "next_page_url": null, "key": "tasks"}}';       
 
         loadMockResponse(resourceLocation_Task, jsonResponse_Task);
         loadMockResponse(resourceLocation_TaskList, jsonResponse_TaskList);
@@ -47,14 +47,14 @@ private class TwilioTRTest {
 		String jsonResponse_Worker = '{"sid": "WK00000000000000000000000000000000", "friendly_name": "friendly name", "account_sid": "AC00000000000000000000000000000000",' + 
 			'"activity_sid": "WA00000000000000000000000000000000", "activity_name": "Idle", "workspace_sid": "WS00000000000000000000000000000000", ' + 
 			'"attributes": "{}", "available": true, "date_created": "2015-01-01T00:00:00Z", "date_updated": "2015-01-01T00:00:00Z", ' + 
-			'"date_status_changed": "2015-01-01T00:00:00Z", "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workers/WK00000000000000000000000000000000",' + 
-			'"links": {"activity": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Activities/WA00000000000000000000000000000000",' + 
-			'"workspace": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000"}}';
+			'"date_status_changed": "2015-01-01T00:00:00Z", "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workers/WK00000000000000000000000000000000",' + 
+			'"links": {"activity": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Activities/WA00000000000000000000000000000000",' + 
+			'"workspace": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000"}}';
 
     	// --- TRWorker Test Response
     	String jsonResponse_WorkerList = '{"workers": [' + jsonResponse_Worker + '],' + 
-    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workers?PageSize=50&Page=0",'+
-    		'"previous_page_url": null, "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workers?PageSize=50&Page=0", "next_page_url": null, "key": "workers"}}';       
+    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workers?PageSize=50&Page=0",'+
+    		'"previous_page_url": null, "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workers?PageSize=50&Page=0", "next_page_url": null, "key": "workers"}}';       
 
         loadMockResponse(resourceLocation_Worker, jsonResponse_Worker);
         loadMockResponse(resourceLocation_WorkerList, jsonResponse_WorkerList);
@@ -72,8 +72,8 @@ private class TwilioTRTest {
 
     	// --- TRTaskQueue Test Response
     	String jsonResponse_TaskQueueList = '{"task_queues": [' + jsonResponse_TaskQueue + '],' + 
-    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/TaskQueues?PageSize=50&Page=0",'+
-    		'"previous_page_url": null, "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/TaskQueues?PageSize=50&Page=0", "next_page_url": null, "key": "task_queues"}}';       
+    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/TaskQueues?PageSize=50&Page=0",'+
+    		'"previous_page_url": null, "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/TaskQueues?PageSize=50&Page=0", "next_page_url": null, "key": "task_queues"}}';       
 
         loadMockResponse(resourceLocation_TaskQueue, jsonResponse_TaskQueue);
         loadMockResponse(resourceLocation_TaskQueueList, jsonResponse_TaskQueueList);
@@ -89,8 +89,8 @@ private class TwilioTRTest {
         	'"workspace": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000"}}';
 
     	String jsonResponse_ReservationList = '{"reservations": [' + jsonResponse_Reservation + '],' + 
-    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations?PageSize=50&Page=0",'+
-    		'"previous_page_url": null, "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations?PageSize=50&Page=0", "next_page_url": null, "key": "reservations"}}';       
+    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations?PageSize=50&Page=0",'+
+    		'"previous_page_url": null, "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Tasks/WT00000000000000000000000000000000/Reservations?PageSize=50&Page=0", "next_page_url": null, "key": "reservations"}}';       
 
         loadMockResponse(resourceLocation_Reservation, jsonResponse_Reservation);
         loadMockResponse(resourceLocation_ReservationList, jsonResponse_ReservationList);
@@ -99,13 +99,13 @@ private class TwilioTRTest {
         String jsonResponse_Activities = '{"sid": "WA00000000000000000000000000000000", "account_sid": "AC00000000000000000000000000000000",'+
         	'"workspace_sid": "WS00000000000000000000000000000000", "friendly_name": "Offline", "available": false, ' +
         	'"date_created": "2015-01-01T00:00:00Z", "date_updated": "2015-01-01T00:00:00Z", '+
-        	'"url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Activities/WA00000000000000000000000000000000",'+
-        	'"links": {"workspace": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000"}}';
+        	'"url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Activities/WA00000000000000000000000000000000",'+
+        	'"links": {"workspace": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000"}}';
 
    		// --- TRActivities List  Test Response
     	String jsonResponse_ActivitiesList = '{"activities": [' + jsonResponse_Activities + '],' + 
-    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Activities?PageSize=50&Page=0",'+
-    		'"previous_page_url": null, "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Activities?PageSize=50&Page=0", "next_page_url": null, "key": "activities"}}';       
+    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Activities?PageSize=50&Page=0",'+
+    		'"previous_page_url": null, "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Activities?PageSize=50&Page=0", "next_page_url": null, "key": "activities"}}';       
 
  		loadMockResponse(resourceLocation_Activities, jsonResponse_Activities);
  		loadMockResponse(resourceLocation_ActivitiesList, jsonResponse_ActivitiesList);
@@ -117,12 +117,12 @@ private class TwilioTRTest {
  			'"assignment_callback_url": "https://taskrouter/twilio/workspace/workflow", ' + 
  			'"fallback_assignment_callback_url": "https://taskrouter/twilio/fallback/workspace/workflow", "document_content_type": null, "configuration": "{}", ' + 
  			'"task_reservation_timeout": 60, "date_created": "2015-01-01T00:00:00Z", "date_updated": "2015-01-01T00:00:00Z", ' +
- 			'"url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workflows/WW00000000000000000000000000000000", '+
- 			'"links": {"workspace": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000"}}';
+ 			'"url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workflows/WW00000000000000000000000000000000", '+
+ 			'"links": {"workspace": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000"}}';
 
     	String jsonResponse_WorkflowList = '{"workflows": [' + jsonResponse_Workflow + '],' + 
-    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workflows?PageSize=50&Page=0",'+
-    		'"previous_page_url": null, "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workflows?PageSize=50&Page=0", "next_page_url": null, "key": "workflows"}}';       
+    		'"meta": {"page": 0, "page_size": 50, "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workflows?PageSize=50&Page=0",'+
+    		'"previous_page_url": null, "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workflows?PageSize=50&Page=0", "next_page_url": null, "key": "workflows"}}';       
 
  		loadMockResponse(resourceLocation_Workflow, jsonResponse_Workflow);
  		loadMockResponse(resourceLocation_WorkflowList, jsonResponse_WorkflowList);
@@ -133,17 +133,17 @@ private class TwilioTRTest {
             '"friendly_name": "Friendly Name", "event_callback_url": "https://taskrouter/twilio/workspace", '+
             '"default_activity_sid": "WA00000000000000000000000000000000", "date_created": "2015-01-01T00:00:00Z", ' +
             '"date_updated": "2015-01-01T00:00:00Z", "default_activity_name": "Offline", "timeout_activity_sid": "WA00000000000000000000000000000000",'+
-            '"timeout_activity_name": "Idle", "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000", ' +
-            '"links": {"activities": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Activities", '+
-            '"task_queues": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/TaskQueues", ' +
-            '"statistics": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Statistics", ' +
-            '"tasks": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Tasks", '+
-            '"workers": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workers",' +
-            '"workflows": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces/WS00000000000000000000000000000000/Workflows"}}';
+            '"timeout_activity_name": "Idle", "url": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000", ' +
+            '"links": {"activities": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Activities", '+
+            '"task_queues": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/TaskQueues", ' +
+            '"statistics": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Statistics", ' +
+            '"tasks": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Tasks", '+
+            '"workers": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workers",' +
+            '"workflows": "https://taskrouter.twilio.com/v1/Workspaces/WS00000000000000000000000000000000/Workflows"}}';
 
         String jsonResponse_WorkspaceList = '{"workspaces": [' + jsonResponse_Workspace + '],' + 
-            '"meta": {"page": 0, "page_size": 50, "first_page_url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces?PageSize=50&Page=0",'+
-            '"previous_page_url": null, "url": "https://api.twilio.com/2010-04-01/Accounts/AC00000000000000000000000000000000/Workspaces?PageSize=50&Page=0", "next_page_url": null, "key": "workspaces"}}';       
+            '"meta": {"page": 0, "page_size": 50, "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=50&Page=0",'+
+            '"previous_page_url": null, "url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=50&Page=0", "next_page_url": null, "key": "workspaces"}}';       
 
         loadMockResponse(resourceLocation_Workspace, jsonResponse_Workspace);
         loadMockResponse(resourceLocation_WorkspaceList, jsonResponse_WorkspaceList);
@@ -157,11 +157,13 @@ private class TwilioTRTest {
 
 
     static testMethod void testTwilioTRTask() {    
-        
+
+        TwilioTRRestClient cli = TwilioAPI.getDefaultTRClient();
+
 		TwilioTRTaskList trTaskList = new TwilioTRTaskList(client);
-		trTaskList = new TwilioTRTaskList(client, new Map<String, String>());
-		trTaskList = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getTasks();
-        TwilioTRTask trTask = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getTask('WT00000000000000000000000000000000');
+		trTaskList = new TwilioTRTaskList(client, 'WS00000000000000000000000000000000', new Map<String, String>());
+		trTaskList = client.getWorkspace('WS00000000000000000000000000000000').getTasks();
+        TwilioTRTask trTask = client.getWorkspace('WS00000000000000000000000000000000').getTask('WT00000000000000000000000000000000');
         List<TwilioTRTask> trTasks = trTaskList.getPageData();
        
         Iterator<TwilioTRTask> it = trTaskList.iterator();
@@ -183,8 +185,8 @@ private class TwilioTRTest {
      	system.assertEquals(1, trTask.getPriority());
      	system.assertEquals(Datetime.newInstanceGmt(2015,01,01,00,00,00), trTask.getDateCreated());
      	system.assertEquals(Datetime.newInstanceGmt(2015,01,01,00,00,00), trTask.getDateUpdated());
-     	system.assertEquals(resourceLocation_Task, 'https://api.twilio.com' + trTask.getResourceLocation());
-     	system.assertEquals(resourceLocation_TaskList, 'https://api.twilio.com' + trTaskList.getResourceLocation());
+     	system.assertEquals(resourceLocation_Task, 'https://taskrouter.twilio.com' + trTask.getResourceLocation());
+     	system.assertEquals(resourceLocation_TaskList, 'https://taskrouter.twilio.com' + trTaskList.getResourceLocation());
         system.assertEquals('tasks',trTaskList.getListKey());
         trTask.cancel('This task is now canceled'); 
      	trTask.deleteTask();
@@ -193,9 +195,9 @@ private class TwilioTRTest {
 
     static testMethod void testTwilioTRWorker() {
 		TwilioTRWorkerList trWorkerList = new TwilioTRWorkerList(client);
-		trWorkerList = new TwilioTRWorkerList(client, new Map<String, String>());
-		trWorkerList = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getWorkers();
-        TwilioTRWorker trWorker = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getWorker('WK00000000000000000000000000000000');
+		trWorkerList = new TwilioTRWorkerList(client, 'WS00000000000000000000000000000000', new Map<String, String>());
+		trWorkerList = client.getWorkspace('WS00000000000000000000000000000000').getWorkers();
+        TwilioTRWorker trWorker = client.getWorkspace('WS00000000000000000000000000000000').getWorker('WK00000000000000000000000000000000');
 
         List<TwilioTRWorker> trWorkers = trWorkerList.getPageData();
         
@@ -214,17 +216,17 @@ private class TwilioTRTest {
      	system.assertEquals(trWorker.getDateStatusChanged(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
      	system.assertEquals(trWorker.getDateCreated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
      	system.assertEquals(trWorker.getDateUpdated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
-     	system.assertEquals('https://api.twilio.com' + trWorker.getResourceLocation(), resourceLocation_Worker);
-     	system.assertEquals(resourceLocation_WorkerList, 'https://api.twilio.com' + trWorkerList.getResourceLocation());   
+     	system.assertEquals('https://taskrouter.twilio.com' + trWorker.getResourceLocation(), resourceLocation_Worker);
+     	system.assertEquals(resourceLocation_WorkerList, 'https://taskrouter.twilio.com' + trWorkerList.getResourceLocation());   
         system.assertEquals('workers',trWorkerList.getListKey());
         trWorker.getSubresourceUris();
     }
 
     static testMethod void testTwilioTRTaskQueue() {
 		TwilioTRTaskQueueList trTaskQueueList = new TwilioTRTaskQueueList(client);
-		trTaskQueueList = new TwilioTRTaskQueueList(client, new Map<String, String>());
-		trTaskQueueList = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getTaskQueues();
-        TwilioTRTaskQueue trTaskQueue = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getTaskQueue('WQ00000000000000000000000000000000');
+		trTaskQueueList = new TwilioTRTaskQueueList(client, 'WS00000000000000000000000000000000', new Map<String, String>());
+		trTaskQueueList = client.getWorkspace('WS00000000000000000000000000000000').getTaskQueues();
+        TwilioTRTaskQueue trTaskQueue = client.getWorkspace('WS00000000000000000000000000000000').getTaskQueue('WQ00000000000000000000000000000000');
 
         List<TwilioTRTaskQueue> trTaskQueues = trTaskQueueList.getPageData();
         Iterator<TwilioTRTaskQueue> it = trTaskQueueList.iterator();
@@ -242,17 +244,17 @@ private class TwilioTRTest {
     	system.assertEquals(trTaskQueue.getAssignmentActivityName(), 'Busy');
      	system.assertEquals(trTaskQueue.getDateCreated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
      	system.assertEquals(trTaskQueue.getDateUpdated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
-     	system.assertEquals('https://api.twilio.com' + trTaskQueue.getResourceLocation(), resourceLocation_TaskQueue);
-     	system.assertEquals(resourceLocation_TaskQueueList, 'https://api.twilio.com' + trTaskQueueList.getResourceLocation());    
+     	system.assertEquals('https://taskrouter.twilio.com' + trTaskQueue.getResourceLocation(), resourceLocation_TaskQueue);
+     	system.assertEquals(resourceLocation_TaskQueueList, 'https://taskrouter.twilio.com' + trTaskQueueList.getResourceLocation());    
         system.assertEquals('task_queues',trTaskQueueList.getListKey());
         trTaskQueue.getSubresourceUris();              	
     }
 
 	static testMethod void testTwilioTRReservation() {
 		TwilioTRReservationList trReservationList = new TwilioTRReservationList(client);
-		trReservationList = new TwilioTRReservationList(client, new Map<String, String>());
-		trReservationList = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getTask('WT00000000000000000000000000000000').getReservations();
-        TwilioTRReservation trReservation = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getTask('WT00000000000000000000000000000000').getReservation('WR00000000000000000000000000000000');
+		trReservationList = new TwilioTRReservationList(client, 'WS00000000000000000000000000000000', new Map<String, String>());
+		trReservationList = client.getWorkspace('WS00000000000000000000000000000000').getTask('WT00000000000000000000000000000000').getReservations();
+        TwilioTRReservation trReservation = client.getWorkspace('WS00000000000000000000000000000000').getTask('WT00000000000000000000000000000000').getReservation('WR00000000000000000000000000000000');
         List<TwilioTRReservation> trReservations = trReservationList.getPageData();
    
         Iterator<TwilioTRReservation> it = trReservationList.iterator();
@@ -268,8 +270,8 @@ private class TwilioTRTest {
      	system.assertEquals(trReservation.getWorkerSid(), 'WK00000000000000000000000000000000');
      	system.assertEquals(trReservation.getDateCreated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
      	system.assertEquals(trReservation.getDateUpdated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
-     	system.assertEquals('https://api.twilio.com' + trReservation.getResourceLocation(), resourceLocation_Reservation);
-     	system.assertEquals(resourceLocation_ReservationList, 'https://api.twilio.com' + trReservationList.getResourceLocation());            	
+     	system.assertEquals('https://taskrouter.twilio.com' + trReservation.getResourceLocation(), resourceLocation_Reservation);
+     	system.assertEquals(resourceLocation_ReservationList, 'https://taskrouter.twilio.com' + trReservationList.getResourceLocation());            	
      	trReservation.accept();
      	trReservation.reject();
         system.assertEquals('reservations',trReservationList.getListKey());
@@ -278,9 +280,9 @@ private class TwilioTRTest {
 
 	static testMethod void testTwilioTRActivities() {
 		TwilioTRActivitiesList trActivitiesList = new TwilioTRActivitiesList(client);
-		trActivitiesList = new TwilioTRActivitiesList(client, new Map<String, String>());
-		trActivitiesList = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getActivities();
-        TwilioTRActivities trActivities = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getActivity('WA00000000000000000000000000000000');
+		trActivitiesList = new TwilioTRActivitiesList(client, 'WS00000000000000000000000000000000', new Map<String, String>());
+		trActivitiesList = client.getWorkspace('WS00000000000000000000000000000000').getActivities();
+        TwilioTRActivities trActivities = client.getWorkspace('WS00000000000000000000000000000000').getActivity('WA00000000000000000000000000000000');
         List<TwilioTRActivities> trActivitiesL = trActivitiesList.getPageData();
 
         Iterator<TwilioTRActivities> it = trActivitiesList.iterator();
@@ -294,17 +296,17 @@ private class TwilioTRTest {
 		system.assertEquals(trActivities.getWorkspaceSid(), 'WS00000000000000000000000000000000');
      	system.assertEquals(trActivities.getDateCreated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
      	system.assertEquals(trActivities.getDateUpdated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
-     	system.assertEquals('https://api.twilio.com' + trActivities.getResourceLocation(), resourceLocation_Activities);
-     	system.assertEquals(resourceLocation_ActivitiesList, 'https://api.twilio.com' + trActivitiesList.getResourceLocation());   
+     	system.assertEquals('https://taskrouter.twilio.com' + trActivities.getResourceLocation(), resourceLocation_Activities);
+     	system.assertEquals(resourceLocation_ActivitiesList, 'https://taskrouter.twilio.com' + trActivitiesList.getResourceLocation());   
         system.assertEquals('activities',trActivitiesList.getListKey());
         trActivities.getSubresourceUris();             	
 	}
 
 	static testMethod void testTwilioTRWorkflow() {
 		TwilioTRWorkflowList trWorkflowList = new TwilioTRWorkflowList(client);
-		trWorkflowList = new TwilioTRWorkflowList(client, new Map<String, String>());
-		trWorkflowList = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getWorkflows();
-        TwilioTRWorkflow trWorkflow = client.getAccount().getWorkspace('WS00000000000000000000000000000000').getWorkflow('WW00000000000000000000000000000000');
+		trWorkflowList = new TwilioTRWorkflowList(client, 'WS00000000000000000000000000000000', new Map<String, String>());
+		trWorkflowList = client.getWorkspace('WS00000000000000000000000000000000').getWorkflows();
+        TwilioTRWorkflow trWorkflow = client.getWorkspace('WS00000000000000000000000000000000').getWorkflow('WW00000000000000000000000000000000');
         List<TwilioTRWorkflow> trWorkflows = trWorkflowList.getPageData();
 
         Iterator<TwilioTRWorkflow> it = trWorkflowList.iterator();
@@ -322,8 +324,8 @@ private class TwilioTRTest {
 		system.assertEquals(trWorkflow.getWorkspaceSid(), 'WS00000000000000000000000000000000');
      	system.assertEquals(trWorkflow.getDateCreated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
      	system.assertEquals(trWorkflow.getDateUpdated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
-     	system.assertEquals('https://api.twilio.com' + trWorkflow.getResourceLocation(), resourceLocation_Workflow);
-     	system.assertEquals(resourceLocation_WorkflowList, 'https://api.twilio.com' + trWorkflowList.getResourceLocation());       	
+     	system.assertEquals('https://taskrouter.twilio.com' + trWorkflow.getResourceLocation(), resourceLocation_Workflow);
+     	system.assertEquals(resourceLocation_WorkflowList, 'https://taskrouter.twilio.com' + trWorkflowList.getResourceLocation());       	
         system.assertEquals('workflows',trWorkflowList.getListKey());
         trWorkflow.getSubresourceUris(); 
 	}
@@ -331,8 +333,8 @@ private class TwilioTRTest {
     static testMethod void testTwilioTRWorkspace() {
         TwilioTRWorkspaceList trWorkspaceList = new TwilioTRWorkspaceList(client);
         trWorkspaceList = new TwilioTRWorkspaceList(client, new Map<String, String>());
-        trWorkspaceList = client.getAccount().getWorkspaces();
-        TwilioTRWorkspace trWorkspace= client.getAccount().getWorkspace('WS00000000000000000000000000000000');
+        trWorkspaceList = client.getWorkspaces();
+        TwilioTRWorkspace trWorkspace= client.getWorkspace('WS00000000000000000000000000000000');
         List<TwilioTRWorkspace> trWorkspaces = trWorkspaceList.getPageData();
 
         Iterator<TwilioTRWorkspace> it = trWorkspaceList.iterator();
@@ -349,8 +351,8 @@ private class TwilioTRTest {
         system.assertEquals(trWorkspace.getEventCallbackUrl(), 'https://taskrouter/twilio/workspace');
         system.assertEquals(trWorkspace.getDateCreated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
         system.assertEquals(trWorkspace.getDateUpdated(), Datetime.newInstanceGmt(2015,01,01,00,00,00));
-        system.assertEquals('https://api.twilio.com' + trWorkspace.getResourceLocation(), resourceLocation_Workspace);
-        system.assertEquals(resourceLocation_WorkspaceList, 'https://api.twilio.com' + trWorkspaceList.getResourceLocation());        
+        system.assertEquals('https://taskrouter.twilio.com' + trWorkspace.getResourceLocation(), resourceLocation_Workspace);
+        system.assertEquals(resourceLocation_WorkspaceList, 'https://taskrouter.twilio.com' + trWorkspaceList.getResourceLocation());        
         system.assertEquals('workspaces',trWorkspaceList.getListKey());
         trWorkspace.getSubresourceUris(); 
     }  

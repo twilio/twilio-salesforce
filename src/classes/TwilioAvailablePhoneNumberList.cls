@@ -89,9 +89,10 @@ global class TwilioAvailablePhoneNumberList extends TwilioResource.ListResource
 	}
 
 	/* implements method from TwilioResource.ListResource */
-	public override Object makeNew(TwilioRestClient client,
-			Map<String, Object> params) {
-		return new TwilioAvailablePhoneNumber(client, params);
+	public override Object makeNew(TwilioClient client, Map<String, Object> params) {
+		TwilioAvailablePhoneNumber available = new TwilioAvailablePhoneNumber((TwilioRestClient)client, params);
+		available.setRequestAccountSid(this.getRequestAccountSid());
+		return available;
 	}
 	
 	/* implements method from TwilioResource.ListResource */
