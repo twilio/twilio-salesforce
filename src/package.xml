@@ -14,6 +14,8 @@
         <members>TwilioCallList</members>
         <members>TwilioCallerIdValidation</members>
         <members>TwilioCapability</members>
+        <members>TwilioCapabilityPolicy</members>
+        <members>TwilioClient</members>
         <members>TwilioConference</members>
         <members>TwilioConferenceList</members>
         <members>TwilioConnectApp</members>
@@ -21,6 +23,9 @@
         <members>TwilioIncomingPhoneNumber</members>
         <members>TwilioIncomingPhoneNumberList</members>
         <members>TwilioIterator</members>
+        <members>TwilioLookupsPhoneNumber</members>    
+        <members>TwilioLookupsRestClient</members>    
+        <members>TwilioLookupsTest</members>        
         <members>TwilioMedia</members>
         <members>TwilioMediaList</members>
         <members>TwilioMember</members>
@@ -48,8 +53,24 @@
         <members>TwilioShortCodeList</members>
         <members>TwilioSms</members>
         <members>TwilioSmsList</members>
+        <members>TwilioTRActivities</members>
         <members>TwilioTranscription</members>
         <members>TwilioTranscriptionList</members>
+        <members>TwilioTRCapability</members>
+        <members>TwilioTRReservation</members>      
+        <members>TwilioTRReservationList</members>        
+        <members>TwilioTRRestClient</members>        
+        <members>TwilioTRTask</members>        
+        <members>TwilioTRTaskList</members>        
+        <members>TwilioTRTaskQueue</members>        
+        <members>TwilioTRTaskQueueList</members>        
+        <members>TwilioTRTest</members>        
+        <members>TwilioTRWorker</members>        
+        <members>TwilioTRWorkerList</members>        
+        <members>TwilioTRWorkflow</members>        
+        <members>TwilioTRWorkflowList</members>        
+        <members>TwilioTRWorkspace</members>        
+        <members>TwilioTRWorkspaceList</members>   
         <members>TwilioTwiML</members>
         <members>Twilio_TestAPI</members>
         <members>Twilio_TestAccounts</members>
@@ -70,6 +91,7 @@
         <members>Twilio_TestRest</members>
         <members>Twilio_TestRestExceptn</members>
         <members>Twilio_TestSandbox</members>
+        <members>Twilio_TestShortCode</members>
         <members>Twilio_TestSms</members>
         <members>Twilio_TestTwiML</members>
         <name>ApexClass</name>
@@ -82,5 +104,5 @@
         <members>Twilio</members>
         <name>RemoteSiteSetting</name>
     </types>
-    <version>30.0</version>
+    <version>32.0</version>
 </Package>
