@@ -54,6 +54,7 @@
         <members>TwilioSms</members>
         <members>TwilioSmsList</members>
         <members>TwilioTRActivities</members>
+        <members>TwilioTRActivitiesList</members>
         <members>TwilioTranscription</members>
         <members>TwilioTranscriptionList</members>
         <members>TwilioTRCapability</members>
