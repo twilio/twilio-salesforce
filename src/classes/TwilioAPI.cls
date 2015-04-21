@@ -133,18 +133,5 @@ global class TwilioAPI {
 	    		throw new MissingTwilioConfigCustomSettingsException('Please enter your Twilio account credentials under Twilio Config custom settings (go to Setup | Develop | Custom Settings | Manage Twilio Config)');
     	}
    		return twilioCfg;
-    }
-
-    
-    @isTest
-    static void test_TwilioAPI() {
-        TwilioRestClient trc = TwilioAPI.createClient('ACba8bc05eacf94afdae398e642c9cc32d', '12345678901234567890123456789012');
-        TwilioCapability tc = TwilioAPI.createCapability();
-		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getTwilioConfig().AccountSid__c);
-		System.assertEquals('12345678901234567890123456789012', TwilioAPI.getTwilioConfig().AuthToken__c);
-		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getDefaultClient().getAccountSid());
-		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getDefaultClient().getAccount().getSid());
-		System.assertEquals('ACba8bc05eacf94afdae398e642c9cc32d', TwilioAPI.getDefaultAccount().getSid());
-	}
-	
+    }	
 }

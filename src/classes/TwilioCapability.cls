@@ -265,29 +265,7 @@ global class TwilioCapability {
         String result = urlSafeEncodeBase64(mac);
         return result;
     }
-    
-    /* UNIT TESTS FOR PRIVATE METHODS */
-    static testMethod void testGenerateParamString() {
-        System.assertEquals('', generateParamString(new Map<String,String>()));
-        System.assertEquals('a=b', generateParamString(new Map<String,String> {'a'=>'b'} ));
-        System.assertEquals('cat=dog&foo=bar', generateParamString(new Map<String,String> {'cat' => 'dog', 'foo'=>'bar'} ));
-        System.assertEquals('a=b&c=d&e=f', generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
-        System.assertEquals('split+key1=split+val1&split+key2=split+val2', generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
-    }
-    
-    static testMethod void testEncodeBase64() {
-        System.assertEquals('',urlSafeEncodeBase64(''));
-        System.assertEquals('QQ',urlSafeEncodeBase64('A'));     
-        System.assertEquals('QUI',urlSafeEncodeBase64('AB'));
-        System.assertEquals('QUJDRA',urlSafeEncodeBase64('ABCD'));
-    }
-    
-    static testMethod void testJoin() {
-        System.assertEquals('', join(new List<String>(),','));
-        System.assertEquals('a', join(new List<String>{'a'},','));
-        System.assertEquals('a,b,c,d,e', join(new List<String>{'a','b','c','d','e'},','));
-    }
-    
+
     /* ACCESSOR METHODS FOR EXTERNAL TESTS */
     
     public boolean test_buildOutgoingScope {
@@ -325,5 +303,5 @@ global class TwilioCapability {
         }
     }
     
-    private class TestOnlyException extends Exception {}
+    private class TestOnlyException extends Exception {}   
 }
