@@ -10,7 +10,7 @@ private class Twilio_TestShortCode {
 		'"short_codes": [{"sid": "SC6b20cb705c1e8f00210049b20b70fce2","account_sid": "AC03c2fcd60e144e7cbeee413fcbf812a3","friendly_name": "67898",'+
 		'"short_code": "67898","date_created": "Thu, 13 Nov 2008 07:56:24 +0000","date_updated": "Thu, 13 Nov 2008 08:45:58 +0000",'+
 		'"sms_url": "http://demo.twilio.com/docs/sms.xml","sms_method": "POST","sms_fallback_url": "http://smsapp.com/fallback","sms_fallback_method": "POST",'+
-		'"api_version": "2010-04-01","uri": "/2010-04-01/Accounts/ACdc5f1e11047ebd6fe7a55f120be3a900/SMS/ShortCodes/SC6b20cb705c1e8f00210049b20b70fce2.json"}]}';
+		'"api_version": "2010-04-01","uri": "/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/SMS/ShortCodes/SC6b20cb705c1e8f00210049b20b70fce2.json"}]}';
 		
         // register a mock Response with the Twilio_TestHTTPMock singleton service
 		// for the HTTP GET method and at the Twilio Account instance URI.

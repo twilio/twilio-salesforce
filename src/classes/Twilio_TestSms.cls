@@ -214,7 +214,7 @@ final static String authToken = '12345678901234567890123456789012';
 		+'}]}';
 		Twilio_TestHTTPMock.getInstance().putResponse(
 			'GET',
-			'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/ShortCodes.json',
+			'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/SMS/ShortCodes.json',
 			new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
 			);
 		
@@ -242,7 +242,7 @@ final static String authToken = '12345678901234567890123456789012';
 		
 		Twilio_TestHTTPMock.getInstance().putResponse(
 			'GET',
-			'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/ShortCodes.json?ShortCode=898',
+			'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/SMS/ShortCodes.json?ShortCode=898',
 			new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
 			);
 		
