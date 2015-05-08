@@ -26,7 +26,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 private class Twilio_TestApplication {
 
     final static String authToken = '12345678901234567890123456789012';
-        
+
     static testmethod void testTwilioAplications_get() {
         String accountJsonResponseBody ='{"applications":[{"sid":"AP023e78c7f13a4fe683ef2e5ddc510399","date_created":'
         +'"Wed, 01 Feb 2012 10:49:17 +0000","date_updated":"Wed, 01 Feb 2012 10:49:17 +0000","account_sid":"AC03c2fcd60e144e7cbeed179fcbf812a3",'
@@ -125,10 +125,10 @@ private class Twilio_TestApplication {
             'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Applications.json?VoiceMethod=POST&FriendlyName=Testapp1',
             new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
             );
-        
+
         map<string,string> params=new map<string,string>();
-        params.put('FriendlyName','Testapp1');
         params.put('VoiceMethod','POST');
+        params.put('FriendlyName','Testapp1');
         // Get an API client and request the Twilio Account
         TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3', authToken);
         TwilioApplicationList twapps = client.getAccount().getApplications(params);
@@ -164,7 +164,6 @@ private class Twilio_TestApplication {
         +'"api_version":"2010-04-01","voice_url":null,"voice_method":"POST","voice_fallback_url":null,"voice_fallback_method":"POST",'
         +'"status_callback":null,"status_callback_method":"POST","voice_caller_id_lookup":false,"sms_url":null,"sms_method":"POST","sms_fallback_url":null,'
         +'"sms_fallback_method":"POST","sms_status_callback":null,"uri":"/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Applications/AP023e78c7f13a4fe683ef2e5ddc510399.json"}';
-    
         // register a mock Response with the Twilio_TestHTTPMock singleton service
         // for the HTTP GET method and at the Twilio Account instance URI.
         Twilio_TestHTTPMock.getInstance().putResponse(
@@ -172,8 +171,8 @@ private class Twilio_TestApplication {
             'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Applications/AP023e78c7f13a4fe683ef2e5ddc510399.json',
             new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
             );
-            
-            
+                
+                
         TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3','9339f87c4573196830a8f497bceb8fa9');        
         TwilioApplication twaps = client.getAccount().getApplication('AP023e78c7f13a4fe683ef2e5ddc510399');
         
@@ -203,7 +202,7 @@ private class Twilio_TestApplication {
         +'"api_version":"2010-04-01","voice_url":null,"voice_method":"POST","voice_fallback_url":null,"voice_fallback_method":"POST",'
         +'"status_callback":null,"status_callback_method":"POST","voice_caller_id_lookup":false,"sms_url":null,"sms_method":"POST","sms_fallback_url":null,'
         +'"sms_fallback_method":"POST","sms_status_callback":null,"uri":"/2010-04-01/Accounts/AC03c2fcd60e144e7cbeed179fcbf812a3/Applications/AP023e78c7f13a4fe683ef2e5ddc510399.json"}';
-    
+
         // register a mock Response with the Twilio_TestHTTPMock singleton service
         // for the HTTP GET method and at the Twilio Account instance URI.
         Twilio_TestHTTPMock.getInstance().putResponse(
@@ -211,8 +210,8 @@ private class Twilio_TestApplication {
             'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Applications.json',
             new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
             );
-            
-            
+                
+                
         TwilioRestClient client = new TwilioRestClient('AC03c2fcd60e144e7cbeee413fcbf812a3','9339f87c4573196830a8f497bceb8fa9');
         map<string,string> params=new map<string,string>();
         params.put('FriendlyName','Testapp1');
@@ -237,5 +236,5 @@ private class Twilio_TestApplication {
         System.assertEquals('POST',twaps.getSmsFallbackMethod());
         System.assertEquals(null,twaps.getSmsStatusCallback()); 
     }
-    
+
 }
