@@ -73,27 +73,26 @@ class Twilio_TestCapability {
     
     /* UNIT TESTS FOR PRIVATE METHODS */
     static testMethod void testGenerateParamString() {
-		Boolean firstKey = true;
-		Boolean isOrdered = false;
-		Map<String, String> ordMap = new Map<String, String>{'a' => 'b', 'c' => 'd'};
-		for(String key: ordMap.keySet()){
-			if(ordMap.get(key) == 'b' && firstKey){ isOrdered = true; }
-			firstKey = false;
-		}
-        if(isOrdered){
-			System.assertEquals('', generateParamString(new Map<String,String>()));
-			System.assertEquals('a=b', generateParamString(new Map<String,String> {'a'=>'b'} ));
-			System.assertEquals('foo=bar&cat=dog', generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
-			System.assertEquals('a=b&c=d&e=f', generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
-			System.assertEquals('split+key1=split+val1&split+key2=split+val2', generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
-        }else{
-			System.assertEquals('', generateParamString(new Map<String,String>()));
-			System.assertEquals('a=b', generateParamString(new Map<String,String> {'a'=>'b'} ));
-			System.assertEquals('cat=dog&foo=bar', generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
-			System.assertEquals('e=f&c=d&a=b', generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
-			System.assertEquals('split+key2=split+val2&split+key1=split+val1', generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
+        Boolean firstKey = true;
+        Boolean isOrdered = false;
+        Map<String, String> ordMap = new Map<String, String>{'a' => 'b', 'c' => 'd'};
+        for(String key: ordMap.keySet()){
+            if(ordMap.get(key) == 'b' && firstKey){ isOrdered = true; }
+            firstKey = false;
         }
-        
+        if(isOrdered){
+            System.assertEquals('', generateParamString(new Map<String,String>()));
+            System.assertEquals('a=b', generateParamString(new Map<String,String> {'a'=>'b'} ));
+            System.assertEquals('foo=bar&cat=dog', generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
+            System.assertEquals('a=b&c=d&e=f', generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
+            System.assertEquals('split+key1=split+val1&split+key2=split+val2', generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
+        }else{
+            System.assertEquals('', generateParamString(new Map<String,String>()));
+            System.assertEquals('a=b', generateParamString(new Map<String,String> {'a'=>'b'} ));
+            System.assertEquals('cat=dog&foo=bar', generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
+            System.assertEquals('e=f&c=d&a=b', generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
+            System.assertEquals('split+key2=split+val2&split+key1=split+val1', generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
+        }        
     }
 
     static testMethod void testEncodeBase64() {
