@@ -28,7 +28,7 @@ private class Twilio_TestPhoneNumbers {
     final static String authToken = '12345678901234567890123456789012';
 		
 	static testmethod void testTwilioAvailablePhoneNumbers_US_Local() {
-        String accountJsonResponseBody =
+      	  String accountJsonResponseBody =
         	'{'
 			+'"uri": "/2010-04-01/Accounts/ACde6f1e11047ebd6fe7a55f120be3a900/AvailablePhoneNumbers/US/Local.json?AreaCode=510",'
 			+'"available_phone_numbers": ['
@@ -262,7 +262,7 @@ private class Twilio_TestPhoneNumbers {
 		
 		map<string,string> params=new map<string,string>();
 		params.put('AreaCode','510');
-    	params.put('Contains','51034*****');
+    params.put('Contains','51034*****');
 
 		// Get an API client and request the Twilio Account
 		TwilioRestClient client = new TwilioRestClient('ACba8bc05eacf94afdae398e642c9cc32d', authToken);
