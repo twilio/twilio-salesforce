@@ -455,8 +455,6 @@ public abstract class TwilioResource
 		private final String START_KEY_JSON = 'start';
 		private final String END_KEY_JSON = 'end';
 		private final String PAGE_KEY_JSON = 'page';
-		private final String NUM_PAGES_KEY_JSON = 'num_pages';
-		private final String TOTAL_KEY_JSON = 'total';
 		
 		/** The prev uri. */
 		private String prevUri = null;
@@ -473,11 +471,6 @@ public abstract class TwilioResource
 		/** The page. */
 		private Integer page = 0;
 		
-		/** The num pages. */
-		private Integer numPages = 0;
-		
-		/** The total. */
-		private Integer total = 0;
 		
 		/**
 		 * Instantiates a new list resource.
@@ -525,16 +518,7 @@ public abstract class TwilioResource
 		public Integer getEnd() {
 			return endIx;
 		}
-	
-		/**
-		 * Gets the num pages.
-		 *
-		 * @return the num pages
-		 */
-		public Integer getNumPages() {
-			return numPages;
-		}
-	
+]
 		/**
 		 * Gets the page.
 		 *
@@ -593,8 +577,6 @@ public abstract class TwilioResource
 			this.startIx = this.getIntValue(data.get(START_KEY_JSON));
 			this.endIx = this.getIntValue(data.get(END_KEY_JSON));
 			this.page = this.getIntValue(data.get(PAGE_KEY_JSON));
-			this.numPages = this.getIntValue(data.get(NUM_PAGES_KEY_JSON));
-			this.total = this.getIntValue(data.get(TOTAL_KEY_JSON));
 	
 			// Setup data
 			this.pageData = this.toList(response);
