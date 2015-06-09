@@ -197,6 +197,7 @@ global class TwilioCapability {
     /**
      * Construct URL-style query param string, e.g. key1=val1&key2=val2&...keyN=valN
      */
+    @TestVisible 
     private static String generateParamString(Map<String, String> params) {
         String queryString = '';
         
@@ -216,6 +217,7 @@ global class TwilioCapability {
      *
      * See http://self-issued.info/docs/draft-jones-json-web-token.html
      */
+    @TestVisible 
     private static String jwtEncode(Map<String, Object> payload, String key) {
         Map<String, Object> header = new Map<String, Object>();
         header.put('typ', 'JWT');
@@ -230,11 +232,11 @@ global class TwilioCapability {
 
         return join(segments, '.');
     }
-
+    @TestVisible
     private static String urlSafeEncodeBase64(String data) {
         return urlSafeEncodeBase64(Blob.valueOf(data));
     }
-
+    @TestVisible
     private static String urlSafeEncodeBase64(Blob data) {
         String encodedString = EncodingUtil.base64Encode(data);
         return encodedString.replace('+','-').replace('/','_').replace('=', ''); // make URL-safe
@@ -243,6 +245,7 @@ global class TwilioCapability {
     /**
      * Construct a String containing the contents of 'vals' separated by 'sep'
      */
+    @TestVisible 
     private static String join(List<String> vals, String sep) {
         String sb = '';
         for (Iterator<String> it=vals.iterator(); it.hasNext(); ) {

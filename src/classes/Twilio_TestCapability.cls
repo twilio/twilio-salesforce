@@ -62,12 +62,34 @@ class Twilio_TestCapability {
 		String token = capability.generateToken();
 	}
 
-	static testMethod void testTwilioCapability_eventstream() {
-		Map<String,String> filters = new Map<String,String> {'foo' => 'bar'};
-		TwilioCapability capability = new TwilioCapability(ACCOUNT_SID, AUTH_TOKEN);
-		capability.allowEventStream(filters);
-		System.assertEquals(1, capability.test_scopes.size());
-		System.assertEquals('scope:stream:subscribe?path=%2F2010-04-01%2FEvents&params=foo%3Dbar', capability.test_scopes.get(0));
-		String token = capability.generateToken();
-	}
+    static testMethod void testTwilioCapability_eventstream() {
+        Map<String,String> filters = new Map<String,String> {'foo' => 'bar'};
+        TwilioCapability capability = new TwilioCapability(ACCOUNT_SID, AUTH_TOKEN);
+        capability.allowEventStream(filters);
+        System.assertEquals(1, capability.test_scopes.size());
+        System.assertEquals('scope:stream:subscribe?path=%2F2010-04-01%2FEvents&params=foo%3Dbar', capability.test_scopes.get(0));
+        String token = capability.generateToken();
+    }
+    
+    /* UNIT TESTS FOR PRIVATE METHODS */
+    static testMethod void testGenerateParamString() {
+        System.assertEquals('', TwilioCapability.generateParamString(new Map<String,String>()));
+        System.assertEquals('a=b', TwilioCapability.generateParamString(new Map<String,String> {'a'=>'b'} ));
+        System.assertEquals('foo=bar&cat=dog', TwilioCapability.generateParamString(new Map<String,String> {'foo'=>'bar', 'cat' => 'dog'} ));
+        System.assertEquals('a=b&c=d&e=f', TwilioCapability.generateParamString(new Map<String,String> {'a'=>'b', 'c'=>'d', 'e'=>'f' } ));
+        System.assertEquals('split+key1=split+val1&split+key2=split+val2', TwilioCapability.generateParamString(new Map<String,String> {'split key1'=>'split val1', 'split key2'=>'split val2'} ));
+    }
+    
+    static testMethod void testEncodeBase64() {
+        System.assertEquals('', TwilioCapability.urlSafeEncodeBase64(''));
+        System.assertEquals('QQ', TwilioCapability.urlSafeEncodeBase64('A'));     
+        System.assertEquals('QUI', TwilioCapability.urlSafeEncodeBase64('AB'));
+        System.assertEquals('QUJDRA', TwilioCapability.urlSafeEncodeBase64('ABCD'));
+    }
+    
+    static testMethod void testJoin() {
+        System.assertEquals('', String.join(new List<String>(),','));
+        System.assertEquals('a', String.join(new List<String>{'a'},','));
+        System.assertEquals('a,b,c,d,e', String.join(new List<String>{'a','b','c','d','e'},','));
+    }
 }

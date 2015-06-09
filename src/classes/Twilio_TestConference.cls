@@ -201,7 +201,7 @@ private class Twilio_TestConference
 		// for the HTTP GET method and at the Twilio Account instance URI.
 		Twilio_TestHTTPMock.getInstance().putResponse(
 			'GET',
-			'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Conferernces/CFbbe46ff1274e283f7e3ac1df0072ab39/Participants.json',
+			'https://api.twilio.com/2010-04-01/Accounts/AC03c2fcd60e144e7cbeee413fcbf812a3/Conferences/CFbbe46ff1274e283f7e3ac1df0072ab39/Participants.json',
 			new Twilio_TestHTTPMock.Response(accountJsonResponseBody,200)
 			); 
 		

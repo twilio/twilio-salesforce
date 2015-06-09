@@ -66,7 +66,7 @@ global class TwilioParticipantList extends TwilioResource.ListResource
 	/* implements method from TwilioResource */
 	public override String getResourceLocation() {
 		return '/' + TwilioRestClient.DEFAULT_VERSION + '/Accounts/'
-				+ this.getRequestAccountSid() + '/Conferernces/'
+				+ this.getRequestAccountSid() + '/Conferences/'
 				+ this.conferenceSid + '/Participants.json';
 	}
 
