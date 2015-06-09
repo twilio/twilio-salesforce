@@ -276,11 +276,29 @@ global class TwilioIncomingPhoneNumber extends TwilioResource.InstanceResource {
 	}
 	
 	/**
-	 * Gets the sms status callback.
+	 * Gets the number capabilities.
 	 * 
-	 * @return the sms status callback
+	 * @return the number capabilities
 	 */
 	public map<string,object> getcapabilities() {
 		return (Map<String,Object>)this.getObject('capabilities');
 	}
+
+	/**
+	 * Indicates whether this number requires an Address to be on file with Twilio.
+	 * Potential values are "any", "local", "foreign", or "none".
+	 *
+	 * @return the address requirements
+	 */
+	public String getAddressRequirements() {
+		return this.getProperty('address_requirements');
+	}
+
+	/**
+	 * Whether this number is new to the Twilio platform.
+	 * @return Beta status
+	 */
+	public boolean getBeta() {
+		return  this.getPropertyBoolean('beta');
+	}	
 }

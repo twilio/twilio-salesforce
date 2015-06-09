@@ -536,15 +536,6 @@ public abstract class TwilioResource
 		}
 	
 		/**
-		 * Gets the total.
-		 *
-		 * @return the total
-		 */
-		public Integer getTotal() {
-			return total;
-		}
-	
-		/**
 		 * Gets the page.
 		 *
 		 * @return the page

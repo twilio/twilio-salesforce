@@ -136,7 +136,25 @@ global class TwilioAvailablePhoneNumber extends TwilioResource.InstanceResource 
 	public String getIsoCountry() {
 		return this.getProperty('iso_country');
 	}
-	
+
+	/**
+	 * Whether this number is new to the Twilio platform.
+	 * @return Beta status
+	 */
+	public boolean getBeta() {
+		return this.getPropertyBoolean('beta');
+	}
+
+	/**
+	 * Indicates whether this number requires an Address to be on file with Twilio.
+	 * Potential values are "any", "local", "foreign", or "none".
+	 *
+	 * @return the address requirements
+	 */
+	public String getAddressRequirements() {
+		return this.getProperty('address_requirements');
+	}
+
 	/* Convenience Methods */
 	
 	private boolean purchased = false;
