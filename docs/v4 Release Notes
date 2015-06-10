@@ -1,0 +1,17 @@
+V.4.0 Release Notes
+
+The following are some of the major updates in this release.
+- Restructuring of TwilioRestClient to support new endpoints for Lookups and TaskRouter
+- Call Delete - removing call records
+- Message Delete, Redact - delete message records, or redact body.
+- Setting Account Sid on instances within List Objects - previous defect where objects were returning incorrect URLs b/c AccountSID was not set.
+- Beta Flag on Available/Incoming Numbers - support for new attribute on Available/Incoming Numbers
+- TaskRouter API - New TaskRouter API functionality, does not support statistics portion of the API yet.
+- Lookup API - New Lookup API functionality
+- ‘Predictable Iteration Order for Apex Unordered Collections’ Salesforce Critical Update - Test classses have been re-ordered to pass.
+- Enqueue Verb - Added to TwiML Class.
+- Record Attribute for Dial - added to TwiML Class
+- Updates to TwilioListResource - removing deprecated methods. 
+Details on deprecated API parameters for Lists - The Page parameter (without an AfterSid or PageToken), along with numpages, total, start, end, and lastpageuri properties have been deprecated 
+and will be removed on 8/31/2015. Furthermore, accounts created after 6/16/2015 will no longer have access to these properties by default. 
+You should use the Twilio Helper Libraries or nextpageuri and previouspageuri to navigate through the resources.
