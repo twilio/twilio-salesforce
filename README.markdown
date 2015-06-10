@@ -14,7 +14,10 @@ Installation
 
 We've made it easy to get started. Just grab the code from GitHub and deploy it to your Salesforce org with the included Ant script.
 
-**Quick Install**: If you do not have the existing Twilio-Salesforce library installed, you can use this unmanaged package to install: <https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000XkE0>
+**Quick Install**: If you do not have the existing Twilio-Salesforce library installed, you can use this unmanaged package to install: 
+v4.0.0 <https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1a00000093LC>
+
+v3.2.0 <https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000XkE0>
 
 
 If you have a previous version of Twilio-Salesforce library installed, you will need to use Ant to install/update:
