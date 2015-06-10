@@ -399,7 +399,7 @@ global class TwilioAccount extends TwilioResource.InstanceResource {
      * @return
      */
     public TwilioParticipant getParticipant(String conferenceSid, string callSid) {
-        TwilioParticipant twparticipant = new TwilioParticipant(this.getClient(), conferenceSid, callSid);
+        TwilioParticipant twparticipant = new TwilioParticipant((TwilioRestClient)this.getClient(), conferenceSid, callSid);
         twparticipant.setRequestAccountSid(this.getRequestAccountSid());
         return twparticipant;  
     }
