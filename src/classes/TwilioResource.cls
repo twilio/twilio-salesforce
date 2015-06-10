@@ -523,7 +523,7 @@ public abstract class TwilioResource
 		public Integer getEnd() {
 			return endIx;
 		}
-]
+		
 		/**
 		 * Gets the page.
 		 *
