@@ -470,7 +470,12 @@ public abstract class TwilioResource
 		
 		/** The page. */
 		private Integer page = 0;
+	
+		/** The num pages. */
+		private Integer numPages = 0;
 		
+		/** The total. */
+		private Integer total = 0;
 		
 		/**
 		 * Instantiates a new list resource.
