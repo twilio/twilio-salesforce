@@ -107,4 +107,4 @@ System.debug(r.toXML());
 Next Steps
 ==========
 
-The full power of the Twilio API is at your fingertips. Visit the [full documentation](http://readthedocs.org/docs/twilio-salesforce) for advanced topics.
+The full power of the Twilio API is at your fingertips. Visit the [full documentation](https://twilio-salesforce.readthedocs.org/en/latest/) for advanced topics.
