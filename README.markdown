@@ -27,7 +27,7 @@ If you have a previous version of Twilio-Salesforce library installed, you will 
 1. Checkout or download the [twilio-salesforce](https://github.com/twilio/twilio-salesforce) library from GitHub.
 
     ```bash
-    $ git clone git@github.com:twilio/twilio-salesforce.git
+    $ git clone https://github.com/twilio/twilio-salesforce
     ```
 
 1. Install the [Force.com Migration Tool](http://www.salesforce.com/us/developer/docs/daas/Content/forcemigrationtool_install.htm) plugin for Ant, if you don't already have it.
