@@ -47,13 +47,12 @@ public class Twilio_TestHTTPMock {
     private static Response response404 = new Response('{"status": 404, "message": "The requested resource was not found"}', 404);
 
     /** instance methods */
-    private Map<String,Map<String,Response>> methodMap = new Map<String,Map<String,Response>>();
+    private Map<String,Map<Request,Response>> methodMap = new Map<String,Map<Request,Response>>();
     
     /** Mock HTTP.send(HTTPRequest) function, returns a preregistered Response or a 404 */
     public Response send(HTTPRequest req) {
         System.debug('Twilio_TestHTTPMock::send() Request.Method: '+req.getMethod());
         System.debug('Twilio_TestHTTPMock::send() Request.Endpoint: '+req.getEndpoint());
-
         Response res = getResponse(req.getMethod(), req.getEndpoint());
         if (res==null) {
             res = response404;      
@@ -66,10 +65,11 @@ public class Twilio_TestHTTPMock {
     /** Looks up the response for a specific HTTP method and URI. Returns null if none found. */
     public Response getResponse(String method, String uri) {
         Response res = null;
-        Map<String,Response> resourceMap = this.methodMap.get(method.toUpperCase());        
+        Map<Request,Response> resourceMap = this.methodMap.get(method.toUpperCase());
         if (resourceMap!=null) {
-            res = resourceMap.get(uri.toUpperCase());
-            system.debug('uri:'+uri.toUpperCase());
+            Request request = fromUri(uri.toUpperCase());
+            res = resourceMap.get(request);
+            system.debug('uri:'+uri + ' request hashcode '  + request.hashCode());
             system.debug('Resource Map:'+resourceMap+' , Keys :'+resourceMap.keySet());
             if (res!=null) {
                 System.debug('Twilio_TestHTTPMock::getResponse() Found Resource for '+method+' '+uri+' = '+res);
@@ -81,19 +81,38 @@ public class Twilio_TestHTTPMock {
         }
         return res;
     }
+
+    private static Request fromUri(String uri){
+        Integer endOfPath = uri.indexOf('?');
+        if(endOfPath==-1){
+            return new Twilio_TestHTTPMock.Request(uri, new Map<String,String>());
+        }
+        else{
+            String path = uri.substring(0,endOfPath);
+            String args = uri.substring(endOfPath+1);
+            Map<String,String> argsMap = new Map<String,String>();
+            String []argsValue = args.split('&');
+            for(String arg:argsValue){
+                String []keyValue = args.split('=');
+                argsMap.put(keyValue[0],keyValue[1]);
+            }
+            return new Twilio_TestHTTPMock.Request(uri,argsMap);
+        }
+
+    }
     
     /** Registers a response to be returned for a particular HTTP method and URI */
     public void putResponse(String method, String uri, Response res) {
         String methodKey = method.toUpperCase();
         String uriKey = uri.toUpperCase();
-        
-        Map<String,Response> resourceMap = this.methodMap.get(methodKey);
+        Request request = fromUri(uriKey);
+        Map<Request,Response> resourceMap = this.methodMap.get(methodKey);
         if (resourceMap==null) {
-            resourceMap = new Map<String,Response>();
+            resourceMap = new Map<Request,Response>();
             this.methodMap.put(methodKey, resourceMap);
             
         }
-        resourceMap.put(uriKey,res);
+        resourceMap.put(request,res);
         system.debug('Put ResourceMap:'+resourceMap);
         System.debug('Twilio_TestHTTPMock::putResponse() Added resource '+methodKey+' '+uriKey);
         
@@ -128,5 +147,33 @@ public class Twilio_TestHTTPMock {
         public String getHeader(String name) {
             return headers.get(name);
         }
+    }
+
+
+    public class Request {
+
+        private final String path;
+
+        private final Map<String,String> arguments;
+
+        public Request(String path, Map<String,String> arguments) {
+            this.path = path;
+            this.arguments = arguments;
+        }
+
+
+        public Integer hashCode() {
+            return 17 * path.hashCode() + arguments.hashCode();
+        }
+
+        public Boolean equals(Object obj) {
+            if(obj instanceOf Twilio_TestHTTPMock.Request){
+                Twilio_TestHTTPMock.Request request = (Twilio_TestHTTPMock.Request) obj;
+                return this.path.equals(request.path) && this.arguments.equals(request.arguments);
+            }
+            return false;
+        }
+
+
     }
 }
