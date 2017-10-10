@@ -68,6 +68,7 @@ public class Twilio_TestHTTPMock {
         Map<Request,Response> resourceMap = this.methodMap.get(method.toUpperCase());
         if (resourceMap!=null) {
             Request request = fromUri(uri.toUpperCase());
+            System.debug('Getting response. Creating request from uri: ' + request);
             res = resourceMap.get(request);
             system.debug('uri:'+uri + ' request hashcode '  + request.hashCode());
             system.debug('Resource Map:'+resourceMap+' , Keys :'+resourceMap.keySet());
@@ -92,10 +93,11 @@ public class Twilio_TestHTTPMock {
             String args = uri.substring(endOfPath+1);
             Map<String,String> argsMap = new Map<String,String>();
             String []argsValue = args.split('&');
-            for(String arg:argsValue){
-                String []keyValue = args.split('=');
+            for(String param:argsValue){
+                String []keyValue = param.split('=');
                 argsMap.put(keyValue[0],keyValue[1]);
             }
+            System.debug('ArgsMap: ' + argsMap);
             return new Twilio_TestHTTPMock.Request(uri,argsMap);
         }
 
@@ -106,6 +108,7 @@ public class Twilio_TestHTTPMock {
         String methodKey = method.toUpperCase();
         String uriKey = uri.toUpperCase();
         Request request = fromUri(uriKey);
+        System.debug('Putting response. Creating request from URI: ' + request);
         Map<Request,Response> resourceMap = this.methodMap.get(methodKey);
         if (resourceMap==null) {
             resourceMap = new Map<Request,Response>();
