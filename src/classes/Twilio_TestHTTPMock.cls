@@ -98,7 +98,7 @@ public class Twilio_TestHTTPMock {
                 argsMap.put(keyValue[0],keyValue[1]);
             }
             System.debug('ArgsMap: ' + argsMap);
-            return new Twilio_TestHTTPMock.Request(uri,argsMap);
+            return new Twilio_TestHTTPMock.Request(path,argsMap);
         }
 
     }
