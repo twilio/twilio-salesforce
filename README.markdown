@@ -1,3 +1,6 @@
+# Deprecation Notice
+_Note: this library is deprecated and *not recommended for new work.* Please see the [Twilio Salesforce](http://www.twilio.com/docs/salesforce) documentation for new work with Twilio and Salesforce._
+
 # Twilio Helper Library for Salesforce
 
 Get ready to unleash the power of the Twilio cloud communications platform in Salesforce and Force.com!  Soon you'll be building powerful voice and text messaging apps in Apex and Visualforce.
