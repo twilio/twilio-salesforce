@@ -2,52 +2,6 @@
 private class Twilio_TestParser {
     
     @isTest
-    static void test_jsonToList() {
-        String body = '[ 100, 200, 300, 400 ]';
-        List<Object> list1 = TwilioParser.jsonToList(body);
-        
-        System.assertNotEquals(null, list1);
-        System.assertEquals(4, list1.size());
-        System.assertEquals('100', list1[0]);
-        System.assertEquals('200', list1[1]);
-        System.assertEquals('300', list1[2]);
-        System.assertEquals('400', list1[3]);
-        
-        TwilioParser.TwilioParseException e = null;
-        JSONParser p = JSON.createParser('{"foo":"bar"}');
-        p.nextToken(); // '{'
-        p.nextToken(); // '"foo"'
-        try {
-            TwilioParser.jsonToList(p);
-        } catch (TwilioParser.TwilioParseException tpe) {
-            e = tpe;
-        }
-        System.assertNotEquals(null,e);
-        System.assertEquals('A JSON Array must start with \'[\'', e.getMessage());
-    }
-    
-    @isTest
-    static void test_jonToList_NestedList() {
-        String body = '[ [ "1.1", "1.2" ], [ "2.1", "2.2", "2.3" ] ]';
-        List<Object> result = TwilioParser.jsonToList(body);
-        
-        System.assertNotEquals(null, result);
-        System.assertEquals(2, result.size());
-        
-        System.assert(result[0] instanceof List<Object>);
-        List<Object> list1 = (List<Object>)result[0];
-        System.assertEquals(2, list1.size());
-        System.assertEquals('1.1', list1[0]);
-        System.assertEquals('1.2', list1[1]);
-        
-        System.assert(result[1] instanceof List<Object>);
-        List<Object> list2 = (List<Object>)result[1];
-        System.assertEquals('2.1', list2[0]);
-        System.assertEquals('2.2', list2[1]);
-        System.assertEquals('2.3', list2[2]);
-    }
-    
-    @isTest
     static void test_jsonToMap_Simple() {
         String body = '{ "one":100, "two":"200", "three":300 }';
         Map<String,Object> map1 = TwilioParser.jsonToMap(body);
@@ -61,17 +15,6 @@ private class Twilio_TestParser {
         System.assertEquals(true, map1.containsKey('three'));
         System.assertEquals('300', map1.get('three'));
         
-        TwilioParser.TwilioParseException e = null;
-        JSONParser p = JSON.createParser('{"foo":"bar"}');
-        p.nextToken(); // '{'
-        p.nextToken(); // '"foo"'
-        try {
-            TwilioParser.jsonToMap(p);
-        } catch (TwilioParser.TwilioParseException tpe) {
-            e = tpe;
-        }
-        System.assertNotEquals(null,e);
-        System.assertEquals('A JSON Object must start with \'{\'', e.getMessage());
     }
     
     @isTest
